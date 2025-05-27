@@ -1,0 +1,11 @@
+require:
+  - "ts-node/register"
+  - "source-map-support/register"
+  - "tsconfig-paths/register"
+  - "test/Setup.spec.ts"
+recursive: true
+color: true
+sort: true
+timeout: 75000
+reporter: "spec"
+exit: true

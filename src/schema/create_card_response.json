@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/CreateDefaultServicesResponse",
+  "title": "CreateDefaultServicesResponse",
+  "additionalProperties": false,
+  "properties": {
+    "activeServices": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cards": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "conditions": {
+      "type": "string"
+    },
+    "status": {
+      "type": "number"
+    },
+    "validationCharges": {
+      "type": "string"
+    }
+  },
+  "required": ["merchantId"],
+  "type": "object"
+}

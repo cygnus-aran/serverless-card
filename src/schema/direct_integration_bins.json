@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/DirectIntegrationBins",
+  "title": "DirectIntegrationBins",
+  "type": "object",
+  "additionalProperties": true
+}

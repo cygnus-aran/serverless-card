@@ -1,0 +1,8 @@
+package.json
+package-lock.json
+.jscpd.json
+/.cache-loader
+/.coverage
+/.nyc_output
+/.kushki
+/types

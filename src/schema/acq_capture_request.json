@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/AcqCaptureRequest",
+  "title": "AcqCaptureRequest",
+  "additionalProperties": false,
+  "properties": {
+    "transaction_reference": {
+      "type": "string"
+    },
+    "transaction_type": {
+      "type": "string"
+    },
+    "client_transaction_id": {
+      "type": "string"
+    },
+    "merchant_id": {
+      "type": "string"
+    },
+    "cit_mit": {
+      "type": "string",
+      "enum": [
+        "C101",
+        "C102",
+        "C103",
+        "C104",
+        "M101",
+        "M102",
+        "M103",
+        "M104",
+        "M205",
+        "M206",
+        "M207",
+        "M208"
+      ]
+    },
+    "authorizerContext": {
+      "$ref": "./src/schema/authorizer_context.json"
+    },
+    "amount": {
+      "type": "string"
+    },
+    "bin_info": {
+      "$ref": "./src/schema/bin_info_acq.json"
+    },
+    "subscription_type": {
+      "type": "string",
+      "enum": ["onDemand", "scheduled"]
+    },
+    "cvv2": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "authorizerContext",
+    "transaction_reference",
+    "transaction_type",
+    "client_transaction_id"
+  ]
+}

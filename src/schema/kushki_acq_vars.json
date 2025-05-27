@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/KushkiAcqVars",
+  "title": "KushkiAcqVars",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "CAPTURE_PERCENTAGE",
+    "LAMBDA_CAPTURE",
+    "LAMBDA_CHARGE",
+    "LAMBDA_REAUTHORIZATION",
+    "TIMEOUT",
+    "TABLE_TIMEOUTS",
+    "LAMBDA_PREAUTHORIZATION",
+    "SWITCH_INT_DEFERRED"
+  ],
+  "properties": {
+    "LAMBDA_CAPTURE": {
+      "type": "string"
+    },
+    "LAMBDA_CHARGE": {
+      "type": "string"
+    },
+    "TIMEOUT": {
+      "type": "string"
+    },
+    "TABLE_TIMEOUTS": {
+      "type": "string"
+    },
+    "LAMBDA_REAUTHORIZATION": {
+      "type": "string"
+    },
+    "LAMBDA_PREAUTHORIZATION": {
+      "type": "string"
+    },
+    "SWITCH_INT_DEFERRED": {
+      "type": "boolean"
+    },
+    "CAPTURE_PERCENTAGE": {
+      "type": "number"
+    },
+    "REFUND_TIME_LIMIT": {
+      "type": "object"
+    }
+  }
+}

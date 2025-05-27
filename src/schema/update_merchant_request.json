@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/UpdateMerchantRequest",
+  "title": "UpdateMerchantRequest",
+  "type": "object",
+  "oneOf": [
+    {
+      "title": "DeferredRequest",
+      "properties": {
+        "deferredOptions": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": ["deferredOptions"]
+    },
+    {
+      "title": "OptionsRequest",
+      "properties": {
+        "sift_science": {
+          "type": "object",
+          "properties": {
+            "SandboxApiKey": {
+              "type": "string"
+            },
+            "ProdApiKey": {
+              "type": "string"
+            },
+            "SiftScore": {
+              "type": "number"
+            },
+            "SandboxAccountId": {
+              "type": "string"
+            },
+            "ProdAccountId": {
+              "type": "string"
+            }
+          }
+        },
+        "whiteList": {
+          "type": "boolean"
+        },
+        "commission": {
+          "type": "boolean"
+        },
+        "acceptCreditCards": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sandboxEnable": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "whiteList",
+        "sift_science",
+        "commission",
+        "acceptCreditCards",
+        "sandboxEnable"
+      ]
+    },
+    {
+      "title": "SandboxRequest",
+      "properties": {
+        "sandboxEnable": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["sandboxEnable"]
+    }
+  ]
+}

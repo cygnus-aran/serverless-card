@@ -1,0 +1,269 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/FisChargeRequest",
+  "title": "FisChargeRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "subMerchantData": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pfId": {
+          "type": "string"
+        },
+        "subName": {
+          "type": "string"
+        },
+        "subId": {
+          "type": "string"
+        },
+        "subStreet": {
+          "type": "string"
+        },
+        "subCity": {
+          "type": "string"
+        },
+        "subState": {
+          "type": "string"
+        },
+        "subCountryCode": {
+          "type": "string"
+        },
+        "subPostalCode": {
+          "type": "string"
+        },
+        "subTaxId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "pfId",
+        "subCity",
+        "subCountryCode",
+        "subId",
+        "subName",
+        "subPostalCode",
+        "subState",
+        "subStreet",
+        "subTaxId"
+      ]
+    }
+  },
+  "properties": {
+    "acquirerId": {
+      "type": "string"
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brand": {
+          "type": "string"
+        },
+        "amount": {
+          "$ref": "./src/schema/amount.json"
+        },
+        "holderName": {
+          "type": "string"
+        },
+        "deferred": {
+          "$ref": "./src/schema/deferred.json"
+        },
+        "bin": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "maskedCardNumber": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["CREDIT", "DEBIT"]
+        }
+      },
+      "required": [
+        "brand",
+        "amount",
+        "holderName",
+        "deferred",
+        "type",
+        "maskedCardNumber"
+      ]
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "processorBankName": {
+      "type": "string"
+    },
+    "subscription": {
+      "type": "string"
+    },
+    "terminalId": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string"
+    },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "is3DS": {
+      "type": "boolean"
+    },
+    "3DS": {
+      "type": "object",
+      "title": "ThreeDomainSecure",
+      "additionalProperties": false,
+      "properties": {
+        "eci": {
+          "type": "string"
+        },
+        "xid": {
+          "type": "string"
+        },
+        "cavv": {
+          "type": "string"
+        },
+        "option": {
+          "type": "number"
+        },
+        "commerceIndicator": {
+          "type": "string"
+        },
+        "specificationVersion": {
+          "type": "number"
+        },
+        "directoryServerTrxID": {
+          "type": "string"
+        }
+      },
+      "required": ["eci", "cavv", "xid"]
+    },
+    "session": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "shopperIPAddress": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "shopperIPAddress"]
+    },
+    "shopper": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "shopperEmailAddress": {
+          "type": "string"
+        },
+        "browser": {
+          "type": "object",
+          "properties": {
+            "acceptHeader": {
+              "type": "string"
+            },
+            "userAgentHeader": {
+              "type": "string"
+            }
+          },
+          "required": ["acceptHeader", "userAgentHeader"]
+        }
+      },
+      "required": ["browser", "shopperEmailAddress"]
+    },
+    "subMerchantData": { "$ref": "#/definitions/subMerchantData" },
+    "contactDetails": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "secondLastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "transactionType": {
+      "type": "string"
+    },
+    "processorInfo": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "categoryModel": {
+          "type": "string"
+        },
+        "merchantCode": {
+          "type": "string"
+        },
+        "jurisdiction": {
+          "type": "string"
+        },
+        "isBusinessPartner": {
+          "type": "boolean"
+        },
+        "password": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "dynamicMcc": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "categoryModel",
+        "merchantCode",
+        "password",
+        "username",
+        "dynamicMcc"
+      ]
+    },
+    "isCardValidation": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "acquirerId",
+    "card",
+    "merchantId",
+    "merchantName",
+    "processorId",
+    "processorBankName",
+    "terminalId",
+    "transactionReference",
+    "vaultToken"
+  ]
+}

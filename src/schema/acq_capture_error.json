@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/AcqCaptureRequest",
+  "title": "AcqCaptureError",
+  "additionalProperties": false,
+  "properties": {
+    "transactionReference": {
+      "type": "string"
+    },
+    "transactionType": {
+      "type": "string"
+    },
+    "clientTransactionId": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "string"
+    },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "processorBankName": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "card": {
+      "properties": {
+        "bin": {
+          "type": "string"
+        },
+        "holderName": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": ["transaction_reference", "transaction_type"]
+}

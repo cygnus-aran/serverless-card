@@ -1,0 +1,40 @@
+version: "2"
+prepare:
+  fetch:
+    - url: "https://s3.amazonaws.com/kushki-static/quality/codeclimate/tslint.json"
+      path: "tslint.json"
+checks:
+  argument-count:
+    config:
+      threshold: 10
+  complex-logic:
+    config:
+      threshold: 10
+  file-lines:
+    config:
+      threshold: 500
+  method-complexity:
+    config:
+      threshold: 10
+  method-count:
+    config:
+      threshold: 100
+  method-lines:
+    config:
+      threshold: 100
+  nested-control-flow:
+    config:
+      threshold: 4
+  return-statements:
+    config:
+      threshold: 4
+plugins:
+  tslint:
+    enabled: true
+exclude_patterns:
+  - "**/*.spec.ts"
+  - "**/handler/*.ts"
+  - "**/*.d.ts"
+  - "**/node_modules/"
+  - ".coverage"
+  - "**/gateway/SandboxGateway.ts"

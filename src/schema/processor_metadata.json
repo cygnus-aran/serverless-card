@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ProcessorMetadata",
+  "title": "ProcessorMetadata",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "processor": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "mcc": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/SandboxTokenRequest",
+  "title": "SandboxTokenRequest",
+  "type": "object",
+  "properties": {
+    "cardHolderName": {
+      "type": "string"
+    },
+    "maskedCardNumber": {
+      "type": "string"
+    },
+    "amount": {
+      "$ref": "./src/schema/amount.json"
+    },
+    "tokenType": {
+      "type": "string"
+    }
+  },
+  "required": ["cardHolderName", "amount", "maskedCardNumber", "tokenType"]
+}

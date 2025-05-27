@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/VoidCardRequest",
+  "title": "VoidCardRequest",
+  "additionalProperties": false,
+  "definitions": {
+    "currency": {
+      "type": "string",
+      "enum": [
+        "USD",
+        "COP",
+        "PEN",
+        "CLP",
+        "UF",
+        "MXN",
+        "CRC",
+        "GTQ",
+        "HNL",
+        "NIO",
+        "BRL"
+      ]
+    },
+    "extraTaxes": {
+      "properties": {
+        "agenciaDeViaje": {
+          "type": "number",
+          "minimum": 0
+        },
+        "iac": {
+          "type": "number",
+          "minimum": 0
+        },
+        "propina": {
+          "type": "number",
+          "minimum": 0
+        },
+        "tasaAeroportuaria": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "type": "object"
+    },
+    "ice": {
+      "type": "number",
+      "minimum": 0
+    },
+    "iva": {
+      "type": "number",
+      "minimum": 0
+    },
+    "subtotalIva": {
+      "type": "number",
+      "minimum": 0
+    },
+    "subtotalIva0": {
+      "type": "number",
+      "minimum": 0
+    },
+    "webhooksRequestChargeback": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "urls": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^https?://"
+          },
+          "minItems": 1
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["approvedTransaction", "declinedTransaction"]
+          },
+          "minItems": 1
+        },
+        "headers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": ["label", "value"]
+          }
+        }
+      },
+      "required": ["urls"]
+    }
+  },
+  "properties": {
+    "amount": {
+      "type": "object",
+      "properties": {
+        "ice": { "$ref": "#/definitions/ice" },
+        "iva": { "$ref": "#/definitions/iva" },
+        "subtotalIva": { "$ref": "#/definitions/subtotalIva" },
+        "subtotalIva0": { "$ref": "#/definitions/subtotalIva0" },
+        "currency": { "$ref": "#/definitions/currency" },
+        "extraTaxes": { "$ref": "#/definitions/extraTaxes" }
+      },
+      "required": ["iva", "subtotalIva", "subtotalIva0"]
+    },
+    "fullResponse": {
+      "type": ["boolean", "string"],
+      "enum": [false, true, "v2"]
+    },
+    "externalReferenceId": {
+      "type": "string",
+      "pattern": "^[\\w\\-]{5,64}$"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "webhooks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/webhooksRequestChargeback"
+      },
+      "minItems": 1
+    },
+    "voidCounter": {
+      "type": "number"
+    }
+  },
+  "type": "object"
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/CaptureLimits",
+  "title": "CaptureLimits",
+  "additionalProperties": false,
+  "type": "object",
+  "required": ["minPercentage", "maxPercentage"],
+  "properties": {
+    "minPercentage": {
+      "type": "number"
+    },
+    "maxPercentage": {
+      "type": "number"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/UpdateMerchantFromBus",
+  "title": "UpdateMerchantFromBus",
+  "description": "",
+  "properties": {
+    "country": {
+      "type": "string"
+    },
+    "merchant_name": {
+      "type": "string"
+    },
+    "taxId": {
+      "type": "string"
+    },
+    "constitutionalCountry": {
+      "type": "string"
+    },
+    "clientType": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "number"
+    },
+    "cityDescription": {
+      "type": "string"
+    },
+    "provinceDescription": {
+      "type": "string"
+    },
+    "zipCode": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "province": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    }
+  },
+  "required": ["country", "merchant_name", "taxId", "updatedAt"],
+  "type": "object"
+}

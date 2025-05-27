@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ThreeDSTokenInfoRequest",
+  "title": "ThreeDSTokenInfoRequest",
+  "properties": {
+    "token": {
+      "type": "string"
+    },
+    "cybersource": {
+      "type": "object",
+      "properties": {
+        "authentication": {
+          "type": "boolean"
+        },
+        "detail": {
+          "type": "object",
+          "properties": {
+            "acsURL": {
+              "type": "string"
+            },
+            "authenticationTransactionId": {
+              "type": "string"
+            },
+            "cavv": {
+              "type": "string"
+            },
+            "commerceIndicator": {
+              "type": "string"
+            },
+            "eci": {
+              "type": "string"
+            },
+            "paReq": {
+              "type": "string"
+            },
+            "paresStatus": {
+              "type": "string"
+            },
+            "proxyPan": {
+              "type": "string"
+            },
+            "specificationVersion": {
+              "type": "string"
+            },
+            "veresEnrolled": {
+              "type": "string"
+            },
+            "xid": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "commerceIndicator",
+            "specificationVersion",
+            "veresEnrolled"
+          ]
+        }
+      },
+      "required": ["authentication", "detail"]
+    },
+    "secureId": {
+      "type": "string"
+    },
+    "secureService": {
+      "type": "string"
+    }
+  },
+  "required": ["token", "cybersource", "secureId", "secureService"],
+  "type": "object"
+}

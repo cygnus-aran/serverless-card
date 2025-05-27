@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/GetInfoSiftScienceResponse",
+  "title": "GetInfoSiftScienceResponse",
+  "definitions": {
+    "siftScienceResponse": {
+      "type": "object",
+      "properties": {
+        "prodAccountId": {
+          "type": "string"
+        },
+        "sandboxApiKey": {
+          "type": "string"
+        },
+        "prodApiKey": {
+          "type": "string"
+        },
+        "sandboxAccountId": {
+          "type": "string"
+        },
+        "baconProdApiKey": {
+          "type": "string"
+        },
+        "baconSandboxApiKey": {
+          "type": "string"
+        },
+        "migrated": {
+          "type": "boolean"
+        }
+      },
+      "required": ["migrated"]
+    }
+  },
+  "properties": {
+    "siftCredentials": {
+      "$ref": "#/definitions/siftScienceResponse"
+    }
+  },
+  "required": ["siftCredentials"]
+}

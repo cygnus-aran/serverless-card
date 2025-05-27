@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/HierarchyCore",
+  "title": "HierarchyCore",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "title": "metadata"
+    },
+    "configs": {
+      "type": "object",
+      "properties": {
+        "configuration": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "centralizedNodesId": {
+          "type": "string"
+        }
+      },
+      "required": ["configuration"],
+      "title": "configs"
+    }
+  },
+  "properties": {
+    "nodeId": {
+      "type": "string"
+    },
+    "configCoreId": {
+      "type": "string"
+    },
+    "rootId": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "isDeleted": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "nodeType": {
+      "type": "string"
+    },
+    "countryCode": {
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/metadata"
+    },
+    "path": {
+      "type": "string"
+    },
+    "entityName": {
+      "type": "string"
+    },
+    "createAt": {
+      "type": "number"
+    },
+    "updateAt": {
+      "type": "number"
+    },
+    "createdBy": {
+      "type": "string"
+    },
+    "updatedBy": {
+      "type": "string"
+    },
+    "configs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/configs"
+      }
+    }
+  },
+  "required": ["configCoreId"]
+}

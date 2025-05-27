@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/Merchant",
+  "title": "ReceivableResponse",
+  "properties": {
+    "isReceivable": {
+      "type": "boolean"
+    }
+  },
+  "required": ["isReceivable"],
+  "type": "object"
+}

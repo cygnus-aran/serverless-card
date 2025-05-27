@@ -1,0 +1,182 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/CredimaticChargeRequest",
+  "title": "CredimaticChargeRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "cybersource": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "ucafCollectionIndicator",
+        "ucafAuthenticationData",
+        "directoryServerTransactionID",
+        "eci",
+        "specificationVersion",
+        "cavv"
+      ],
+      "properties": {
+        "ucafCollectionIndicator": {
+          "type": "string"
+        },
+        "ucafAuthenticationData": {
+          "type": "string"
+        },
+        "directoryServerTransactionID": {
+          "type": "string"
+        },
+        "eci": {
+          "type": "string"
+        },
+        "specificationVersion": {
+          "type": "string"
+        },
+        "cavv": {
+          "type": "string"
+        }
+      }
+    },
+    "deferred": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "graceMonths": {
+          "type": "string",
+          "pattern": "^[0-9]{1,2}$"
+        },
+        "creditType": {
+          "type": "string",
+          "pattern": "^[0-9]{1,3}$"
+        },
+        "months": { "$ref": "#/definitions/monthsDeferred" }
+      },
+      "required": ["creditType", "months"]
+    },
+    "monthsDeferred": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 48
+    }
+  },
+  "properties": {
+    "acquirerId": {
+      "type": "string"
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bin": {
+          "type": "string"
+        },
+        "cvv": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "amount": {
+          "$ref": "./src/schema/amount.json"
+        },
+        "cardHolderName": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "bin",
+        "brand",
+        "amount",
+        "holderName",
+        "lastFourDigits",
+        "type"
+      ]
+    },
+    "deferred": { "$ref": "#/definitions/deferred" },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "processorMerchantId": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantAddress": {
+      "type": "string"
+    },
+    "merchantCity": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "merchantProvince": {
+      "type": "string"
+    },
+    "merchantZipCode": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "processorBankName": {
+      "type": "string"
+    },
+    "processorType": {
+      "type": "string"
+    },
+    "subMccCode": {
+      "type": "string"
+    },
+    "subscriptionTrigger": {
+      "type": "string"
+    },
+    "subscription": {
+      "type": "string"
+    },
+    "terminalId": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "subscriptionMinChargeTrxRef": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "externalSubscriptionID": {
+      "type": "string"
+    },
+    "3DS": {
+      "$ref": "#/definitions/cybersource"
+    },
+    "binInfo": {
+      "$ref": "./src/schema/bin_info.json"
+    }
+  },
+  "required": [
+    "acquirerId",
+    "card",
+    "isDeferred",
+    "merchantId",
+    "merchantName",
+    "processorId",
+    "processorBankName",
+    "terminalId",
+    "tokenType",
+    "transactionReference",
+    "vaultToken"
+  ]
+}

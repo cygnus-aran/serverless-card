@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ChargebackResponse",
+  "title": "ChargebackResponse",
+  "properties": {
+    "chargebackTicketNumber": {
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

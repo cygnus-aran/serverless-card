@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ChargeBackRequest",
+  "title": "ChargeBackRequest",
+  "additionalProperties": false,
+  "properties": {
+    "emails": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "paymentMethod": {
+      "type": "string"
+    },
+    "businessUnit": {
+      "type": "string"
+    },
+    "cancelOperations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "chargebackType": {
+      "type": "string"
+    },
+    "documentationReceptionDate": {
+      "type": "number"
+    },
+    "reasonCode": {
+      "type": "string"
+    },
+    "reasonDescription": {
+      "type": "string"
+    },
+    "incomingSource": {
+      "type": "string"
+    },
+    "sourceReference": {
+      "type": "string"
+    },
+    "voidCounter": {
+      "type": "number"
+    },
+    "isFullResponse": {
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+}

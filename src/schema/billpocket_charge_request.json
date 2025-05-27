@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/BillpocketChargeRequest",
+  "title": "BillpocketChargeRequest",
+  "additionalProperties": false,
+  "type": "object",
+  "definitions": {
+    "amexInfo": {
+      "type": "object",
+      "properties": {
+        "amexCustPostalCode": {
+          "type": "string"
+        },
+        "amexCustAddress": {
+          "type": "string"
+        },
+        "amexCustFirstName": {
+          "type": "string"
+        },
+        "amexCustLastName": {
+          "type": "string"
+        },
+        "amexCustEmailAddr": {
+          "type": "string"
+        },
+        "amexCustHostServerNm": {
+          "type": "string"
+        },
+        "amexCustBrowserTypDescTxt": {
+          "type": "string"
+        },
+        "amexShipToCtryCd": {
+          "type": "string"
+        },
+        "amexShipMthdCd": {
+          "type": "string"
+        },
+        "amexMerSKUNbr": {
+          "type": "string"
+        },
+        "amexCustIPAddr": {
+          "type": "string"
+        },
+        "amexCustIdPhoneNbr": {
+          "type": "string"
+        },
+        "amexCallTypId": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "properties": {
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "amount": { "$ref": "./src/schema/amount.json" },
+        "holderName": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "months": {
+          "type": "number"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["CREDIT", "DEBIT"]
+        }
+      },
+      "required": [
+        "bin",
+        "brand",
+        "amount",
+        "holderName",
+        "lastFourDigits",
+        "months",
+        "type"
+      ]
+    },
+    "metadataId": {
+      "type": "string"
+    },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "processorBankName": {
+      "type": "string"
+    },
+    "subscription": {
+      "type": "boolean"
+    },
+    "tokenType": {
+      "type": "string",
+      "enum": ["transaction", "subscription"]
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "amexInfo": {
+      "$ref": "#/definitions/amexInfo"
+    },
+    "apiKey": {
+      "type": "string"
+    },
+    "isAmex": {
+      "type": "boolean"
+    },
+    "maskedCardNumber": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "card",
+    "documentNumber",
+    "documentType",
+    "isDeferred",
+    "merchantId",
+    "merchantName",
+    "processorId",
+    "processorBankName",
+    "tokenType",
+    "transactionReference",
+    "vaultToken",
+    "apiKey",
+    "isAmex",
+    "maskedCardNumber"
+  ]
+}

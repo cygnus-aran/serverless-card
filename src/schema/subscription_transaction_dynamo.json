@@ -1,0 +1,362 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/SubscriptionTransactionDynamo",
+  "title": "SubscriptionTransactionDynamo",
+  "type": "object",
+  "definitions": {
+    "products": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "sku": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  "properties": {
+    "acquirerBank": {
+      "type": "string"
+    },
+    "accountType": {
+      "type": "string",
+      "enum": ["CR", "CA", "CC"]
+    },
+    "buyOrder": {
+      "type": "string"
+    },
+    "transactionId": {
+      "type": "string"
+    },
+    "responseCode": {
+      "type": "string"
+    },
+    "processorMerchantId": {
+      "type": "string"
+    },
+    "responseText": {
+      "type": "string"
+    },
+    "ticketNumber": {
+      "type": "string"
+    },
+    "amount": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-subscriptions/v1.4/amount.json"
+    },
+    "approvedTransactionAmount": {
+      "type": "number"
+    },
+    "approvalCode": {
+      "type": "string"
+    },
+    "binCard": {
+      "type": "string"
+    },
+    "cardHolderName": {
+      "type": "string"
+    },
+    "cardType": {
+      "type": "string"
+    },
+    "convertedAmount": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "totalAmount": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "amount": {
+          "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-subscriptions/v1.4/amount.json"
+        }
+      },
+      "required": ["totalAmount", "currency", "amount"]
+    },
+    "currencyCode": {
+      "type": "string"
+    },
+    "created": {
+      "type": "number"
+    },
+    "lastFourDigits": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "numberOfMonths": {
+      "type": "number"
+    },
+    "graceMonths": {
+      "type": "string"
+    },
+    "creditType": {
+      "type": "string"
+    },
+    "paymentBrand": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "processorPrivateId": {
+      "type": "string"
+    },
+    "processorName": {
+      "type": "string"
+    },
+    "processor": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "processorBankName": {
+      "type": "string"
+    },
+    "requestAmount": {
+      "type": "number"
+    },
+    "iceValue": {
+      "type": "number"
+    },
+    "ivaValue": {
+      "type": "number"
+    },
+    "subtotalIva": {
+      "type": "number"
+    },
+    "subtotalIva0": {
+      "type": "number"
+    },
+    "taxes": {
+      "properties": {
+        "agenciaDeViaje": {
+          "type": "number",
+          "minimum": 0
+        },
+        "iac": {
+          "type": "number",
+          "minimum": 0
+        },
+        "propina": {
+          "type": "number",
+          "minimum": 0
+        },
+        "tasaAeroportuaria": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "type": "object"
+    },
+    "recap": {
+      "type": "string"
+    },
+    "transactionStatus": {
+      "type": "string"
+    },
+    "transactionType": {
+      "type": "string"
+    },
+    "subscriptionId": {
+      "type": "string"
+    },
+    "saleTicketNumber": {
+      "type": "string"
+    },
+    "subscriptionMetadata": {
+      "type": "object"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "subscriptionTrigger": {
+      "type": "string",
+      "enum": ["onDemand", "scheduled"]
+    },
+    "retry": {
+      "type": "number"
+    },
+    "retryCount": {
+      "type": "number"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "contactDetails": {
+      "properties": {
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "issuingBank": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "pendingAmount": {
+      "type": "number"
+    },
+    "country": {
+      "type": "string"
+    },
+    "foreignCard": {
+      "type": "boolean"
+    },
+    "security": {
+      "type": "object",
+      "properties": {
+        "partner": {
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "whitelist": {
+          "type": "boolean"
+        }
+      }
+    },
+    "preauthTransactionReference": {
+      "type": "string"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "orderDetails": {
+      "type": "object",
+      "properties": {
+        "siteDomain": {
+          "type": "string"
+        },
+        "shippingDetails": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "region": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "zipCode": {
+              "type": "string"
+            }
+          }
+        },
+        "billingDetails": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "region": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "zipCode": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "productDetails": {
+      "type": "object",
+      "properties": {
+        "product": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/products" }
+        }
+      }
+    },
+    "token": {
+      "type": "string"
+    },
+    "publicCredentialId": { "type": "string" },
+    "credentialId": { "type": "string" },
+    "preauth_transaction_reference": { "type": "string" },
+    "credentialAlias": { "type": "string" },
+    "credentialMetadata": { "type": "object" },
+    "integration": {
+      "type": "string"
+    },
+    "consortiumName": {
+      "type": "string"
+    },
+    "config": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/general/v3.4/region.json"
+    }
+  },
+  "required": [
+    "transactionId",
+    "created",
+    "subscriptionId",
+    "transactionReference",
+    "amount"
+  ]
+}

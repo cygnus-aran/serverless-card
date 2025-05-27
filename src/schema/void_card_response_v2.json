@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/VoidCardResponseV2",
+  "title": "VoidCardResponseV2",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "transactionReference": {
+      "type": "string"
+    },
+    "ticketNumber": {
+      "type": "string"
+    },
+    "details": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "acquirerBank": {
+          "type": "string"
+        },
+        "recap": {
+          "type": "string"
+        },
+        "approvedTransactionAmount": {
+          "type": "number"
+        },
+        "amount": {
+          "type": "object"
+        },
+        "created": {
+          "type": "number"
+        },
+        "responseCode": {
+          "type": "string"
+        },
+        "transactionType": {
+          "type": "string"
+        },
+        "approvalCode": {
+          "type": "string"
+        },
+        "transactionStatus": {
+          "type": "string"
+        },
+        "merchantId": {
+          "type": "string"
+        },
+        "transactionId": {
+          "type": "string"
+        },
+        "responseText": {
+          "type": "string"
+        },
+        "cardHolderName": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "binCard": {
+          "type": "string"
+        },
+        "paymentBrand": {
+          "type": "string"
+        },
+        "saleTicketNumber": {
+          "type": "string"
+        },
+        "requestAmount": {
+          "type": "number"
+        },
+        "merchantName": {
+          "type": "string"
+        },
+        "processorBankName": {
+          "type": "string"
+        },
+        "binInfo": {
+          "type": "object"
+        },
+        "contactDetails": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "email": {
+              "type": "string"
+            }
+          }
+        },
+        "externalReferenceId": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": ["ticketNumber", "transactionReference", "details"]
+}

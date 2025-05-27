@@ -1,0 +1,240 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/TokenDynamo",
+  "title": "TokenDynamo",
+  "definitions": {
+    "cybersource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authentication", "detail"],
+      "properties": {
+        "authentication": {
+          "type": "boolean"
+        },
+        "detail": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "cavv": {
+              "type": "string"
+            },
+            "commerceIndicator": {
+              "type": "string"
+            },
+            "eci": {
+              "type": "string"
+            },
+            "xid": {
+              "type": "string"
+            },
+            "authenticationTransactionId": {
+              "type": "string"
+            },
+            "paresStatus": {
+              "type": "string"
+            },
+            "veresEnrolled": {
+              "type": "string"
+            },
+            "acsURL": {
+              "type": "string"
+            },
+            "paReq": {
+              "type": "string"
+            },
+            "proxyPan": {
+              "type": "string"
+            },
+            "specificationVersion": {
+              "type": "number"
+            },
+            "ucafCollectionIndicator": {
+              "type": "string"
+            },
+            "dsTransactionId": {
+              "type": "string"
+            },
+            "directoryServerTransactionID": {
+              "type": "string"
+            },
+            "ucafAuthenticationData": {
+              "type": "string"
+            },
+            "eciRaw": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "bin": {
+      "type": "string"
+    },
+    "created": {
+      "type": "number"
+    },
+    "tokenStatus": {
+      "type": "string"
+    },
+    "cardHolderName": {
+      "type": "string"
+    },
+    "sessionId": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string"
+    },
+    "lastFourDigits": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "binInfo": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-card/v1.2/dynamo_bin_fetch.json"
+    },
+    "maskedCardNumber": {
+      "type": "string"
+    },
+    "ip": {
+      "type": "string"
+    },
+    "secureId": {
+      "type": "string"
+    },
+    "secureService": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "settlement": {
+      "type": "number"
+    },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "isBlockedCard": {
+      "type": "boolean"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "transactionCardId": {
+      "type": "string"
+    },
+    "convertedAmount": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "totalAmount": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string"
+        }
+      },
+      "required": ["totalAmount", "currency"]
+    },
+    "userAgent": {
+      "type": "string"
+    },
+    "3ds": {
+      "$ref": "#/definitions/cybersource"
+    },
+    "credentialInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "credentialId": {
+          "type": "string"
+        },
+        "alias": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "expiryYear": {
+      "type": "string"
+    },
+    "expiryMonth": {
+      "type": "string"
+    },
+    "expirationTime": {
+      "type": "number"
+    },
+    "accountValidation": {
+      "type": "boolean"
+    },
+    "transactionMode": {
+      "type": "string"
+    },
+    "kushkiInfo": {
+      "type": "object"
+    },
+    "securityIdentity": {
+      "type": "object"
+    },
+    "sendCvv": {
+      "type": "boolean"
+    },
+    "contactDetails": {
+      "type": "object",
+      "properties": {
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "secondLastName": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "cybersourceApiValidation": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "merchantId",
+    "bin",
+    "created",
+    "currency",
+    "lastFourDigits",
+    "amount",
+    "maskedCardNumber",
+    "transactionReference",
+    "expirationTime"
+  ],
+  "type": "object"
+}

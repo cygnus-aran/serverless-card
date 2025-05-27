@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ChargeNiubizRequest",
+  "title": "ChargeNiubizRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "3DS": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eci": {
+          "type": "string"
+        },
+        "xid": {
+          "type": "string"
+        },
+        "cavv": {
+          "type": "string"
+        }
+      },
+      "required": ["eci", "cavv", "xid"]
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "holderName": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "months": {
+          "type": "number"
+        },
+        "maskedCardNumber": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "bin",
+        "brand",
+        "holderName",
+        "lastFourDigits",
+        "months",
+        "maskedCardNumber"
+      ]
+    },
+    "acquirerBank": {
+      "type": "string"
+    },
+    "amount": { "$ref": "./src/schema/amount.json" },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "subscription": {
+      "type": "boolean"
+    },
+    "tokenType": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "processorMerchantId": {
+      "type": "string"
+    },
+    "processorType": {
+      "type": "string"
+    },
+    "mcci": {
+      "type": "string"
+    },
+    "processorCode": {
+      "type": "string"
+    },
+    "isCardValidation": {
+      "type": "boolean"
+    },
+    "subscriptionTrigger": {
+      "type": "string"
+    },
+    "cvv": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "acquirerBank",
+    "card",
+    "documentNumber",
+    "documentType",
+    "isDeferred",
+    "merchantId",
+    "merchantName",
+    "processorId",
+    "subscription",
+    "taxes",
+    "tokenType",
+    "transactionReference",
+    "vaultToken",
+    "username",
+    "password",
+    "amount",
+    "processorType",
+    "mcci",
+    "processorMerchantId",
+    "processorCode",
+    "isCardValidation"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "extends": "@kushki/tsconfig",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "handler/*": ["src/handler/*"],
+      "constant/*": ["src/constant/*"],
+      "gateway/*": ["src/gateway/*"],
+      "infrastructure/*": ["src/infrastructure/*"],
+      "repository/*": ["src/repository/*"],
+      "service/*": ["src/service/*"],
+      "utils/*": ["src/utils/*"],
+      "types/*": ["types/*"]
+    },
+    "target": "es2017",
+    "resolveJsonModule": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "importHelpers": true,
+    "outDir": "lib"
+  },
+  "include": ["./**/*.ts"],
+  "exclude": [
+    "node_modules/**/*",
+    ".serverless/**/*",
+    "_warmup/**/*",
+    ".vscode/**/*",
+    "*.config.js",
+    "**/*.js"
+  ]
+}

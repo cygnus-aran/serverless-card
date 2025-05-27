@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/VpcTransaction",
+  "title": "VpcTransaction",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "transaction_id": {
+      "type": "string"
+    },
+    "transaction_reference": {
+      "type": "string"
+    },
+    "ticket_number": {
+      "type": "string"
+    },
+    "parsed_total_authorized_amount": {
+      "type": "number"
+    },
+    "bin_type": {
+      "type": "string"
+    },
+    "subtotal_iva_amount": {
+      "type": "number"
+    },
+    "subtotal_iva0_amount": {
+      "type": "number"
+    },
+    "kushki_response_code": {
+      "type": "string"
+    },
+    "kushki_response_description": {
+      "type": "string"
+    },
+    "bin_card": {
+      "type": "string"
+    },
+    "channel_type": {
+      "type": "string"
+    },
+    "kushki_transaction_type": {
+      "type": "string"
+    },
+    "transaction_type": {
+      "type": "string"
+    },
+    "transaction_code": {
+      "type": "string"
+    },
+    "authorization_code": {
+      "type": "string"
+    },
+    "transaction_status": {
+      "type": "string"
+    },
+    "sync_mode_type": {
+      "enum": ["api", "file", "online"]
+    },
+    "currency_code_iso_code": {
+      "type": "string"
+    },
+    "merchant_info_id": {
+      "type": "string"
+    },
+    "merchant_category_code": {
+      "type": "string"
+    },
+    "public_id": {
+      "type": "string"
+    },
+    "card_holder_name": {
+      "type": "string"
+    },
+    "last_four_digits": {
+      "type": "string"
+    },
+    "franchise": {
+      "type": "string"
+    },
+    "sale_ticket_number": {
+      "type": "string"
+    },
+    "sale_transaction_reference": {
+      "type": "string"
+    },
+    "parsed_source_amount": {
+      "type": "number"
+    },
+    "iva_value": {
+      "type": "number"
+    },
+    "created_timestamp": {
+      "type": "number"
+    },
+    "kushki_merchant_name": {
+      "type": "string"
+    },
+    "merchant_name": {
+      "type": "string"
+    },
+    "processor_name": {
+      "type": "string"
+    },
+    "grace_months": {
+      "type": "string"
+    },
+    "credit_type": {
+      "type": "string"
+    },
+    "acquirer_bank": {
+      "type": "string"
+    },
+    "card_acceptor_id": {
+      "type": "string"
+    },
+    "bin_country_name": {
+      "type": "string"
+    },
+    "bin_country_code": {
+      "type": "string"
+    },
+    "tax_id": {
+      "type": "string"
+    },
+    "processor_type": {
+      "type": "string"
+    },
+    "prepaid_indicator": {
+      "type": "boolean"
+    },
+    "payment_method": {
+      "type": "string"
+    },
+    "account_number": {
+      "type": "string"
+    },
+    "terminal_id": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "bin_bank_name": {
+      "type": "string"
+    },
+    "foreign_card_indicator": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "ticket_number",
+    "transaction_reference",
+    "transaction_type",
+    "merchant_id"
+  ]
+}

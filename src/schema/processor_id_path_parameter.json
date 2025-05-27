@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ProcessorPathParameter",
+  "title": "ProcessorPathParameter",
+  "additionalProperties": false,
+  "description": "",
+  "properties": {
+    "processorId": {
+      "type": "string",
+      "pattern": "^[0-9]{1,32}$"
+    }
+  },
+  "required": ["processorId"],
+  "type": "object"
+}

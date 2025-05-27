@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/SandboxValues",
+  "title": "SandboxValues",
+  "additionalProperties": false,
+  "properties": {
+    "CHARGE": {
+      "type": "string"
+    },
+    "CAPTURE": {
+      "type": "string"
+    },
+    "TOKEN": {
+      "type": "string"
+    },
+    "REAUTHORIZATION": {
+      "type": "string"
+    },
+    "VALIDATE_ACCOUNT": {
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

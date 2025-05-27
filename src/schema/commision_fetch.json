@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/CommisionFetch",
+  "title": "CommissionFetch",
+  "type": "object",
+  "required": ["country", "merchantName", "publicId", "commission"],
+  "properties": {
+    "country": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "publicId": {
+      "type": "string"
+    },
+    "enable": {
+      "type": "boolean"
+    },
+    "sandboxEnable": {
+      "type": "boolean"
+    },
+    "config": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/general/v3.4/region.json"
+    },
+    "commission": {
+      "$ref": "https://kushki-static.s3.amazonaws.com/schemas/usrv-commission/v1.2/commission_config.json"
+    }
+  }
+}

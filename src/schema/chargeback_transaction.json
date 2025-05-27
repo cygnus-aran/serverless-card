@@ -1,0 +1,449 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ChargebackTransaction",
+  "title": "ChargebackTransaction",
+  "definitions": {
+    "amount": {
+      "type": "object",
+      "properties": {
+        "currency": {
+          "type": "string",
+          "enum": ["USD", "COP", "CLP", "UF", "PEN", "MXN"]
+        },
+        "subtotalIva": {
+          "type": "number",
+          "minimum": 0
+        },
+        "subtotalIva0": {
+          "type": "number",
+          "minimum": 0
+        },
+        "iva": {
+          "type": "number",
+          "minimum": 0
+        },
+        "ice": {
+          "type": "number",
+          "minimum": 0
+        },
+        "extraTaxes": {
+          "additionalProperties": false,
+          "properties": {
+            "agenciaDeViaje": {
+              "type": "number",
+              "minimum": 0
+            },
+            "iac": {
+              "type": "number",
+              "minimum": 0
+            },
+            "propina": {
+              "type": "number",
+              "minimum": 0
+            },
+            "tasaAeroportuaria": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": ["currency", "subtotalIva", "subtotalIva0", "iva"]
+    },
+    "previousStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "number"
+        }
+      },
+      "required": ["status", "updatedAt"]
+    },
+    "DocFiles": {
+      "title": "DocFiles",
+      "type": "object",
+      "properties": {
+        "fileName": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+        "isLetter": {
+          "type": "boolean"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": ["fileName", "isLetter", "url"]
+    },
+    "MailInfo": {
+      "title": "MailInfo",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SENT", "BOUNCED"]
+        },
+        "email": {
+          "type": "string"
+        },
+        "receiver": {
+          "type": "string",
+          "enum": ["MERCHANT", "PROCESSOR"]
+        }
+      },
+      "required": ["status", "email", "receiver"]
+    }
+  },
+  "properties": {
+    "partialVoid": {
+      "type": "boolean"
+    },
+    "partialRefund": {
+      "type": "boolean"
+    },
+    "saleTransactionReference": {
+      "type": "string"
+    },
+    "forceRefund": {
+      "type": "boolean"
+    },
+    "voidWebhookUrl": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "privateMerchantId": {
+      "type": "string"
+    },
+    "mccCode": {
+      "type": "string"
+    },
+    "transactionId": {
+      "type": "string"
+    },
+    "buyOrder": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "transactionStatus": {
+      "type": "string"
+    },
+    "transactionType": {
+      "type": "string"
+    },
+    "binCard": {
+      "type": "string"
+    },
+    "cardType": {
+      "type": "string"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currencyCode": {
+      "type": "string"
+    },
+    "lastFourDigits": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "nit": {
+      "type": "string"
+    },
+    "privateProcessorId": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "processorName": {
+      "type": "string"
+    },
+    "processorChannel": {
+      "type": "string"
+    },
+    "paymentBrand": {
+      "type": "string"
+    },
+    "cardHolderName": {
+      "type": "string"
+    },
+    "amount": { "$ref": "#/definitions/amount" },
+    "convertedAmount": {
+      "type": "object",
+      "properties": {
+        "amount": { "$ref": "#/definitions/amount" },
+        "currency": {
+          "type": "string"
+        },
+        "totalAmount": {
+          "type": "number"
+        }
+      }
+    },
+    "subscriptionId": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "ticketNumber": {
+      "type": "string"
+    },
+    "parentTicketNumber": {
+      "type": "string"
+    },
+    "responseCode": {
+      "type": "string"
+    },
+    "responseText": {
+      "type": "string"
+    },
+    "approvedTransactionAmount": {
+      "type": "number"
+    },
+    "processorBankName": {
+      "type": "string"
+    },
+    "ivaValue": {
+      "type": "string"
+    },
+    "iceValue": {
+      "type": "string"
+    },
+    "subtotalIva": {
+      "type": "string"
+    },
+    "subtotalIva0": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "subscriptionMetadata": {
+      "type": "object"
+    },
+    "paymentMethod": {
+      "type": "string"
+    },
+    "recap": {
+      "type": "string"
+    },
+    "syncMode": {
+      "type": "string"
+    },
+    "requestAmount": {
+      "type": "number"
+    },
+    "approvalCode": {
+      "type": "string"
+    },
+    "visibility": {
+      "type": "string"
+    },
+    "aurusTicketNumber": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "contactPerson": {
+      "type": "string"
+    },
+    "processorMerchantId": {
+      "type": "string"
+    },
+    "terminalId": {
+      "type": "string"
+    },
+    "saleTicketNumber": {
+      "type": "string"
+    },
+    "voidTicketNumber": {
+      "type": "string"
+    },
+    "uniqueCode": {
+      "type": "string"
+    },
+    "saleCreated": {
+      "type": "number"
+    },
+    "saleApprovalCode": {
+      "type": "string"
+    },
+    "isSandboxTransaction": {
+      "type": "boolean"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "commerceCode": {
+      "type": "string"
+    },
+    "processor": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "processorType": {
+      "type": "string"
+    },
+    "saleTransactionType": {
+      "type": "string"
+    },
+    "retries": {
+      "type": "number"
+    },
+    "channel": {
+      "type": "string"
+    },
+    "token": {
+      "type": "string"
+    },
+    "previousStatus": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/previousStatus"
+      }
+    },
+    "docFiles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DocFiles"
+      }
+    },
+    "mailInfo": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/MailInfo"
+      }
+    },
+    "emails": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "deadLine": {
+      "type": "number"
+    },
+    "country": {
+      "type": "string"
+    },
+    "notificationMerchantSent": {
+      "type": "boolean"
+    },
+    "credentialAlias": {
+      "type": "string"
+    },
+    "credentialId": {
+      "type": "string"
+    },
+    "credentialMetadata": {
+      "type": "object"
+    },
+    "publicCredentialId": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "socialReason": {
+      "type": "string"
+    },
+    "categoryMerchant": {
+      "type": "string"
+    },
+    "cardCountry": {
+      "type": "string"
+    },
+    "cardCountryCode": {
+      "type": "string"
+    },
+    "taxId": {
+      "type": "string"
+    },
+    "integration": {
+      "type": "string",
+      "enum": ["direct", "aurus"]
+    },
+    "integrationMethod": {
+      "type": "string",
+      "enum": ["rest", "soap", "mall"]
+    },
+    "franchise": {
+      "type": "string",
+      "enum": ["Prosa", "MasterCard", "Visa"]
+    },
+    "binInfo": {
+      "properties": {
+        "bank": {
+          "type": "string"
+        },
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "transactionId",
+    "ticketNumber",
+    "transactionReference",
+    "transactionStatus",
+    "transactionType",
+    "amount",
+    "paymentBrand",
+    "processorId",
+    "processorName",
+    "merchantId",
+    "merchantName",
+    "currencyCode",
+    "created",
+    "binCard",
+    "lastFourDigits",
+    "paymentMethod",
+    "email",
+    "contactPerson",
+    "processorMerchantId",
+    "saleTicketNumber",
+    "privateProcessorId",
+    "uniqueCode",
+    "isSandboxTransaction",
+    "requestAmount"
+  ],
+  "type": "object"
+}

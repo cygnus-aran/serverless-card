@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/MerchantResponse",
+  "title": "MerchantResponse",
+  "type": "object",
+  "properties": {
+    "active": {
+      "type": "boolean"
+    },
+    "publicId": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    }
+  }
+}

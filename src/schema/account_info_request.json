@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/AccountInfoRequest",
+  "title": "AccountInfoRequest",
+  "additionalProperties": false,
+  "properties": {
+    "account": {
+      "type": "string"
+    },
+    "apiRequest": {
+      "type": "boolean"
+    },
+    "isPrivateCard": {
+      "type": "boolean"
+    },
+    "kshMerchantCountry": {
+      "type": "string"
+    },
+    "origin": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "account",
+    "apiRequest",
+    "isPrivateCard",
+    "kshMerchantCountry",
+    "origin"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/SubMerchantAcq",
+  "title": "SubMerchantAcq",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "mcc": {
+      "type": "string"
+    },
+    "id_afiliacion": {
+      "type": "string"
+    },
+    "soft_descriptor": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "country_ans": {
+      "type": "string"
+    },
+    "zip_code": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "id_facilitator": {
+      "type": "string"
+    },
+    "id_company": {
+      "type": "string"
+    },
+    "social_reason": {
+      "type": "string"
+    },
+    "facilitator_name": {
+      "type": "string"
+    },
+    "omit_crypto_currency": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "mcc",
+    "id_afiliacion",
+    "soft_descriptor",
+    "city",
+    "country_ans",
+    "zip_code",
+    "address",
+    "id_facilitator",
+    "id_company",
+    "facilitator_name"
+  ]
+}

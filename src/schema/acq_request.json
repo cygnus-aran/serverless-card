@@ -1,0 +1,222 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/AcqRequest",
+  "title": "AcqRequest",
+  "additionalProperties": false,
+  "definitions": {
+    "acq_amount": {
+      "type": "object",
+      "properties": {
+        "currency": {
+          "type": "string",
+          "enum": ["USD", "COP", "PEN", "CLP", "UF", "MXN"]
+        },
+        "subtotal_iva": {
+          "type": "number",
+          "minimum": 0
+        },
+        "subtotal_iva0": {
+          "type": "number",
+          "minimum": 0
+        },
+        "iva": {
+          "type": "number",
+          "minimum": 0
+        },
+        "extra_taxes": {
+          "additionalProperties": false,
+          "properties": {
+            "travel_agency": {
+              "type": "number",
+              "minimum": 0
+            },
+            "iac": {
+              "type": "number",
+              "minimum": 0
+            },
+            "ice": {
+              "type": "number",
+              "minimum": 0
+            },
+            "tip": {
+              "type": "number",
+              "minimum": 0
+            },
+            "airport_tax": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "type": "object"
+        },
+        "tip": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": ["subtotalIva", "subtotalIva0", "iva", "currency"]
+    },
+    "sub_merchant": {
+      "$ref": "src/schema/sub_merchant_acq.json"
+    }
+  },
+  "properties": {
+    "amount": { "$ref": "#/definitions/acq_amount" },
+    "authorizerContext": {
+      "$ref": "./src/schema/authorizer_context.json"
+    },
+    "bin_info": {
+      "$ref": "./src/schema/bin_info_ecommerce.json"
+    },
+    "card_id": {
+      "type": "string"
+    },
+    "cit_mit": {
+      "type": "string",
+      "enum": [
+        "C101",
+        "C102",
+        "C103",
+        "C104",
+        "M101",
+        "M102",
+        "M103",
+        "M104",
+        "M205",
+        "M206",
+        "M207",
+        "M208"
+      ]
+    },
+    "business_application_id": {
+      "type": "string"
+    },
+    "is_blocked_card": {
+      "type": "boolean"
+    },
+    "is_frictionless": {
+      "type": "boolean"
+    },
+    "contact_details": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "document_number": {
+          "type": "string"
+        },
+        "document_type": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "phone_number": {
+          "type": "string"
+        },
+        "secondLast_name": {
+          "type": "string"
+        }
+      }
+    },
+    "deferred": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "credit_type": {
+          "type": "string"
+        },
+        "grace_months": {
+          "type": "string"
+        },
+        "months": {
+          "type": "string"
+        }
+      }
+    },
+    "full_response": {
+      "type": "string"
+    },
+    "three_ds": {
+      "type": "object",
+      "properties": {
+        "authentication_data": {
+          "type": "string"
+        },
+        "CAVV": {
+          "type": "string"
+        },
+        "directory_server_transactionID": {
+          "type": "string"
+        },
+        "ECI": {
+          "type": "string"
+        },
+        "XID": {
+          "type": "string"
+        },
+        "UCAF": {
+          "type": "string"
+        },
+        "3ds_indicator": {
+          "type": "string"
+        }
+      }
+    },
+    "transaction_type": {
+      "type": "string"
+    },
+    "transaction_mode": {
+      "type": "string"
+    },
+    "merchant_id": {
+      "type": "string"
+    },
+    "original_reference_number": {
+      "type": "string"
+    },
+    "transaction_reference": {
+      "type": "string"
+    },
+    "client_transaction_id": {
+      "type": "string"
+    },
+    "is_recurrent": {
+      "type": "boolean"
+    },
+    "is_external_subscription": {
+      "type": "boolean"
+    },
+    "vault_token": {
+      "type": "string"
+    },
+    "token_type": {
+      "type": "string"
+    },
+    "subscription_id": {
+      "type": "string"
+    },
+    "subscription_type": {
+      "type": "string",
+      "enum": ["onDemand", "scheduled"]
+    },
+    "sub_merchant": { "$ref": "#/definitions/sub_merchant" },
+    "cvv2": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "amount",
+    "authorizerContext",
+    "vault_token",
+    "transaction_type",
+    "merchant_id",
+    "client_transaction_id",
+    "token_type"
+  ]
+}

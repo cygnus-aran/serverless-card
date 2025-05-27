@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/TimeoutVars",
+  "title": "TimeoutVars",
+  "additionalProperties": false,
+  "properties": {
+    "redeban": {
+      "type": "number"
+    },
+    "transbank": {
+      "type": "number"
+    },
+    "fis": {
+      "type": "number"
+    }
+  },
+  "required": ["redeban", "transbank", "fis"],
+  "type": "object"
+}

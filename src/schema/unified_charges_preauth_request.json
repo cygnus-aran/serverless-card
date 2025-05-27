@@ -1,0 +1,641 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/UnifiedChargesPreauthRequest",
+  "title": "UnifiedChargesPreauthRequest",
+  "definitions": {
+    "cybersource": {
+      "title": "Cybersource",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authentication", "detail"],
+      "properties": {
+        "authentication": {
+          "type": "boolean"
+        },
+        "detail": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "cavv": {
+              "type": "string"
+            },
+            "commerceIndicator": {
+              "type": "string"
+            },
+            "eci": {
+              "type": "string"
+            },
+            "xid": {
+              "type": "string"
+            },
+            "authenticationTransactionId": {
+              "type": "string"
+            },
+            "paresStatus": {
+              "type": "string"
+            },
+            "veresEnrolled": {
+              "type": "string"
+            },
+            "acsURL": {
+              "type": "string"
+            },
+            "paReq": {
+              "type": "string"
+            },
+            "proxyPan": {
+              "type": "string"
+            },
+            "specificationVersion": {
+              "type": "number"
+            },
+            "ucafCollectionIndicator": {
+              "type": "string"
+            },
+            "directoryServerTrxID": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "merchantData": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "merchantName": {
+          "type": "string"
+        },
+        "whiteList": {
+          "type": "boolean"
+        },
+        "country": {
+          "type": "string"
+        },
+        "merchantId": {
+          "type": "string"
+        },
+        "sandboxEnable": {
+          "type": "boolean"
+        },
+        "taxId": {
+          "type": "string"
+        },
+        "siftScience": {
+          "type": "object",
+          "properties": {
+            "SandboxApiKey": {
+              "type": "string"
+            },
+            "ProdApiKey": {
+              "type": "string"
+            },
+            "SiftScore": {
+              "type": "number"
+            },
+            "SandboxAccountId": {
+              "type": "string"
+            },
+            "ProdAccountId": {
+              "type": "string"
+            }
+          }
+        },
+        "deferredOptions": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-card/v1/deferred_option.json"
+              }
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        },
+        "commission": {
+          "$ref": "./src/schema/commision_fetch.json"
+        },
+        "address": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "province": {
+          "type": "string"
+        },
+        "cityDescription": {
+          "type": "string"
+        },
+        "provinceDescription": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "string"
+        }
+      },
+      "required": ["merchantId", "merchantName"]
+    },
+    "metadata": {
+      "properties": {
+        "ksh_subscriptionValidation": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "hierarchyConfig": {
+      "properties": {
+        "processing": {
+          "type": "object",
+          "businessRules": {
+            "type": "string"
+          },
+          "processors": {
+            "type": "string"
+          }
+        },
+        "rootId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "deferred": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "graceMonths": {
+          "type": "string",
+          "pattern": "^[0-9]{1,2}$"
+        },
+        "creditType": {
+          "type": "string",
+          "pattern": "^[0-9]{1,3}$"
+        },
+        "months": { "$ref": "#/definitions/monthsDeferred" }
+      },
+      "required": ["graceMonths", "creditType", "months"]
+    },
+    "monthsDeferred": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 48
+    },
+    "products": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "sku": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "number"
+        },
+        "category": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "externalSubscriptionID": {
+      "type": "string"
+    },
+    "subMerchant": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-subscriptions/v1.4/sub_merchant_dynamo.json"
+    },
+    "createSubscriptionMetadata": {
+      "type": "object",
+      "properties": {
+        "attemptId": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "usrvOrigin": {
+      "type": "string"
+    },
+    "sqsFlag": {
+      "type": "string"
+    },
+    "tokenObject": {
+      "$ref": "src/schema/dynamo_token_fetch.json"
+    },
+    "citMit": {
+      "type": "string",
+      "enum": [
+        "C101",
+        "C102",
+        "C103",
+        "C104",
+        "M101",
+        "M102",
+        "M103",
+        "M104",
+        "M205",
+        "M206",
+        "M207",
+        "M208"
+      ]
+    },
+    "transactionType": {
+      "type": "string",
+      "enum": [
+        "charge",
+        "preauthorization",
+        "capture",
+        "deferred",
+        "subscriptionChargeValidation",
+        "reauthorization",
+        "accountValidation"
+      ]
+    },
+    "amount": {
+      "$ref": "./src/schema/amount.json"
+    },
+    "merchant": {
+      "$ref": "#/definitions/merchantData"
+    },
+    "months": {
+      "type": "number"
+    },
+    "binInfo": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-card/v1.21/dynamo_bin_fetch.json"
+    },
+    "paymentBrand": {
+      "type": "string"
+    },
+    "subscriptionTrigger": {
+      "type": "string",
+      "enum": ["onDemand", "scheduled"]
+    },
+    "credentialId": {
+      "type": "string"
+    },
+    "constitutionalCountry": {
+      "type": "string"
+    },
+    "merchantCountry": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "transactionKind": {
+      "type": "string"
+    },
+    "subscriptionId": {
+      "type": "string"
+    },
+    "saveCard": {
+      "type": "boolean"
+    },
+    "sessionId": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string"
+    },
+    "ip": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "lastFourDigits": {
+      "type": "string"
+    },
+    "maskedCardNumber": {
+      "type": "string"
+    },
+    "isPreauth": {
+      "type": "boolean"
+    },
+    "secureId": {
+      "type": "string"
+    },
+    "secureService": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "settlement": {
+      "type": "number"
+    },
+    "isAft": {
+      "type": "boolean"
+    },
+    "isOCT": {
+      "type": "boolean"
+    },
+    "cardHolderName": {
+      "type": "string"
+    },
+    "isDeferred": {
+      "type": ["boolean", "string"]
+    },
+    "failOverToken": {
+      "type": "string"
+    },
+    "failOverSubscription": {
+      "type": "boolean"
+    },
+    "userAgent": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "transactionCardId": {
+      "type": "string"
+    },
+    "3ds": {
+      "$ref": "#/definitions/cybersource"
+    },
+    "expiryYear": {
+      "type": "string"
+    },
+    "expiryMonth": {
+      "type": "string"
+    },
+    "cvv": {
+      "type": "string"
+    },
+    "plccMetadataId": {
+      "type": "string"
+    },
+    "subMetadataId": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string",
+      "enum": ["transaction", "subscription"]
+    },
+    "metadata": { "$ref": "#/definitions/metadata" },
+    "count": {
+      "type": "number"
+    },
+    "deferred": { "$ref": "#/definitions/deferred" },
+    "contactDetails": {
+      "type": "object",
+      "properties": {
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "secondLastName": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "orderDetails": {
+      "title": "OrderDetails",
+      "type": "object",
+      "properties": {
+        "siteDomain": {
+          "type": "string"
+        },
+        "shippingDetails": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "region": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "zipCode": {
+              "type": "string"
+            },
+            "secondaryAddress": {
+              "type": "string"
+            },
+            "userEmail": {
+              "type": "string"
+            }
+          }
+        },
+        "billingDetails": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "region": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "zipCode": {
+              "type": "string"
+            },
+            "secondaryAddress": {
+              "type": "string"
+            },
+            "userEmail": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "productDetails": {
+      "type": "object",
+      "properties": {
+        "product": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/products" }
+        }
+      }
+    },
+    "fullResponse": {
+      "type": ["boolean", "string"],
+      "enum": [true, false, "v2"]
+    },
+    "channel": {
+      "type": "string"
+    },
+    "platformName": {
+      "type": "string"
+    },
+    "ignoreWarnings": {
+      "type": "boolean"
+    },
+    "sellerUserId": {
+      "type": "string"
+    },
+    "isSubscriptionCharge": {
+      "type": "boolean"
+    },
+    "authorizerContext": {
+      "$ref": "./src/schema/authorizer_context.json"
+    },
+    "tokenCreated": {
+      "type": "number"
+    },
+    "tokenCurrency": {
+      "type": "string"
+    },
+    "tokenId": {
+      "type": "string"
+    },
+    "threeDomainSecure": {
+      "$ref": "./src/schema/three_domain_secure_request.json"
+    },
+    "periodicity": {
+      "type": "string",
+      "enum": [
+        "daily",
+        "weekly",
+        "biweekly",
+        "monthly",
+        "threefortnights",
+        "bimonthly",
+        "quarterly",
+        "fourmonths",
+        "halfYearly",
+        "yearly",
+        "custom"
+      ]
+    },
+    "originalCommissionType": {
+      "type": "string"
+    },
+    "processorToken": {
+      "type": "string"
+    },
+    "subscriptionChargeType": {
+      "type": "string"
+    },
+    "accountType": {
+      "type": "string"
+    },
+    "airlineCode": {
+      "type": "string"
+    },
+    "transactionEmail": {
+      "type": "string"
+    },
+    "transactionPhoneNumber": {
+      "type": "string"
+    },
+    "transactionCardHolderName": {
+      "type": "string"
+    },
+    "transactionRuleResponse": {
+      "$ref": "src/schema/lambda_transaction_rule_response.json"
+    },
+    "tokenAlreadyUsed": {
+      "type": "boolean"
+    },
+    "initialRecurrenceReference": {
+      "type": "string"
+    },
+    "isTokenless": {
+      "type": "boolean"
+    },
+    "convertionResponse": {
+      "$ref": "./src/schema/convertion_response.json"
+    },
+    "convertedAmount": {
+      "$ref": "./src/schema/amount.json"
+    },
+    "subscriptionMinChargeTrxRef": {
+      "type": "string"
+    },
+    "externalReferenceId": {
+      "type": "string",
+      "pattern": "^[\\w\\-]{5,64}$"
+    }
+  },
+  "required": [
+    "usrvOrigin",
+    "transactionType",
+    "authorizerContext",
+    "amount",
+    "merchant",
+    "ignoreWarnings",
+    "tokenCurrency",
+    "tokenCreated",
+    "tokenId",
+    "lastFourDigits",
+    "maskedCardNumber",
+    "transactionReference",
+    "cardHolderName",
+    "tokenType",
+    "isDeferred",
+    "tokenObject"
+  ]
+}

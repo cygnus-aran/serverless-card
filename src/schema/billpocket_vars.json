@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/BillpocketVars",
+  "title": "BillpocketVars",
+  "additionalProperties": false,
+  "properties": {
+    "AMEX_DEFAULT_INFO": {
+      "type": "object",
+      "properties": {
+        "amexCustHostServerNm": {
+          "type": "string"
+        },
+        "amexCustBrowserTypDescTxt": {
+          "type": "string"
+        },
+        "amexShipToCtryCd": {
+          "type": "string"
+        },
+        "amexShipMthdCd": {
+          "type": "string"
+        },
+        "amexMerSKUNbr": {
+          "type": "string"
+        },
+        "amexCustIPAddr": {
+          "type": "string"
+        },
+        "amexCallTypId": {
+          "type": "string"
+        },
+
+        "amexCustAddress": {
+          "type": "string"
+        },
+        "amexCustEmailAddr": {
+          "type": "string"
+        },
+        "amexCustFirstName": {
+          "type": "string"
+        },
+        "amexCustIdPhoneNbr": {
+          "type": "string"
+        },
+        "amexCustLastName": {
+          "type": "string"
+        },
+        "amexCustPostalCode": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "amexCustHostServerNm",
+        "amexCustBrowserTypDescTxt",
+        "amexShipToCtryCd",
+        "amexShipMthdCd",
+        "amexMerSKUNbr",
+        "amexCustIPAddr",
+        "amexCallTypId",
+        "amexCustAddress",
+        "amexCustEmailAddr",
+        "amexCustFirstName",
+        "amexCustIdPhoneNbr",
+        "amexCustLastName",
+        "amexCustPostalCode"
+      ]
+    },
+    "TIMEOUT": {
+      "type": "number"
+    },
+    "LAMBDA_CHARGE": {
+      "type": "string"
+    },
+    "LAMBDA_SUBS_CHARGE": {
+      "type": "string"
+    },
+    "TABLE_TIMEOUTS": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "AMEX_DEFAULT_INFO",
+    "TIMEOUT",
+    "LAMBDA_CHARGE",
+    "TABLE_TIMEOUTS",
+    "LAMBDA_SUBS_CHARGE"
+  ],
+  "type": "object"
+}

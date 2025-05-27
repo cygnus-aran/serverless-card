@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/DirectIntegrationProcessorIds",
+  "title": "DirectIntegrationProcessorIds",
+  "type": "object",
+  "properties": {
+    "credibanco": {
+      "type": "string"
+    },
+    "transbank": {
+      "type": "string"
+    },
+    "redeban": {
+      "type": "string"
+    },
+    "niubiz": {
+      "type": "string"
+    },
+    "billpocket": {
+      "type": "string"
+    }
+  }
+}

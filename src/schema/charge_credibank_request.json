@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ChargeCredibankRequest",
+  "title": "ChargeCredibankRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "3DS": {
+      "type": "object",
+      "title": "3DS",
+      "additionalProperties": false,
+      "properties": {
+        "eci": {
+          "type": "string"
+        },
+        "xid": {
+          "type": "string"
+        },
+        "cavv": {
+          "type": "string"
+        },
+        "ucafAuthenticationData": {
+          "type": "string"
+        },
+        "ucafCollectionIndicator": {
+          "type": "string"
+        }
+      },
+      "required": ["eci", "cavv", "xid", "ucaf"]
+    }
+  },
+  "properties": {
+    "accountType": {
+      "type": "string"
+    },
+    "airlineCode": {
+      "type": "string"
+    },
+    "card": {
+      "type": "object",
+      "title": "CardRequest",
+      "additionalProperties": false,
+      "properties": {
+        "amount": { "$ref": "./src/schema/amount.json" },
+
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "cvv": {
+          "type": "string"
+        },
+        "holderName": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "months": {
+          "type": "number"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["CREDIT", "DEBIT"]
+        }
+      },
+      "required": [
+        "amount",
+        "bin",
+        "brand",
+        "holderName",
+        "lastFourDigits",
+        "months",
+        "type"
+      ]
+    },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "isSubscription": {
+      "type": "boolean"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "processorBankName": {
+      "type": "string"
+    },
+    "subscription": {
+      "type": "boolean"
+    },
+    "tokenType": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "subMccCode": {
+      "type": "string"
+    },
+    "3DS": {
+      "$ref": "#/definitions/3DS"
+    },
+    "username": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "isCardValidation": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "card",
+    "isDeferred",
+    "merchantId",
+    "merchantName",
+    "processorId",
+    "processorBankName",
+    "tokenType",
+    "transactionReference",
+    "vaultToken",
+    "subMCProcessor"
+  ]
+}

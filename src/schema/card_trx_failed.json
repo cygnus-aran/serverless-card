@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/CardTrxFailed",
+  "title": "CardTrxFailed",
+  "additionalProperties": false,
+  "properties": {
+    "message": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string"
+    },
+    "transaction": {
+      "type": "object",
+      "properties": {
+        "transactionReference": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["transactionReference"]
+    }
+  },
+  "required": ["message", "description", "priority", "transaction"],
+  "type": "object"
+}

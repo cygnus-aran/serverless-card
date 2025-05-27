@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/AurusResponse",
+  "title": "AurusCreateProcessorResponse",
+  "description": "",
+  "properties": {
+    "response_code": {
+      "type": "string"
+    },
+    "response_text": {
+      "type": "string"
+    },
+    "token_merchantId": {
+      "type": "string"
+    },
+    "transaction_merchantId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "response_code",
+    "response_text",
+    "token_merchantId",
+    "transaction_merchantId"
+  ],
+  "type": "object"
+}

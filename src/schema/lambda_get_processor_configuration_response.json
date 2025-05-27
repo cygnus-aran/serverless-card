@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/LambdaGetProcessorConfigurationResponse",
+  "title": "LambdaGetProcessorConfigurationResponse",
+  "additionalProperties": false,
+  "definitions": {
+    "response": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dateResult": {
+          "type": "string"
+        },
+        "days": {
+          "type": "number"
+        }
+      },
+      "required": ["dateResult", "days"]
+    }
+  },
+  "properties": {
+    "body": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "processorName": {
+          "$ref": "#/definitions/response"
+        },
+        "expirationDate": {
+          "$ref": "#/definitions/response"
+        },
+        "toExpireDate": {
+          "$ref": "#/definitions/response"
+        },
+        "expirationConsoleDay": {
+          "$ref": "#/definitions/response"
+        }
+      },
+      "required": [
+        "expirationConsoleDay",
+        "expirationDate",
+        "processorName",
+        "toExpireDate"
+      ]
+    }
+  },
+  "required": ["body"]
+}

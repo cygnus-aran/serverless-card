@@ -1,0 +1,32 @@
+/**
+ * JSON Schema enum
+ */
+export enum SchemaEnum {
+  create_card_request = "create_card_request",
+  record_transaction_request = "record_transaction_request",
+  void_card_request = "void_card_request",
+  void_card_path = "void_card_path",
+  void_card_header = "void_card_header",
+  tokens_card_header = "tokens_card_header",
+  tokens_card_request = "tokens_card_request",
+  tokens_card_request_webcheckout = "tokens_card_request_webcheckout",
+  charges_card_request = "charges_card_request",
+  reauthorization_card_request = "reauthorization_request",
+  bin_parameters = "bin_parameters",
+  capture_card_request = "capture_card_request",
+  merchant_id_path_parameter = "merchant_id_path_parameter",
+  update_merchant_request = "update_merchant_request",
+  create_processor_request = "create_processor_request",
+  update_processor_request = "update_processor_request",
+  processor_id_path_parameter = "processor_id_path_parameter",
+  processor_delete_request = "processor_delete_request",
+  chargeback_request = "chargeback_request",
+  chargeback_path = "chargeback_path",
+  account_validation_request = "account_validation_request",
+  processor_metadata_query = "processor_metadata_query",
+  transaction_reference_field = "transaction.transaction_reference",
+  ticket_number_field = "transaction.ticket_number",
+  amount_field = "body.amount",
+  merchant_country = "merchantCountry",
+  tokenless_charge_request = "tokenless_charge_card_request",
+}

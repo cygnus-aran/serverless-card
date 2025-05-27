@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/MerchantValues",
+  "title": "MerchantValues",
+  "additionalProperties": false,
+  "properties": {
+    "IDS_TUENTI": {
+      "type": "string"
+    },
+    "MIGRATE_IDS": {
+      "type": "string"
+    },
+    "WITHOUT_RECORD_API": {
+      "type": "string"
+    },
+    "WITH_RECORD_API": {
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/CredibankVars",
+  "title": "CredibankVars",
+  "additionalProperties": false,
+  "type": "object",
+  "required": ["TABLE_TIMEOUTS", "LAMBDA_CHARGE", "TIMEOUT"],
+  "properties": {
+    "TABLE_TIMEOUTS": {
+      "type": "string"
+    },
+    "LAMBDA_CHARGE": {
+      "type": "string"
+    },
+    "TIMEOUT": {
+      "type": "string"
+    },
+    "SANDBOX_ENABLE": {
+      "type": "boolean"
+    }
+  }
+}

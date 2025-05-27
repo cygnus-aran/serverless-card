@@ -1,0 +1,129 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/PreAuthNiubizRequest",
+  "title": "PreAuthNiubizRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "acquirerBank": {
+      "type": "string"
+    },
+    "amount": { "$ref": "./src/schema/amount.json" },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "holderName": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "months": {
+          "type": "number"
+        },
+        "maskedCardNumber": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["CREDIT", "DEBIT"]
+        }
+      },
+      "required": [
+        "bin",
+        "brand",
+        "amount",
+        "holderName",
+        "lastFourDigits",
+        "months",
+        "maskedCardNumber"
+      ]
+    },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "processorMerchantId": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "subscription": {
+      "type": "boolean"
+    },
+    "tokenType": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "processorType": {
+      "type": "string"
+    },
+    "processorCode": {
+      "type": "string"
+    },
+    "mcci": {
+      "type": "string"
+    },
+    "3DS": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eci": {
+          "type": "string"
+        },
+        "xid": {
+          "type": "string"
+        },
+        "cavv": {
+          "type": "string"
+        }
+      },
+      "required": ["eci", "cavv", "xid"]
+    }
+  },
+  "required": [
+    "acquirerBank",
+    "amount",
+    "card",
+    "documentNumber",
+    "documentType",
+    "isDeferred",
+    "merchantId",
+    "merchantName",
+    "processorId",
+    "subscription",
+    "tokenType",
+    "transactionReference",
+    "vaultToken",
+    "username",
+    "password",
+    "processorMerchantId",
+    "processorType",
+    "processorCode",
+    "mcci"
+  ]
+}

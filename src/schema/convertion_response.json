@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ConvertionResponse",
+  "title": "ConvertionResponse",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "body": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "newAmount": {
+          "type": "number"
+        },
+        "convertedCurrency": {
+          "type": "string"
+        },
+        "isOriginalAmount": {
+          "type": "boolean"
+        }
+      },
+      "required": ["newAmount", "convertedCurrency"]
+    }
+  },
+  "required": ["body"]
+}

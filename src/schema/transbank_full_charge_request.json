@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/TransbankFullChargeRequest",
+  "title": "TransbankFullChargeRequest",
+  "additionalProperties": false,
+  "definitions": {
+    "TransbankTokenRequest": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "processorId": {
+          "type": "string"
+        },
+        "referenceNumber": {
+          "type": "string"
+        },
+        "totalAmount": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "shareNumber": {
+          "type": "number"
+        },
+        "cvv": {
+          "type": "string"
+        }
+      },
+      "required": ["processorId", "referenceNumber", "totalAmount", "currency"]
+    }
+  },
+  "properties": {
+    "transactionStatus": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "privateMerchantId": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string",
+      "enum": ["transaction", "subscription"]
+    },
+    "gracePeriod": {
+      "type": "boolean"
+    },
+    "card": { "$ref": "#/definitions/TransbankTokenRequest" },
+    "extraInfo": {
+      "type": "object",
+      "properties": {
+        "cardHolderName": {
+          "type": "string"
+        },
+        "lastFourDigitsOfCard": {
+          "type": "string"
+        },
+        "cardType": {
+          "type": "string"
+        },
+        "binCard": {
+          "type": "string"
+        },
+        "processorBankName": {
+          "type": "string"
+        },
+        "merchantName": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cardHolderName",
+        "lastFourDigitsOfCard",
+        "cardType",
+        "binCard",
+        "processorBankName",
+        "merchantName",
+        "brand"
+      ],
+      "additionalProperties": false
+    },
+    "completeTransactionType": {
+      "type": "string"
+    },
+    "credentials": {
+      "$ref": "./src/schema/transbank_credentials.json"
+    },
+    "omitCVV": {
+      "type": "boolean"
+    },
+    "isCardValidation": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "privateMerchantId",
+    "card",
+    "vaultToken",
+    "tokenType",
+    "extraInfo"
+  ]
+}

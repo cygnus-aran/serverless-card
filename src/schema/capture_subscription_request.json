@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/CaptureSubscriptionRequest",
+  "title": "CaptureSubscriptionRequest",
+  "properties": {
+    "usrvOrigin": {
+      "type": "string"
+    },
+    "merchantCountry": {
+      "type": "string"
+    },
+    "taxId": {
+      "type": "string"
+    },
+    "orderDetails": {
+      "title": "OrderDetails",
+      "type": "object",
+      "properties": {
+        "siteDomain": {
+          "type": "string"
+        },
+        "shippingDetails": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "region": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "zipCode": {
+              "type": "string"
+            },
+            "secondaryAddress": {
+              "type": "string"
+            },
+            "userEmail": {
+              "type": "string"
+            }
+          }
+        },
+        "billingDetails": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "region": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "zipCode": {
+              "type": "string"
+            },
+            "secondaryAddress": {
+              "type": "string"
+            },
+            "userEmail": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "type": "object"
+}

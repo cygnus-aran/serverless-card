@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/TransbankChargeResponse",
+  "title": "TransbankChargeResponse",
+  "additionalProperties": false,
+  "properties": {
+    "isDeferred": {
+      "type": "string"
+    },
+    "approvalCode": {
+      "type": "string"
+    },
+    "approvedTransactionAmount": {
+      "type": "number"
+    },
+    "ticketNumber": {
+      "type": "string"
+    },
+    "numberOfMonths": {
+      "type": "number"
+    },
+    "requestedAmount": {
+      "type": "number"
+    },
+    "responseCode": {
+      "type": "string"
+    },
+    "responseText": {
+      "type": "string"
+    },
+    "buyOrder": {
+      "type": "string"
+    },
+    "conciliationId": {
+      "type": "string"
+    },
+    "transactionId": {
+      "type": "string"
+    },
+    "creditType": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "isDeferred",
+    "approvalCode",
+    "approvedTransactionAmount",
+    "numberOfMonths",
+    "requestedAmount",
+    "responseCode",
+    "responseText",
+    "buyOrder",
+    "ticketNumber",
+    "transactionId"
+  ]
+}

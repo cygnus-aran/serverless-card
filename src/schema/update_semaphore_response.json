@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/UpdateSemaphoreResponse",
+  "title": "UpdateSemaphoreResponse",
+  "additionalProperties": false,
+  "properties": {
+    "stepServices": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "stepBasicData": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "stepProcessor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "statusRetryRules": {
+          "type": "string"
+        },
+        "statusDeferred": {
+          "type": "string"
+        },
+        "statusProcessor": {
+          "type": "string"
+        },
+        "statusMerchantRules": {
+          "type": "string"
+        }
+      }
+    },
+    "stepConfigRatesAndInvoice": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "statusRates": {
+          "type": "string"
+        },
+        "statusDiscount": {
+          "type": "string"
+        },
+        "processors": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "cash": {
+              "type": "string"
+            },
+            "card": {
+              "type": "string"
+            },
+            "transfer": {
+              "type": "string"
+            }
+          }
+        },
+        "statusInvoice": {
+          "type": "string"
+        }
+      }
+    },
+    "publicMerchantId": {
+      "type": "string"
+    },
+    "stepUsers": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

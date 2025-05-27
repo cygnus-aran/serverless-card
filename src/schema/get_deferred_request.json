@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/GetDeferredRequest",
+  "title": "GetDeferredRequest",
+  "description": "",
+  "additionalProperties": false,
+  "definitions": {
+    "hierarchyConfig": {
+      "properties": {
+        "processing": {
+          "type": "object",
+          "businessRules": {
+            "type": "string"
+          },
+          "processors": {
+            "type": "string"
+          }
+        },
+        "rootId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "properties": {
+    "merchantId": {
+      "type": "string"
+    },
+    "bin": {
+      "type": "string"
+    },
+    "hierarchyConfig": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/hierarchyConfig"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "required": ["bin", "merchantId"],
+  "type": "object"
+}

@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "AcqInvokeFullResponse",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "transaction_reference": {
+          "type": "string"
+        },
+        "reference_number": {
+          "type": "string"
+        },
+        "transaction_type": {
+          "type": "string"
+        },
+        "transaction_status": {
+          "type": "string"
+        },
+        "kushki_response": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": ["code", "message"]
+        },
+        "approval_code": {
+          "type": "string"
+        },
+        "authorized_amount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "authorizer": {
+          "type": "string"
+        },
+        "franchise_response_time": {
+          "type": "object",
+          "properties": {
+            "fr_message_time": {
+              "type": "string"
+            },
+            "fr_response_time": {
+              "type": "string"
+            },
+            "fr_message_code": {
+              "type": "string"
+            }
+          }
+        },
+        "message_fields": {
+          "type": "object",
+          "properties": {
+            "f38": {
+              "type": "string"
+            },
+            "f39": {
+              "type": "string"
+            },
+            "f48": {
+              "type": "object",
+              "properties": {
+                "s22": {
+                  "type": "object",
+                  "properties": {
+                    "se5": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "s84": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": ["f39"]
+        }
+      },
+      "required": [
+        "transaction_reference",
+        "reference_number",
+        "transaction_type",
+        "transaction_status",
+        "kushki_response",
+        "approval_code",
+        "message_fields"
+      ]
+    }
+  },
+  "required": ["body"]
+}

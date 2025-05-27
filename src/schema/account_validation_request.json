@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/AccountValidationRequest",
+  "title": "AccountValidationRequest",
+  "type": "object",
+  "required": ["token"],
+  "properties": {
+    "subMerchant": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-subscriptions/v1.2/sub_merchant.json"
+    },
+    "token": {
+      "type": "string"
+    },
+    "card": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "expiryMonth": {
+          "type": "string"
+        },
+        "expiryYear": {
+          "type": "string"
+        },
+        "cvv": {
+          "type": "string"
+        }
+      }
+    },
+    "totalAmount": {
+      "type": "number",
+      "const": 0
+    },
+    "currency": {
+      "type": "string"
+    },
+    "transactionMode": {
+      "type": "string"
+    }
+  }
+}

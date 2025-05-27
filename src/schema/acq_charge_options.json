@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/AcqChargeOptions",
+  "title": "AcqChargeOptions",
+  "additionalProperties": false,
+  "properties": {
+    "isSubscriptionOnDemandCvv": {
+      "type": "boolean"
+    },
+    "referenceNumber": {
+      "type": "string"
+    },
+    "transactionType": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "required": ["transactionType"]
+}

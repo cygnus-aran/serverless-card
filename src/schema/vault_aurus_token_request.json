@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/VaultAurusTokenRequest",
+  "title": "VaultAurusTokenRequest",
+  "properties": {
+    "currency": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "totalAmount": {
+      "type": "number"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "fullResponse": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false,
+  "required": ["totalAmount", "merchantId", "vaultToken"],
+  "type": "object"
+}

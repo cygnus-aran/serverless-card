@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/BusinessPartner",
+  "title": "BusinessPartner",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "pfId",
+    "subId",
+    "subStreet",
+    "subName",
+    "subCity",
+    "subState",
+    "subCountryCode",
+    "subPostalCode",
+    "subTaxId"
+  ],
+  "properties": {
+    "pfId": {
+      "properties": {
+        "mastercard": {
+          "type": "string"
+        },
+        "visa": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "required": ["mastercard", "visa"],
+      "additionalProperties": false
+    },
+    "subName": {
+      "type": "string"
+    },
+    "subId": {
+      "type": "string"
+    },
+
+    "subStreet": {
+      "type": "string"
+    },
+    "subCity": {
+      "type": "string"
+    },
+    "subState": {
+      "type": "string"
+    },
+    "subCountryCode": {
+      "type": "string"
+    },
+    "subPostalCode": {
+      "type": "string"
+    },
+    "subTaxId": {
+      "type": "string"
+    }
+  }
+}

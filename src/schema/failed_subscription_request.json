@@ -1,0 +1,206 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/FailedSubscriptionRequest",
+  "title": "FailedSubscriptionRequest",
+  "type": "object",
+  "definitions": {
+    "amount": {
+      "type": "object",
+      "properties": {
+        "currency": {
+          "type": "string",
+          "enum": [
+            "USD",
+            "COP",
+            "CLP",
+            "UF",
+            "PEN",
+            "MXN",
+            "CRC",
+            "GTQ",
+            "HNL",
+            "NIO",
+            "BRL",
+            "PAB"
+          ]
+        },
+        "subtotalIva": {
+          "type": "number",
+          "minimum": 0
+        },
+        "subtotalIva0": {
+          "type": "number",
+          "minimum": 0
+        },
+        "iva": {
+          "type": "number",
+          "minimum": 0
+        },
+        "ice": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "binInfo": {
+      "type": "object",
+      "properties": {
+        "bank": {
+          "type": "string"
+        },
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "consortiumName": {
+          "type": "string"
+        },
+        "info": {
+          "type": "object",
+          "properties": {
+            "brand": {
+              "type": "string"
+            },
+            "country": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              }
+            },
+            "number": {
+              "type": "object",
+              "properties": {
+                "prefix": {
+                  "type": "string"
+                }
+              }
+            },
+            "scheme": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          }
+        },
+        "processor": {
+          "type": "string"
+        }
+      }
+    },
+    "contactDetails": {
+      "properties": {
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "amount": {
+      "$ref": "#/definitions/amount"
+    },
+    "binInfo": {
+      "$ref": "#/definitions/binInfo"
+    },
+    "cardHolderName": {
+      "type": "string"
+    },
+    "contactDetails": {
+      "$ref": "#/definitions/contactDetails"
+    },
+    "created": {
+      "type": "number"
+    },
+    "dayOfMonth": {
+      "type": "number"
+    },
+    "dayOfWeek": {
+      "type": "string"
+    },
+    "expiryMonth": {
+      "type": "string"
+    },
+    "expiryYear": {
+      "type": "string"
+    },
+    "ip": {
+      "type": "string"
+    },
+    "lastFourDigits": {
+      "type": "string"
+    },
+    "maskedCardNumber": {
+      "type": "string"
+    },
+    "merchantCountry": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "periodicity": {
+      "type": "string"
+    },
+    "planName": {
+      "type": "string"
+    },
+    "startDate": {
+      "type": "number"
+    },
+    "token": {
+      "type": "string"
+    },
+    "userAgent": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "month": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    }
+  },
+  "required": ["code", "message", "merchantId"]
+}

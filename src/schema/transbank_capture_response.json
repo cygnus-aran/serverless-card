@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/TransbankCaptureResponse",
+  "title": "TransbankCaptureResponse",
+  "additionalProperties": true,
+  "type": "object",
+  "properties": {
+    "approvalCode": {
+      "type": "string"
+    },
+    "buyOrder": {
+      "type": "string"
+    },
+    "responseCode": {
+      "type": "string"
+    },
+    "responseText": {
+      "type": "string"
+    },
+    "requestedAmount": {
+      "type": "string"
+    },
+    "approvedTransactionAmount": {
+      "type": "string"
+    },
+    "ticketNumber": {
+      "type": "string"
+    },
+    "transactionId": {
+      "type": "string"
+    },
+    "creditType": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "approvalCode",
+    "buyOrder",
+    "responseCode",
+    "responseText",
+    "approvedTransactionAmount",
+    "requestedAmount"
+  ]
+}

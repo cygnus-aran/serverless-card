@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ElasticProcessor",
+  "title": "ElasticProcessor",
+  "type": "object",
+  "properties": {
+    "created": {
+      "type": "number"
+    },
+    "deleteAt": {
+      "type": "number"
+    },
+    "updatedAt": {
+      "type": "number"
+    },
+    "processorName": {
+      "type": "string"
+    },
+    "publicProcessorId": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "alias": {
+      "type": "string"
+    },
+    "isCrypto": {
+      "type": "boolean"
+    },
+    "paymentMethod": {
+      "type": "string",
+      "enum": [
+        "card",
+        "transfer",
+        "cash",
+        "payouts-cash",
+        "payouts-transfer",
+        "transfer-subscriptions"
+      ]
+    },
+    "processorType": {
+      "type": "string",
+      "enum": ["GATEWAY", "AGGREGATOR"]
+    },
+    "categoryModel": {
+      "type": "string",
+      "enum": ["formal", "gateway", "collection"]
+    },
+    "traceInfo": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "created",
+    "processorName",
+    "publicProcessorId",
+    "merchantId",
+    "alias",
+    "paymentMethod"
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/RedebanChargeRequest",
+  "title": "RedebanChargeRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "acquirerId": {
+      "type": "string"
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brand": {
+          "type": "string"
+        },
+        "amount": { "$ref": "./src/schema/amount.json" },
+        "holderName": {
+          "type": "string"
+        },
+        "months": {
+          "type": "number"
+        },
+        "bin": {
+          "type": "string"
+        },
+        "cvv": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["CREDIT", "DEBIT"]
+        }
+      },
+      "required": ["brand", "amount", "holderName", "months", "type"]
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "processorBankName": {
+      "type": "string"
+    },
+    "subscription": {
+      "type": "string"
+    },
+    "terminalId": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string"
+    },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "3DS": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "acctAuthValue": {
+          "type": "string"
+        },
+        "directoryServerTrxID": {
+          "type": "string"
+        },
+        "eci": {
+          "type": "string"
+        },
+        "secVersion": {
+          "type": "number"
+        }
+      },
+      "required": ["acctAuthValue", "directoryServerTrxID", "eci", "secVersion"]
+    }
+  },
+  "required": [
+    "acquirerId",
+    "card",
+    "documentNumber",
+    "documentType",
+    "merchantId",
+    "merchantName",
+    "processorId",
+    "processorBankName",
+    "taxes",
+    "terminalId",
+    "transactionReference",
+    "vaultToken"
+  ]
+}

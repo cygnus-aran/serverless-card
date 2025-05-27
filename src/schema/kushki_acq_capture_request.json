@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/CaptureKushkiAcqRequest",
+  "title": "CaptureKushkiAcqRequest",
+  "additionalProperties": false,
+  "type": "object",
+  "required": ["preauthTransactionReference", "transactionReference"],
+  "properties": {
+    "amount": {
+      "$ref": "./src/schema/amount.json"
+    },
+    "binInfo": {
+      "type": "object",
+      "title": "BinInfo",
+      "additionalProperties": false,
+      "properties": {
+        "bank": {
+          "type": "string"
+        },
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "prepaid": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "preauthTransactionReference": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    }
+  }
+}

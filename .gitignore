@@ -1,0 +1,48 @@
+# Jetbrains
+/.idea
+# package directories
+node_modules
+# Serverless directories
+.serverless
+
+# Webpack directories
+/.webpack
+/.vscode
+
+# OSX Files
+.DS_Store
+
+/.vscode
+
+# Kushki files
+.envrc
+*.js
+!.eslintrc.js
+!src/handler/completeValidateToken.js
+!webpack.config.js
+!.serverless_plugins/**/*.js
+.env
+.env.yml
+/types
+tmp
+!wallaby.conf.js
+npm-debug.log
+/coverage
+/.nyc_output
+/.idea/dictionaries/patricio.xml
+/.env.yml
+/.idea/inspectionProfiles/profiles_settings.xml
+env.yml
+yarn-error.log
+yarn.lock
+*.js.map
+.coverage/
+.cache-loader
+__MACOSX
+/.kushki
+/my-artifacts
+radar.conf
+.jscpd/
+!ServerlessScripts.js
+!esbuild-plugins.js
+.vscode

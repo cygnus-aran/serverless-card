@@ -1,0 +1,363 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/SubscriptionDynamo",
+  "title": "SubscriptionDynamo",
+  "type": "object",
+  "definitions": {
+    "retryConfiguration": {
+      "type": "object",
+      "properties": {
+        "retryType": {
+          "type": "string",
+          "enum": ["default", "scheduled", "fixed"]
+        },
+        "value": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 31
+          }
+        }
+      },
+      "required": ["retryType", "value"]
+    }
+  },
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "[0-9]{16}"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "expirationDate": {
+      "type": "number"
+    },
+    "subscriptionId": {
+      "type": "string"
+    },
+    "cardHolderName": {
+      "type": "string"
+    },
+    "merchantCountry": {
+      "type": "string"
+    },
+    "amount": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-subscriptions/v1.4/amount.json"
+    },
+    "plccMetadataId": {
+      "type": "string"
+    },
+    "subMetadataId": {
+      "type": "string"
+    },
+    "periodicity": {
+      "type": "string",
+      "enum": [
+        "daily",
+        "weekly",
+        "biweekly",
+        "monthly",
+        "threefortnights",
+        "bimonthly",
+        "quarterly",
+        "fourmonths",
+        "halfYearly",
+        "yearly",
+        "custom"
+      ]
+    },
+    "contactDetails": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "secondLastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "orderDetails": {
+      "type": "object",
+      "properties": {
+        "billingDetails": {
+          "type": "object",
+          "properties": {
+            "address": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "region": {
+              "type": "string"
+            },
+            "zipCode": {
+              "type": "string"
+            }
+          }
+        },
+        "shippingDetails": {
+          "type": "object",
+          "properties": {
+            "address": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "region": {
+              "type": "string"
+            },
+            "zipCode": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "token": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "startDate": {
+      "type": "number"
+    },
+    "endDate": {
+      "type": "number"
+    },
+    "created": {
+      "type": "number"
+    },
+    "planName": {
+      "type": "string"
+    },
+    "kushkiInfo": {
+      "type": "object"
+    },
+    "binInfo": {
+      "type": "object",
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-card/v1.4/dynamo_bin_fetch.json"
+    },
+    "dayOfMonth": {
+      "type": "number"
+    },
+    "month": {
+      "type": "string"
+    },
+    "dayOfWeek": {
+      "type": "string"
+    },
+    "retry": {
+      "id": "RetryType",
+      "title": "RetryType",
+      "anyOf": [
+        {
+          "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-subscriptions/v1/default_retry.json"
+        },
+        {
+          "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-subscriptions/v1/scheduled_retry.json"
+        },
+        {
+          "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-subscriptions/v1/fixed_retry.json"
+        }
+      ]
+    },
+    "retryCount": {
+      "type": "number"
+    },
+    "expirationTime": {
+      "type": "number"
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "lastFourDigits": {
+      "type": "string"
+    },
+    "adjustment": {
+      "type": "object",
+      "id": "Adjustment",
+      "title": "Adjustment",
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-subscriptions/v1.4/amount.json"
+        },
+        "periods": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": ["amount", "periods"]
+    },
+    "retryConfiguration": {
+      "$ref": "#/definitions/retryConfiguration"
+    },
+    "nextAttemptDay": {
+      "type": "number"
+    },
+    "lastRetryDate": {
+      "type": "number"
+    },
+    "urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "url": {
+      "type": "string"
+    },
+    "maskedCardNumber": {
+      "type": "string"
+    },
+    "commerceId": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "deleteAt": {
+      "type": "number"
+    },
+    "updateAt": {
+      "type": "number"
+    },
+    "lastChargeDate": {
+      "type": "number"
+    },
+    "cardType": {
+      "type": "string"
+    },
+    "convertedAmount": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "totalAmount": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "amount": {
+          "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-subscriptions/v1.4/amount.json"
+        }
+      },
+      "required": ["totalAmount", "currency", "amount"]
+    },
+    "callbackUrl": {
+      "type": "string"
+    },
+    "subscriptionStatus": {
+      "type": "string"
+    },
+    "tbkUser": {
+      "type": "string"
+    },
+    "ip": {
+      "type": "string"
+    },
+    "userAgent": {
+      "type": "string"
+    },
+    "count": {
+      "type": "number"
+    },
+    "maxCount": {
+      "type": "number"
+    },
+    "sandboxUrl": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "expiryMonth": {
+      "type": "string"
+    },
+    "expiryYear": {
+      "type": "string"
+    },
+    "mgStatus": {
+      "type": "string"
+    },
+    "processorToken": {
+      "type": "string"
+    },
+    "mccCode": {
+      "type": "string"
+    },
+    "publicCredentialId": { "type": "string" },
+    "credentialId": { "type": "string" },
+    "credentialAlias": { "type": "string" },
+    "credentialMetadata": { "type": "object" },
+    "accountType": {
+      "type": "string",
+      "enum": ["CR", "CA", "CC"]
+    },
+    "config": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/general/v3.4/region.json"
+    }
+  },
+  "required": [
+    "id",
+    "subscriptionId",
+    "metadata",
+    "amount",
+    "periodicity",
+    "token",
+    "merchantId",
+    "startDate",
+    "created",
+    "planName",
+    "dayOfMonth",
+    "month",
+    "dayOfWeek",
+    "active",
+    "contactDetails",
+    "maskedCardNumber"
+  ]
+}

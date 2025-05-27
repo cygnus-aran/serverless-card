@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/CybersourceEnv",
+  "title": "CybersourceEnv",
+  "additionalProperties": false,
+  "type": "object",
+  "required": ["apiIdentifier", "organizationApiKey", "organizationUnitId"],
+  "properties": {
+    "apiIdentifier": {
+      "type": "string"
+    },
+    "organizationUnitId": {
+      "type": "string"
+    },
+    "organizationApiKey": {
+      "type": "string"
+    }
+  }
+}

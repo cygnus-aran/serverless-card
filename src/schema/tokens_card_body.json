@@ -1,0 +1,526 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/TokensCardBody",
+  "title": "TokensCardBody",
+  "definitions": {
+    "tokenType": {
+      "type": "string",
+      "enum": ["Mastercard"]
+    },
+    "cybersource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authentication", "detail"],
+      "properties": {
+        "authentication": {
+          "type": "boolean"
+        },
+        "detail": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "cavv": {
+              "type": "string"
+            },
+            "commerceIndicator": {
+              "type": "string"
+            },
+            "eci": {
+              "type": "string"
+            },
+            "xid": {
+              "type": "string"
+            },
+            "authenticationTransactionId": {
+              "type": "string"
+            },
+            "paresStatus": {
+              "type": "string"
+            },
+            "veresEnrolled": {
+              "type": "string"
+            },
+            "acsURL": {
+              "type": "string"
+            },
+            "paReq": {
+              "type": "string"
+            },
+            "proxyPan": {
+              "type": "string"
+            },
+            "specificationVersion": {
+              "type": "number"
+            },
+            "ucafCollectionIndicator": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "transactionRuleInfo": {
+      "type": "object",
+      "properties": {
+        "processor": {
+          "type": "string"
+        },
+        "publicId": {
+          "type": "string"
+        },
+        "privateId": {
+          "type": "string"
+        },
+        "secureService": {
+          "type": "string"
+        },
+        "secureId": {
+          "type": "string"
+        },
+        "cybersource": {
+          "type": "object"
+        },
+        "plcc": {
+          "type": "string"
+        },
+        "partnerValidator": {
+          "type": "string"
+        },
+        "whiteList": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "object",
+          "properties": {
+            "canIgnoreWarnings": {
+              "type": "boolean"
+            },
+            "rules": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "failOverProcessor": {
+          "type": "object",
+          "required": ["processor", "publicId", "privateId"],
+          "properties": {
+            "processor": {
+              "type": "string"
+            },
+            "publicId": {
+              "type": "string"
+            },
+            "privateId": {
+              "type": "string"
+            }
+          }
+        },
+        "cybersource": {
+          "$ref": "#/definitions/cybersource"
+        },
+        "integration": {
+          "type": "string"
+        },
+        "completeTransactionType": {
+          "type": "string",
+          "enum": ["soap", "rest", "mall"]
+        },
+        "credentials": {
+          "$ref": "./src/schema/transbank_credentials.json"
+        },
+        "omitCVV": {
+          "type": "boolean"
+        },
+        "cybersourceApiValidation": {
+          "type": "boolean"
+        }
+      },
+      "required": ["processor", "publicId", "privateId"]
+    },
+    "contactDetails": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "firstName",
+        "lastName",
+        "email",
+        "documentType",
+        "documentNumber",
+        "phoneNumber"
+      ]
+    },
+    "cardInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "maskedCardNumber": {
+          "type": "string"
+        },
+        "cardHolderName": {
+          "type": "string"
+        },
+        "bin": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "expiryYear": {
+          "type": "string"
+        },
+        "expiryMonth": {
+          "type": "string"
+        },
+        "isBlocked": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "maskedCardNumber",
+        "cardHolderName",
+        "bin",
+        "lastFourDigits"
+      ]
+    },
+    "cardToken": {
+      "properties": {
+        "currency": {
+          "type": "string",
+          "enum": [
+            "USD",
+            "COP",
+            "PEN",
+            "CLP",
+            "UF",
+            "MXN",
+            "CRC",
+            "GTQ",
+            "HNL",
+            "NIO",
+            "BRL"
+          ]
+        },
+        "isDeferred": {
+          "type": "boolean"
+        },
+        "totalAmount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "rememberMe": {
+          "type": "string",
+          "enum": ["0", "1"]
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "authValidation": {
+          "type": "string",
+          "enum": ["url", "iframe"]
+        },
+        "callbackUrl": {
+          "type": "string"
+        },
+        "userId": {
+          "type": ["string", "null"],
+          "pattern": "^[a-zA-Z0-9]{16,}$"
+        },
+        "sessionId": {
+          "type": ["string", "null"]
+        },
+        "months": {
+          "type": "integer"
+        },
+        "partners": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "required": ["amount", "merchantId"],
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "amount": {
+                "required": ["subtotalIva", "subtotalIva0", "iva", "currency"],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "subtotalIva": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "subtotalIva0": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "iva": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "ice": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "currency": {
+                    "type": "string",
+                    "enum": [
+                      "USD",
+                      "COP",
+                      "PEN",
+                      "CLP",
+                      "UF",
+                      "MXN",
+                      "CRC",
+                      "GTQ",
+                      "HNL",
+                      "NIO",
+                      "BRL"
+                    ]
+                  }
+                }
+              },
+              "merchantId": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "binInfo": {
+          "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-card/v1.5/dynamo_bin_fetch.json"
+        },
+        "vaultToken": {
+          "type": "string"
+        },
+        "transactionCardId": {
+          "type": "string"
+        },
+        "cardInfo": {
+          "$ref": "#/definitions/cardInfo"
+        },
+        "contactDetails": {
+          "$ref": "#/definitions/contactDetails"
+        },
+        "transactionRuleInfo": {
+          "$ref": "#/definitions/transactionRuleInfo"
+        },
+        "accountType": {
+          "type": "string",
+          "enum": ["CR", "CA", "CC"]
+        },
+        "transactionMode": {
+          "type": "string"
+        },
+        "kushkiInfo": {
+          "$ref": "#/definitions/kushkiInfo"
+        }
+      },
+      "required": [
+        "totalAmount",
+        "card",
+        "binInfo",
+        "vaultToken",
+        "cardInfo",
+        "transactionRuleInfo"
+      ],
+      "type": "object"
+    },
+    "tokenToken": {
+      "type": "object",
+      "required": [
+        "kind",
+        "token",
+        "totalAmount",
+        "binInfo",
+        "vaultToken",
+        "cardInfo",
+        "transactionRuleInfo"
+      ],
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/tokenType"
+        },
+        "token": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "USD",
+            "COP",
+            "PEN",
+            "CLP",
+            "UF",
+            "MXN",
+            "CRC",
+            "GTQ",
+            "HNL",
+            "NIO",
+            "BRL"
+          ]
+        },
+        "isDeferred": {
+          "type": "boolean"
+        },
+        "totalAmount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "rememberMe": {
+          "type": "string",
+          "enum": ["0", "1"]
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "userId": {
+          "type": ["string", "null"],
+          "pattern": "^[a-zA-Z0-9]{16,}$"
+        },
+        "sessionId": {
+          "type": ["string", "null"]
+        },
+        "months": {
+          "type": "integer"
+        },
+        "binInfo": {
+          "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-card/v1.5/dynamo_bin_fetch.json"
+        },
+        "vaultToken": {
+          "type": "string"
+        },
+        "cardInfo": {
+          "$ref": "#/definitions/cardInfo"
+        },
+        "transactionRuleInfo": {
+          "$ref": "#/definitions/transactionRuleInfo"
+        },
+        "accountType": {
+          "type": "string",
+          "enum": ["CR", "CA", "CC"]
+        },
+        "kushkiInfo": {
+          "$ref": "#/definitions/kushkiInfo"
+        }
+      }
+    },
+    "validationToken": {
+      "type": "object",
+      "required": ["totalAmount", "card"],
+      "properties": {
+        "transactionMode": {
+          "type": "string",
+          "enum": ["accountValidation"]
+        },
+        "card": {
+          "type": "object",
+          "properties": {
+            "cvv": {
+              "type": ["string", "null"],
+              "pattern": "^[0-9]{3,4}$"
+            },
+            "expiryMonth": {
+              "type": "string",
+              "pattern": "^(1[0-2]|0[1-9]|[1-9])$"
+            },
+            "expiryYear": {
+              "type": "string",
+              "pattern": "^[1-9][0-9]$"
+            },
+            "name": {
+              "type": "string"
+            },
+            "number": {
+              "type": "string",
+              "pattern": "^[0-9]{14,19}$"
+            }
+          },
+          "required": ["cvv", "expiryMonth", "expiryYear", "name", "number"]
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "USD",
+            "COP",
+            "PEN",
+            "CLP",
+            "UF",
+            "MXN",
+            "CRC",
+            "GTQ",
+            "HNL",
+            "NIO",
+            "BRL"
+          ]
+        },
+        "totalAmount": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": ["transactionMode", "card", "currency", "totalAmount"]
+    },
+    "kushkiInfo": {
+      "type": "object",
+      "properties": {
+        "resource": {
+          "type": "string"
+        },
+        "authorizer": {
+          "type": "string"
+        },
+        "platformId": {
+          "type": "string"
+        },
+        "platformVersion": {
+          "type": "string"
+        },
+        "origin": {
+          "type": "string"
+        }
+      },
+      "required": ["resource", "authorizer", "platformVersion", "platformId"]
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/definitions/cardToken"
+    },
+    {
+      "$ref": "#/definitions/tokenToken"
+    },
+    {
+      "$ref": "#/definitions/validationToken"
+    }
+  ]
+}

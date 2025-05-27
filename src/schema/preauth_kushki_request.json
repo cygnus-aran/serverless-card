@@ -1,0 +1,225 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/PreAuthKushkiAcqRequest",
+  "title": "PreAuthKushkiAcqRequest",
+  "additionalProperties": false,
+  "type": "object",
+  "definitions": {
+    "contactDetails": {
+      "type": "object",
+      "properties": {
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "secondLastName": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "deferred": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "creditType": {
+          "type": "string"
+        },
+        "graceMonths": {
+          "type": "string"
+        },
+        "months": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  "properties": {
+    "subMerchant": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-subscriptions/v1.3/sub_merchant.json"
+    },
+    "authorizerContext": {
+      "$ref": "./src/schema/authorizer_context.json"
+    },
+    "binInfo": {
+      "type": "object",
+      "title": "BinInfo",
+      "additionalProperties": false,
+      "properties": {
+        "bank": {
+          "type": "string"
+        },
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "brandProductCode": {
+          "type": "string"
+        }
+      }
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "amount": { "$ref": "./src/schema/amount.json" },
+        "deferred": {
+          "$ref": "#/definitions/deferred"
+        },
+        "holderName": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "months": {
+          "type": "number"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["CREDIT", "DEBIT"]
+        }
+      },
+      "required": [
+        "bin",
+        "brand",
+        "amount",
+        "holderName",
+        "lastFourDigits",
+        "type"
+      ]
+    },
+    "cardId": {
+      "type": "string"
+    },
+    "citMit": {
+      "type": "string",
+      "enum": [
+        "C101",
+        "C102",
+        "C103",
+        "C104",
+        "M101",
+        "M102",
+        "M103",
+        "M104",
+        "M205",
+        "M206",
+        "M207",
+        "M208"
+      ]
+    },
+    "cvv2": {
+      "type": "string"
+    },
+    "externalSubscriptionID": {
+      "type": "string"
+    },
+    "isBlockedCard": {
+      "type": "boolean"
+    },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "isSubscription": {
+      "type": "boolean"
+    },
+    "maskedCardNumber": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantCountry": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "processorBankName": {
+      "type": "string"
+    },
+    "processorMerchantId": {
+      "type": "string"
+    },
+    "subscriptionId": {
+      "type": "string"
+    },
+    "terminalId": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string",
+      "enum": ["transaction", "subscription"]
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "contactDetails": {
+      "$ref": "#/definitions/contactDetails"
+    },
+    "3DS": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eci": {
+          "type": "string"
+        },
+        "xid": {
+          "type": "string"
+        },
+        "cavv": {
+          "type": "string"
+        }
+      },
+      "required": ["eci", "cavv", "xid"]
+    }
+  },
+  "required": [
+    "authorizerContext",
+    "card",
+    "isDeferred",
+    "merchantId",
+    "merchantName",
+    "processorId",
+    "processorBankName",
+    "tokenType",
+    "transactionReference",
+    "vaultToken",
+    "maskedCardNumber"
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/AcqValidateAccountRequest",
+  "title": "AcqValidateAccountRequest",
+  "additionalProperties": true,
+  "type": "object",
+  "properties": {
+    "subMerchant": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-subscriptions/v1.4/sub_merchant_dynamo.json"
+    },
+    "binInfo": {
+      "$ref": "./src/schema/bin_info_acq.json"
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "holderName": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["CREDIT", "DEBIT"]
+        }
+      },
+      "required": [
+        "bin",
+        "brand",
+        "holderName",
+        "lastFourDigits",
+        "months",
+        "type"
+      ]
+    },
+    "currency": {
+      "type": "string",
+      "enum": ["USD", "COP", "PEN", "CLP", "UF", "MXN"]
+    },
+    "maskedCardNumber": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "authorizerContext": {
+      "$ref": "./src/schema/authorizer_context.json"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "processorMerchantId": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "processorBankName": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string",
+      "enum": ["transaction", "subscription"]
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "isBlockedCard": {
+      "type": "boolean"
+    },
+    "transactionCardId": {
+      "type": "string"
+    },
+    "3DS": {
+      "type": "object",
+      "title": "ThreeDS",
+      "additionalProperties": false,
+      "properties": {
+        "eci": {
+          "type": "string"
+        },
+        "xid": {
+          "type": "string"
+        },
+        "cavv": {
+          "type": "string"
+        },
+        "option": {
+          "type": "number"
+        },
+        "directoryServerTrxID": {
+          "type": "string"
+        },
+        "acctAuthValue": {
+          "type": "string"
+        }
+      },
+      "required": ["eci", "cavv", "xid"]
+    }
+  },
+  "required": [
+    "card",
+    "currency",
+    "merchantId",
+    "authorizerContext",
+    "merchantName",
+    "processorId",
+    "processorBankName",
+    "processorMerchantId",
+    "tokenType",
+    "transactionReference",
+    "vaultToken",
+    "maskedCardNumber"
+  ]
+}

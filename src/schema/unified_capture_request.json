@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/UnifiedCaptureRequest",
+  "title": "UnifiedCaptureRequest",
+  "properties": {
+    "captureRequest": {
+      "$ref": "src/schema/capture_card_request.json"
+    },
+    "authorizer": {
+      "$ref": "src/schema/authorizer_context.json"
+    },
+    "token": {
+      "$ref": "src/schema/dynamo_token_fetch.json"
+    },
+    "last_transaction": {
+      "$ref": "src/schema/transaction.json"
+    },
+    "merchant": {
+      "$ref": "src/schema/dynamo_merchant_fetch.json"
+    },
+    "subscription": {
+      "$ref": "src/schema/subscription_dynamo.json"
+    },
+    "pathSubscriptionId": {
+      "type": "string"
+    },
+    "usrvOrigin": {
+      "type": "string",
+      "enum": ["usrv-card", "usrv-subscriptions"]
+    }
+  },
+  "required": ["captureRequest", "authorizer", "usrvOrigin"],
+  "type": "object"
+}

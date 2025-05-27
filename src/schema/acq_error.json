@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/AcqError",
+  "title": "AcqError",
+  "description": "AcqError",
+  "type": "object",
+  "additionalProperties": true,
+  "definitions": {
+    "TransactionDetails": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "approvalCode": {
+          "type": "string"
+        },
+        "binCard": {
+          "type": "string"
+        },
+        "cardHolderName": {
+          "type": "string"
+        },
+        "cardType": {
+          "type": "string"
+        },
+        "isDeferred": {
+          "type": "string"
+        },
+        "lastFourDigitsOfCard": {
+          "type": "string"
+        },
+        "merchantName": {
+          "type": "string"
+        },
+        "processorBankName": {
+          "type": "string"
+        },
+        "processorName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "binCard",
+        "cardHolderName",
+        "cardType",
+        "isDeferred",
+        "lastFourDigitsOfCard",
+        "merchantName",
+        "processorBankName",
+        "processorName"
+      ]
+    }
+  },
+  "properties": {
+    "approved_amount": {
+      "type": "string"
+    },
+    "authorizer": {
+      "type": "string"
+    },
+    "response_code": {
+      "type": "string"
+    },
+    "response_text": {
+      "type": "string"
+    },
+    "ticket_number": {
+      "type": "string"
+    },
+    "transaction_details": {
+      "$ref": "#/definitions/TransactionDetails"
+    },
+    "transaction_id": {
+      "type": "string"
+    },
+    "transaction_reference": {
+      "type": "string"
+    },
+    "processor_code": {
+      "type": "string"
+    },
+    "response_time": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "approved_amount",
+    "processor_code",
+    "response_code",
+    "response_text",
+    "response_time",
+    "ticket_number",
+    "transaction_details",
+    "transaction_id"
+  ]
+}

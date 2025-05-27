@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/CaptureCardProsaRequest",
+  "title": "CaptureCardProsaRequest",
+  "additionalProperties": false,
+  "properties": {
+    "token": {
+      "type": "string"
+    },
+    "amount": { "$ref": "./src/schema/amount.json" },
+    "subMccCode": {
+      "type": "string"
+    },
+    "acquirerBankId": {
+      "type": "string"
+    },
+    "acquirerBank": {
+      "type": "string"
+    },
+    "approvalCode": {
+      "type": "string"
+    },
+    "terminal": {
+      "type": "string"
+    },
+    "commerceCode": {
+      "type": "string"
+    },
+    "softDescriptor": {
+      "type": "string"
+    },
+    "affiliation": {
+      "type": "string"
+    },
+    "processorType": {
+      "type": "string"
+    },
+    "cardType": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "paymentBrand": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "token",
+    "acquirerBank",
+    "approvalCode",
+    "cardType",
+    "commerceCode",
+    "terminal",
+    "processorType",
+    "affiliation",
+    "softDescriptor",
+    "subMccCode",
+    "tokenType",
+    "amount",
+    "transactionReference",
+    "paymentBrand"
+  ],
+  "type": "object"
+}

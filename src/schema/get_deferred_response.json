@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/GetDeferredResponse",
+  "title": "GetDeferredResponse",
+  "description": "",
+  "additionalProperties": false,
+  "properties": {
+    "deferred": {
+      "type": "array",
+      "items": {
+        "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-card/v1/deferred_response.json"
+      }
+    }
+  },
+  "required": ["deferred"],
+  "type": "object"
+}

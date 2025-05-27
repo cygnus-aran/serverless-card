@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/VaultAurusTokenResponse",
+  "title": "VaultAurusTokenResponse",
+  "additionalProperties": false,
+  "definitions": {
+    "card": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "maskedNumber": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "bin": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "properties": {
+    "body": {
+      "additionalProperties": false,
+      "properties": {
+        "card": { "$ref": "#/definitions/card" },
+        "token": {
+          "type": "string"
+        }
+      },
+      "required": ["token"]
+    }
+  },
+  "additionalProperties": false,
+  "required": ["body"],
+  "type": "object"
+}

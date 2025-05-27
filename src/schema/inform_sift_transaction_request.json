@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/InformSiftTransactionRequest",
+  "title": "InformSiftTransactionRequest",
+  "properties": {
+    "amount": {
+      "type": "number"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "sessionId": {
+      "type": "string"
+    },
+    "ticket_number": {
+      "type": "string"
+    },
+    "transaction_reference": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "amount",
+    "merchantId",
+    "currency",
+    "sessionId",
+    "ticket_number",
+    "transaction_reference",
+    "userId"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/TransbankChargeRequest",
+  "title": "TransbankChargeRequest",
+  "definitions": {
+    "chargeRequest": {
+      "properties": {
+        "referenceNumber": {
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 3
+        },
+        "totalAmount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "currency": {
+          "type": "string",
+          "enum": ["CLP"]
+        },
+        "shareNumber": {
+          "type": "number",
+          "minimum": 1
+        },
+        "gracePeriod": {
+          "type": "boolean"
+        }
+      },
+      "required": ["referenceNumber", "currency", "totalAmount"]
+    }
+  },
+  "properties": {
+    "tokenVault": {
+      "type": "string"
+    },
+    "processorId": { "type": "string" },
+    "merchantId": { "type": "string" },
+    "merchantName": { "type": "string" },
+    "chargeRequest": { "$ref": "#/definitions/chargeRequest" }
+  },
+  "required": [
+    "processorId",
+    "tokenVault",
+    "chargeRequest",
+    "merchantId",
+    "merchantName"
+  ],
+  "type": "object"
+}

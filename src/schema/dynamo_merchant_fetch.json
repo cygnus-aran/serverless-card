@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/DynamoMerchantFetch",
+  "title": "DynamoMerchantFetch",
+  "description": "",
+  "properties": {
+    "public_id": {
+      "type": "string"
+    },
+    "accountType": {
+      "title": "string"
+    },
+    "merchant_name": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "sift_science": {
+      "type": "object",
+      "properties": {
+        "SandboxApiKey": {
+          "type": "string"
+        },
+        "ProdApiKey": {
+          "type": "string"
+        },
+        "SiftScore": {
+          "type": "number"
+        },
+        "SandboxAccountId": {
+          "type": "string"
+        },
+        "ProdAccountId": {
+          "type": "string"
+        }
+      }
+    },
+    "deferredOptions": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-card/v1/deferred_option.json"
+          }
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
+    "whiteList": {
+      "type": "boolean"
+    },
+    "sandboxEnable": {
+      "type": "boolean"
+    },
+    "acceptCreditCards": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "taxId": {
+      "type": "string"
+    },
+    "merchant_url": {
+      "type": "string"
+    },
+    "socialReason": {
+      "type": "string"
+    },
+    "merchantCategory": {
+      "type": "string"
+    },
+    "constitutionalCountry": {
+      "type": "string"
+    },
+    "clientType": {
+      "type": "string"
+    },
+    "config": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/general/v3.4/region.json"
+    },
+    "address": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "cityDescription": {
+      "type": "string"
+    },
+    "provinceDescription": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "province": {
+      "type": "string"
+    },
+    "webSite": {
+      "type": "string"
+    },
+    "zipCode": {
+      "type": "string"
+    }
+  },
+  "required": ["public_id", "sift_science", "merchant_name"],
+  "type": "object"
+}

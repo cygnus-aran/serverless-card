@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://ksh/ThreeDomainSecureRequest",
+  "type": "object",
+  "title": "Three Domain Secure Request Object",
+  "description": "Three Domain Secure object contains fields received when the client has its own integration with a 3DS Server.",
+  "examples": [
+    {
+      "authenticationData": "hO2FyZGluYWxjb21tZXJjZWF1dGg",
+      "cavv": "1234567890123456789012345678901234567890",
+      "directoryServer": "f38e6947-5388-41a6-bca4-b49723c1a437",
+      "eci": "00",
+      "xid": "",
+      "ucaf": "01",
+      "3dsIndicator": "1.0"
+    }
+  ],
+  "required": [
+    "cavv",
+    "directoryServer",
+    "eci",
+    "ucaf",
+    "3dsIndicator",
+    "specificationVersion"
+  ],
+  "properties": {
+    "authenticationData": {
+      "type": "string",
+      "description": "3DS authentication data.",
+      "examples": ["hO2FyZGluYWxjb21tZXJjZWF1dGg"]
+    },
+    "cavv": {
+      "type": "string",
+      "description": "Cardholder Authentication Verification Value (CAVV) For Visa Secure transactions.",
+      "examples": ["1234567890123456789012345678901234567890"]
+    },
+    "directoryServer": {
+      "type": "string",
+      "description": "Transaction ID of the 3D Secure provider's directory server, commonly a UUID.",
+      "examples": ["f38e6947-5388-41a6-bca4-b49723c1a437"]
+    },
+    "eci": {
+      "type": "string",
+      "description": "The Electronic Commerce Indicator (ECI) is a value returned by the directory servers (namely Visa, MasterCard, JCB and American Express) that indicates the result of the authentication attempted on transactions enforced by 3DS.",
+      "examples": ["00"]
+    },
+    "xid": {
+      "type": "string",
+      "description": "This is the transaction ID of the 3D Secure provider. This is Base64 encoded data."
+    },
+    "ucaf": {
+      "type": "string",
+      "examples": ["01"]
+    },
+    "3dsIndicator": {
+      "type": "string",
+      "description": "3DS version used to authenticate the card.",
+      "examples": ["1.0"]
+    },
+    "acceptRisk": {
+      "type": "boolean"
+    },
+    "specificationVersion": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

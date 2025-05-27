@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/Sub_merchant_data",
+  "title": "SubMerchantData",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "pfId",
+    "subId",
+    "subStreet",
+    "subCity",
+    "subState",
+    "subName",
+    "subCountryCode",
+    "subPostalCode",
+    "subTaxId"
+  ],
+  "properties": {
+    "pfId": {
+      "type": "string"
+    },
+    "subName": {
+      "type": "string"
+    },
+    "subId": {
+      "type": "string"
+    },
+
+    "subStreet": {
+      "type": "string"
+    },
+    "subCity": {
+      "type": "string"
+    },
+    "subState": {
+      "type": "string"
+    },
+    "subCountryCode": {
+      "type": "string"
+    },
+    "subPostalCode": {
+      "type": "string"
+    },
+    "subTaxId": {
+      "type": "string"
+    }
+  }
+}

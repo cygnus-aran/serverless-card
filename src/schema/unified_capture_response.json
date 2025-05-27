@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/UnifiedCaptureResponse",
+  "title": "UnifiedCaptureResponse",
+  "properties": {
+    "aurusResponse": {
+      "$ref": "src/schema/aurus_response.json"
+    },
+    "subscription": {
+      "$ref": "src/schema/subscription_dynamo.json"
+    },
+    "token": {
+      "$ref": "src/schema/dynamo_token_fetch.json"
+    },
+    "processor": {
+      "$ref": "src/schema/dynamo_processor_fetch.json"
+    },
+    "trxRuleResponse": {
+      "$ref": "src/schema/lambda_transaction_rule_response.json"
+    },
+    "preAuthTransaction": {
+      "$ref": "src/schema/transaction.json"
+    },
+    "captureTransaction": {
+      "$ref": "src/schema/transaction.json"
+    }
+  },
+  "required": [
+    "aurusResponse",
+    "token",
+    "processor",
+    "trxRuleResponse",
+    "preAuthTransaction",
+    "captureTransaction"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,181 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "AcqInvokeRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "authorizerContext": {
+      "$ref": "./src/schema/authorizer_context.json"
+    },
+    "amount": {
+      "type": "object",
+      "title": "Amount",
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "type": "string",
+          "enum": ["USD", "COP", "PEN", "CLP", "UF", "MXN"]
+        },
+        "subtotal_iva": {
+          "type": "number",
+          "minimum": 0
+        },
+        "subtotal_iva0": {
+          "type": "number",
+          "minimum": 0
+        },
+        "iva": {
+          "type": "number",
+          "minimum": 0
+        },
+        "ice": {
+          "type": "number",
+          "minimum": 0
+        },
+        "extra_taxes": {
+          "additionalProperties": false,
+          "properties": {
+            "airport_tax": {
+              "type": "number",
+              "minimum": 0
+            },
+            "iac": {
+              "type": "number",
+              "minimum": 0
+            },
+            "ice": {
+              "type": "number",
+              "minimum": 0
+            },
+            "tip": {
+              "type": "number",
+              "minimum": 0
+            },
+            "travel_agency": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": ["subtotal_iva", "subtotal_iva0", "iva"]
+    },
+    "bin_info": {
+      "$ref": "./src/schema/bin_info_acq.json"
+    },
+    "contact_details": {
+      "type": "object",
+      "title": "ContactDetails",
+      "additionalProperties": false,
+      "properties": {
+        "document_number": {
+          "type": "string"
+        },
+        "document_type": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "secondLast_name": {
+          "type": "string"
+        },
+        "phone_number": {
+          "type": "string"
+        }
+      }
+    },
+    "full_response": {
+      "type": "string"
+    },
+    "three_ds": {
+      "title": "ThreeDs",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "3ds_indicator": {
+          "type": "string"
+        },
+        "authentication_data": {
+          "type": "string"
+        },
+        "CAVV": {
+          "type": "string"
+        },
+        "directory_server_transactionID": {
+          "type": "string"
+        },
+        "ECI": {
+          "type": "string"
+        },
+        "XID": {
+          "type": "string"
+        },
+        "UCAF": {
+          "type": "string"
+        }
+      }
+    },
+    "deferred": {
+      "type": "object",
+      "properties": {
+        "grace_months": {
+          "type": "string"
+        },
+        "credit_type": {
+          "type": "string"
+        },
+        "months": {
+          "type": "string"
+        }
+      }
+    },
+    "transaction_type": {
+      "type": "string"
+    },
+    "merchant_id": {
+      "type": "string"
+    },
+    "merchant_information_id": {
+      "type": "string"
+    },
+    "transaction_mode": {
+      "type": "string"
+    },
+    "client_transaction_id": {
+      "type": "string"
+    },
+    "vault_token": {
+      "type": "string"
+    },
+    "token_type": {
+      "type": "string"
+    },
+    "is_blocked_card": {
+      "type": "boolean"
+    },
+    "transaction_card_id": {
+      "type": "string"
+    },
+    "sub_merchant": {
+      "$ref": "src/schema/sub_merchant_acq.json"
+    }
+  },
+  "required": [
+    "authorizerContext",
+    "amount",
+    "transaction_type",
+    "merchant_id",
+    "merchant_information_id",
+    "transaction_mode",
+    "vault_token"
+  ]
+}

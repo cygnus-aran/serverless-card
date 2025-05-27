@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/Validate3DSVisaRequest",
+  "title": "Validate3DSVisaRequest",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "cavv": {
+      "maxLength": 28,
+      "minLength": 28,
+      "type": "string"
+    },
+    "eci": {
+      "enum": ["05", "06", "07"],
+      "type": "string"
+    },
+    "specificationVersion": {
+      "maxLength": 5,
+      "minLength": 5,
+      "type": "string"
+    },
+    "xid": {
+      "maxLength": 28,
+      "minLength": 28,
+      "type": "string"
+    }
+  },
+  "required": ["cavv", "eci", "specificationVersion"]
+}

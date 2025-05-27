@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://ksh/ThreeDSCustomerResponse",
+  "type": "object",
+  "title": "Three DS Customer Response Object",
+  "description": "Three DS object contains fields received from a 3ds auth and used when a merchant is a 3ds response customer.",
+  "required": ["authenticated", "eci", "brand", "version", "enrollment_status"],
+  "threeDSCustomerResponse": {
+    "type": "object",
+    "properties": {
+      "authenticated": {
+        "type": "boolean"
+      },
+      "eci": {
+        "type": "string"
+      },
+      "brand": {
+        "type": "string"
+      },
+      "version": {
+        "type": "string"
+      },
+      "enrollment_status": {
+        "type": "string"
+      }
+    }
+  },
+
+  "properties": {
+    "authenticated": {
+      "type": "boolean",
+      "description": "3DS authentication."
+    },
+    "eci": {
+      "type": "string",
+      "description": "The Electronic Commerce Indicator (ECI) is a value returned by the directory servers (namely Visa, MasterCard, JCB and American Express) that indicates the result of the authentication attempted on transactions enforced by 3DS.",
+      "examples": ["00"]
+    },
+    "brand": {
+      "type": "string",
+      "description": "Card brand used for the operation."
+    },
+    "version": {
+      "type": "string"
+    },
+    "enrollment_status": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

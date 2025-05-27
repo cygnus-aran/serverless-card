@@ -1,0 +1,228 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/PreauthFullResponseV2",
+  "title": "PreauthFullResponseV2",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "currency": {
+      "type": "string",
+      "enum": ["USD", "COP", "PEN", "CLP", "UF", "MXN", "BRL"]
+    },
+    "extraTaxes": {
+      "properties": {
+        "agenciaDeViaje": {
+          "type": "number",
+          "minimum": 0
+        },
+        "iac": {
+          "type": "number",
+          "minimum": 0
+        },
+        "propina": {
+          "type": "number",
+          "minimum": 0
+        },
+        "tasaAeroportuaria": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "type": "object"
+    },
+    "messageFields": {
+      "type": "object",
+      "properties": {
+        "f38": {
+          "type": "string"
+        },
+        "f39": {
+          "type": "string"
+        },
+        "f48": {
+          "type": "object",
+          "properties": {
+            "s22": {
+              "type": "object",
+              "properties": {
+                "se5": {
+                  "type": "string"
+                }
+              }
+            },
+            "s84": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "ice": {
+      "type": "number",
+      "minimum": 0
+    },
+    "iva": {
+      "type": "number",
+      "minimum": 0
+    },
+    "subtotalIva": {
+      "type": "number",
+      "minimum": 0
+    },
+    "subtotalIva0": {
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "properties": {
+    "aurusResponse": {
+      "type": "object"
+    },
+    "ticketNumber": {
+      "type": "string",
+      "pattern": "^[0-9]{10,18}$"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "subscriptionId": {
+      "type": "string"
+    },
+    "details": {
+      "type": "object",
+      "required": [
+        "paymentBrand",
+        "transactionId",
+        "cardHolderName",
+        "lastFourDigits",
+        "binCard",
+        "processorName",
+        "processorBankName",
+        "transactionType",
+        "merchantName",
+        "approvalCode"
+      ],
+      "properties": {
+        "recap": {
+          "type": "string"
+        },
+        "approvedTransactionAmount": {
+          "type": "number"
+        },
+        "amount": {
+          "properties": {
+            "ice": {
+              "$ref": "#/definitions/ice"
+            },
+            "iva": {
+              "$ref": "#/definitions/iva"
+            },
+            "subtotalIva": {
+              "$ref": "#/definitions/subtotalIva"
+            },
+            "subtotalIva0": {
+              "$ref": "#/definitions/subtotalIva0"
+            },
+            "currency": {
+              "$ref": "#/definitions/currency"
+            },
+            "extraTaxes": {
+              "$ref": "#/definitions/extraTaxes"
+            }
+          },
+          "required": ["iva", "subtotalIva", "subtotalIva0"]
+        },
+        "created": {
+          "type": "number"
+        },
+        "responseCode": {
+          "type": "string"
+        },
+        "transactionType": {
+          "type": "string"
+        },
+        "approvalCode": {
+          "type": "string"
+        },
+        "transactionStatus": {
+          "type": "string"
+        },
+        "merchantId": {
+          "type": "string"
+        },
+        "transactionId": {
+          "type": "string"
+        },
+        "responseText": {
+          "type": "string"
+        },
+        "cardHolderName": {
+          "type": "string"
+        },
+        "paymentBrand": {
+          "type": "string"
+        },
+        "requestAmount": {
+          "type": "number"
+        },
+        "merchantName": {
+          "type": "string"
+        },
+        "processorBankName": {
+          "type": "string"
+        },
+        "transactionReference": {
+          "type": "string"
+        },
+        "binInfo": {
+          "type": "object",
+          "properties": {
+            "bank": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "lastFourDigits": {
+              "type": "string"
+            },
+            "cardCountry": {
+              "type": "string"
+            }
+          }
+        },
+        "contactDetails": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            }
+          }
+        },
+        "rules": {
+          "type": "array"
+        },
+        "maskedCreditCard": {
+          "type": "string"
+        },
+        "preauthTransactionReference": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "messageFields": {
+          "$ref": "#/definitions/messageFields"
+        },
+        "externalReferenceId": {
+          "type": "string",
+          "pattern": "^[\\w\\-]{5,64}$"
+        }
+      }
+    },
+    "threeDSecure": {
+      "$ref": "./src/schema/three_domain_secure_customer_response.json"
+    }
+  },
+  "required": ["ticketNumber", "transactionReference"]
+}

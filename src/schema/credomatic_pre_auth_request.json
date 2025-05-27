@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/CredomaticPreAuthRequest",
+  "title": "CredomaticPreAuthRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "3DS": {
+      "type": "object",
+      "title": "ThreeDomainSecure",
+      "additionalProperties": false,
+      "properties": {
+        "eci": {
+          "type": "string"
+        },
+        "xid": {
+          "type": "string"
+        },
+        "cavv": {
+          "type": "string"
+        }
+      },
+      "required": ["eci", "cavv", "xid"]
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "holderName": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "months": {
+          "type": "number"
+        },
+        "maskedCardNumber": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "bin",
+        "brand",
+        "holderName",
+        "lastFourDigits",
+        "months",
+        "maskedCardNumber"
+      ]
+    },
+    "amount": { "$ref": "./src/schema/amount.json" },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "subscription": {
+      "type": "boolean"
+    },
+    "tokenType": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "processorMerchantId": {
+      "type": "string"
+    },
+    "processorType": {
+      "type": "string"
+    },
+    "processorName": {
+      "type": "string"
+    },
+    "mcci": {
+      "type": "string"
+    },
+    "processorCode": {
+      "type": "string"
+    },
+    "acquirerBank": {
+      "type": "string"
+    },
+    "terminalId": {
+      "type": "string"
+    },
+    "transactionStatus": {
+      "type": "string"
+    },
+    "config": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "region": {
+          "type": "string"
+        }
+      },
+      "required": ["region"]
+    },
+    "postalCode": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "card",
+    "country",
+    "documentNumber",
+    "documentType",
+    "isDeferred",
+    "merchantId",
+    "merchantName",
+    "processorId",
+    "subscription",
+    "tokenType",
+    "transactionReference",
+    "vaultToken",
+    "amount",
+    "processorType",
+    "acquirerBank",
+    "terminalId"
+  ]
+}

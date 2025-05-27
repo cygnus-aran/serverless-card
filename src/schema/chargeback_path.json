@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ChargebackPath",
+  "title": "ChargebackPath",
+  "additionalProperties": false,
+  "properties": {
+    "ticketNumber": {
+      "type": "string"
+    }
+  },
+  "required": ["ticketNumber"],
+  "type": "object"
+}

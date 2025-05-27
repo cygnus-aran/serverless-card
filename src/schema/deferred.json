@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/Deferred",
+  "title": "Deferred",
+  "additionalProperties": false,
+  "definitions": {
+    "monthsDeferred": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 48
+    }
+  },
+  "properties": {
+    "graceMonths": {
+      "type": "string",
+      "pattern": "^[0-9]{1,2}$"
+    },
+    "creditType": {
+      "type": "string",
+      "pattern": "^[0-9]{1,3}$"
+    },
+    "months": { "$ref": "#/definitions/monthsDeferred" }
+  },
+  "required": ["graceMonths", "creditType", "months"],
+  "type": "object"
+}

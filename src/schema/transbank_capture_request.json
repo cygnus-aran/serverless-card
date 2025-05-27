@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/TransbankCaptureRequest",
+  "title": "TransbankCaptureRequest",
+  "additionalProperties": false,
+  "properties": {
+    "preAuthorizationId": {
+      "type": "string"
+    },
+    "totalAmount": {
+      "type": "string"
+    },
+    "privateMerchantId": {
+      "type": "string"
+    },
+    "referenceNumber": {
+      "type": "string"
+    },
+    "completeTransactionType": {
+      "type": "string",
+      "enum": ["soap", "rest", "mall"]
+    },
+    "credentials": {
+      "$ref": "./src/schema/transbank_credentials.json"
+    }
+  },
+  "required": [
+    "preAuthorizationId",
+    "totalAmount",
+    "privateMerchantId",
+    "referenceNumber"
+  ]
+}

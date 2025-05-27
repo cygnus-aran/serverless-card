@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/FisCaptureRequest",
+  "title": "FisCaptureRequest",
+  "additionalProperties": false,
+  "properties": {
+    "transactionReference": {
+      "type": "string"
+    },
+    "ticketNumber": {
+      "type": "string"
+    },
+    "amount": { "$ref": "./src/schema/amount.json" }
+  },
+  "required": ["transactionReference", "ticketNumber", "amount"],
+  "type": "object"
+}

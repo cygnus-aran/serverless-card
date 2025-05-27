@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ProsaCaptureRequest",
+  "title": "ProsaCaptureRequest",
+  "additionalProperties": false,
+  "properties": {
+    "transactionReference": {
+      "type": "string"
+    },
+    "preauthTransactionReference": {
+      "type": "string"
+    },
+    "amount": {
+      "$ref": "./src/schema/amount.json"
+    },
+    "deferred": {
+      "$ref": "./src/schema/deferred.json"
+    }
+  },
+  "required": ["transactionReference", "preauthTransactionReference", "amount"],
+  "type": "object"
+}

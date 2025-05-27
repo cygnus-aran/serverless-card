@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/AuthorizerContext",
+  "title": "AuthorizerContext",
+  "definitions": {
+    "hierarchyConfig": {
+      "properties": {
+        "processing": {
+          "type": "object",
+          "businessRules": {
+            "type": "string"
+          },
+          "processors": {
+            "type": "string"
+          }
+        },
+        "rootId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "properties": {
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "sandboxEnable": {
+      "type": "boolean"
+    },
+    "publicMerchantId": {
+      "type": "string"
+    },
+    "privateMerchantId": {
+      "type": "string"
+    },
+    "kushkiMetadata": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-card/v1.1/kushki_metadata.json"
+    },
+    "credentialId": {
+      "type": "string"
+    },
+    "credentialAlias": {
+      "type": "string"
+    },
+    "merchantCountry": {
+      "type": "string"
+    },
+    "credentialMetadata": {
+      "type": "object"
+    },
+    "credentialValidationBlock": {
+      "type": "string"
+    },
+    "publicCredentialId": {
+      "type": "string"
+    },
+    "privateCredentialId": {
+      "type": "string"
+    },
+    "hierarchyConfig": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/hierarchyConfig"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "merchantData": {
+      "type": "object",
+      "properties": {
+        "mcc": {
+          "type": "string"
+        },
+        "merchantCategory": {
+          "type": "string"
+        }
+      }
+    },
+    "customerMerchantId": {
+      "type": "string"
+    },
+    "ownerId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "merchantId",
+    "publicMerchantId",
+    "privateMerchantId",
+    "credentialAlias",
+    "credentialId"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/GetBinInfoRequest",
+  "title": "GetBinInfoRequest",
+  "additionalProperties": false,
+  "properties": {
+    "bin": {
+      "type": "string"
+    },
+    "privateCard": {
+      "type": "boolean"
+    },
+    "isPrivateCard": {
+      "type": "boolean"
+    }
+  },
+  "required": ["bin", "isPrivateCard"],
+  "type": "object"
+}

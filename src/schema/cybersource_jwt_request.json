@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/CybersourceJwtRequest",
+  "title": "CybersourceJwtRequest",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [],
+  "properties": {
+    "subscriptionId": {
+      "type": "string"
+    }
+  }
+}

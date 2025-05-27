@@ -1,0 +1,214 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/DynamoProcessorFetch",
+  "title": "DynamoProcessorFetch",
+  "type": "object",
+  "definitions": {
+    "certificate": {
+      "properties": {
+        "file_name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["file_name", "value"]
+    },
+    "certificates": {
+      "type": "object",
+      "properties": {
+        "private_key": {
+          "$ref": "#/definitions/certificate"
+        },
+        "public_cert": {
+          "$ref": "#/definitions/certificate"
+        }
+      },
+      "required": ["private_key", "public_cert"]
+    }
+  },
+  "properties": {
+    "acquirer_bank": {
+      "type": "string"
+    },
+    "api_key": {
+      "type": "string"
+    },
+    "automatic_fail_over": {
+      "type": "string"
+    },
+    "business_bank": {
+      "type": "string"
+    },
+    "business_bank_account_number": {
+      "type": "string"
+    },
+    "business_bank_account_type": {
+      "type": "string"
+    },
+    "category_model": {
+      "type": "string"
+    },
+    "certificates": {
+      "type": "object",
+      "properties": {
+        "first_data": {
+          "$ref": "#/definitions/certificates"
+        },
+        "complete_transaction": {
+          "$ref": "#/definitions/certificates"
+        },
+        "web_pay": {
+          "$ref": "#/definitions/certificates"
+        }
+      }
+    },
+    "certificates_passphrase": {
+      "type": "string"
+    },
+    "corporate_id": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "key": {
+      "type": "string"
+    },
+    "omitCVV": {
+      "type": "boolean"
+    },
+    "password": {
+      "type": "string"
+    },
+    "processor_alias": {
+      "type": "string"
+    },
+    "processor_merchant_id": {
+      "type": "string"
+    },
+    "plcc": {
+      "type": "boolean"
+    },
+    "serviceProvider": {
+      "type": "object"
+    },
+    "username": {
+      "type": "string"
+    },
+    "notification_enable": {
+      "type": "boolean"
+    },
+    "is_business_partner": {
+      "type": "boolean"
+    },
+    "jurisdiction": {
+      "type": "string"
+    },
+    "merchant_id": {
+      "type": "string"
+    },
+    "public_id": {
+      "type": "string"
+    },
+    "terminal_id": {
+      "type": "string"
+    },
+    "unique_code": {
+      "type": "string"
+    },
+    "sub_mcc_code": {
+      "type": "string"
+    },
+    "private_id": {
+      "type": "string"
+    },
+    "sub_terminal_id": {
+      "type": "string"
+    },
+    "store_id": {
+      "type": "string"
+    },
+    "processor_name": {
+      "type": "string"
+    },
+    "processor_type": {
+      "type": "string"
+    },
+    "commerce_code": {
+      "type": "string"
+    },
+    "commerce_code_one_click_mall": {
+      "type": "string"
+    },
+    "processor_code": {
+      "type": "string"
+    },
+    "3ds": {
+      "title": "ThreeDs",
+      "type": "object",
+      "properties": {
+        "visa_acquirer_bin": {
+          "type": "string"
+        },
+        "mcc": {
+          "type": "string"
+        },
+        "mc_acquirer_bin": {
+          "type": "string"
+        },
+        "amex_acquirer_bin": {
+          "type": "string"
+        },
+        "commerce_code": {
+          "type": "string"
+        },
+        "merchant_name": {
+          "type": "string"
+        }
+      }
+    },
+    "commerce_code_web_pay": {
+      "type": "string"
+    },
+    "created": {
+      "type": "number"
+    },
+    "updatedAt": {
+      "type": "number"
+    },
+    "deleteAt": {
+      "type": "number"
+    },
+    "failOverProcessor": {
+      "type": "string"
+    },
+    "retailer_id": {
+      "type": "string"
+    },
+    "soft_descriptor": {
+      "type": "string"
+    },
+    "sub_mc_processor": {
+      "type": "string"
+    },
+    "sub_merchant_id": {
+      "type": "string"
+    },
+    "merchant_category_code": {
+      "type": "string"
+    },
+    "config": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/general/v3.4/region.json"
+    }
+  },
+  "required": [
+    "public_id",
+    "private_id",
+    "merchant_id",
+    "processor_name",
+    "processor_type",
+    "created"
+  ]
+}

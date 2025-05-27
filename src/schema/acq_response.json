@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/AcqResponse",
+  "title": "AcqResponse",
+  "additionalProperties": false,
+  "properties": {
+    "kushki_response": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": ["code", "message"]
+    },
+    "reference_number": {
+      "type": "string"
+    },
+    "transaction_reference": {
+      "type": "string"
+    },
+    "transaction_status": {
+      "type": "string"
+    },
+    "transaction_type": {
+      "type": "string"
+    },
+    "authorizer": {
+      "type": "string"
+    },
+    "approval_code": {
+      "type": "string"
+    },
+    "authorized_amount": {
+      "type": "number",
+      "minimum": 0
+    },
+    "relevant_fields": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "indicator_3ds": {
+          "type": "string"
+        }
+      }
+    },
+    "message_fields": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "f38": {
+          "type": "string"
+        },
+        "f39": {
+          "type": "string"
+        },
+        "f48": {
+          "type": "object",
+          "properties": {
+            "s22": {
+              "type": "object",
+              "properties": {
+                "se5": {
+                  "type": "string"
+                }
+              }
+            },
+            "s84": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": ["f39"]
+    }
+  },
+  "required": [
+    "kushki_response",
+    "reference_number",
+    "transaction_reference",
+    "transaction_status",
+    "transaction_type",
+    "approval_code",
+    "message_fields"
+  ]
+}

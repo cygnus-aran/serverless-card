@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ProcessorCreateResponse",
+  "title": "ProcessorCreateResponse",
+  "description": "",
+  "properties": {
+    "publicMerchantId": {
+      "type": "string",
+      "pattern": "^[0-9]{32}$"
+    },
+    "privateMerchantId": {
+      "type": "string",
+      "pattern": "^[0-9]{32}$"
+    }
+  },
+  "required": ["publicMerchantId", "privateMerchantId"],
+  "type": "object"
+}

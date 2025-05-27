@@ -1,0 +1,257 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ChargeKushkiAcqRequest",
+  "title": "ChargeKushkiAcqRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "subMerchant": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-subscriptions/v1.4/sub_merchant_dynamo.json"
+    },
+    "externalSubscriptionID": {
+      "type": "string"
+    },
+    "3DS": {
+      "type": "object",
+      "title": "ThreeDS",
+      "additionalProperties": false,
+      "properties": {
+        "acctAuthValue": {
+          "type": "string"
+        },
+        "cavv": {
+          "type": "string"
+        },
+        "directoryServerTrxID": {
+          "type": "string"
+        },
+        "eci": {
+          "type": "string"
+        },
+        "option": {
+          "type": "number"
+        },
+        "xid": {
+          "type": "string"
+        }
+      },
+      "required": ["eci", "cavv", "xid"]
+    },
+    "cardId": {
+      "type": "string"
+    },
+    "acquirerBank": {
+      "type": "string"
+    },
+    "authorizerContext": {
+      "$ref": "./src/schema/authorizer_context.json"
+    },
+    "binInfo": {
+      "type": "object",
+      "title": "BinInfo",
+      "additionalProperties": false,
+      "properties": {
+        "bank": {
+          "type": "string"
+        },
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "brandProductCode": {
+          "type": "string"
+        },
+        "prepaid": {
+          "type": "boolean"
+        }
+      }
+    },
+    "isAft": {
+      "type": "boolean"
+    },
+    "isOCT": {
+      "type": "boolean"
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "amount": { "$ref": "./src/schema/amount.json" },
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "holderName": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["CREDIT", "DEBIT"]
+        }
+      },
+      "required": [
+        "amount",
+        "deferred",
+        "bin",
+        "brand",
+        "holderName",
+        "lastFourDigits",
+        "type"
+      ]
+    },
+    "citMit": {
+      "type": "string",
+      "enum": [
+        "C101",
+        "C102",
+        "C103",
+        "C104",
+        "M101",
+        "M102",
+        "M103",
+        "M104",
+        "M205",
+        "M206",
+        "M207",
+        "M208"
+      ]
+    },
+    "contactDetails": {
+      "type": "object",
+      "properties": {
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "secondLastName": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "cvv2": {
+      "type": "string"
+    },
+    "deferred": {
+      "type": "object",
+      "properties": {
+        "graceMonths": {
+          "type": "string"
+        },
+        "creditType": {
+          "type": "string"
+        },
+        "months": {
+          "type": "string"
+        }
+      }
+    },
+    "isBlockedCard": {
+      "type": "boolean"
+    },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "isSubscription": {
+      "type": "boolean"
+    },
+    "isFrictionless": {
+      "type": "boolean"
+    },
+    "maskedCardNumber": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantCountry": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "processorBankName": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "processorMerchantId": {
+      "type": "string"
+    },
+    "terminalId": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "subscriptionTrigger": {
+      "type": "string",
+      "enum": ["onDemand", "scheduled"]
+    },
+    "initialRecurrenceReference": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "acquirerBank",
+    "authorizerContext",
+    "card",
+    "contactDetails",
+    "isDeferred",
+    "isSubscription",
+    "maskedCardNumber",
+    "merchantId",
+    "merchantName",
+    "processorBankName",
+    "processorId",
+    "processorMerchantId",
+    "terminalId",
+    "tokenType",
+    "transactionReference",
+    "vaultToken",
+    "amount",
+    "documentNumber",
+    "documentType",
+    "password",
+    "processorType",
+    "mcci",
+    "processorCode",
+    "subscription",
+    "username",
+    "taxes"
+  ]
+}

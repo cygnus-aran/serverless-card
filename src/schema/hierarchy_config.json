@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/HierarchyConfig",
+  "title": "HierarchyConfig",
+  "additionalProperties": false,
+  "properties": {
+    "processing": {
+      "type": "object",
+      "properties": {
+        "processors": {
+          "type": "string"
+        },
+        "businessRules": {
+          "type": "string"
+        },
+        "securityRules": {
+          "type": "string"
+        },
+        "deferred": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "rootId": {
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

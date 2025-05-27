@@ -1,0 +1,174 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/EventBusMerchant",
+  "title": "EventBusMerchant",
+  "type": "object",
+  "properties": {
+    "accountNumber": {
+      "type": "string"
+    },
+    "accountType": {
+      "type": "string",
+      "enum": ["0", "1"]
+    },
+    "bankId": {
+      "type": "string"
+    },
+    "chargeFrequency": {
+      "type": "string",
+      "enum": [
+        "none",
+        "daily",
+        "weekly",
+        "monthly",
+        "twoWeekly",
+        "threeWeekly",
+        "biWeekly"
+      ]
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "documentType": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "documentNumber": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "province": {
+      "type": "string"
+    },
+    "department": {
+      "type": "string"
+    },
+    "activityEconomic": {
+      "type": "string"
+    },
+    "chargeCurrency": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "created": {
+      "type": "number"
+    },
+    "gracePeriod": {
+      "type": "number"
+    },
+    "email": {
+      "type": "string"
+    },
+    "invoiceFrequency": {
+      "type": "string",
+      "enum": [
+        "none",
+        "daily",
+        "weekly",
+        "monthly",
+        "twoWeekly",
+        "threeWeekly",
+        "biWeekly"
+      ]
+    },
+    "chargeMin": {
+      "type": "string",
+      "enum": ["notCharge", "fixed", "deductible"]
+    },
+    "chargeMinAmount": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    },
+    "publicMerchantId": {
+      "type": "string"
+    },
+    "privateMerchantId": {
+      "type": "string"
+    },
+    "socialReason": {
+      "type": "string"
+    },
+    "taxId": {
+      "type": "string"
+    },
+    "dispersionFrequency": {
+      "type": "string",
+      "enum": [
+        "none",
+        "daily",
+        "weekly",
+        "monthly",
+        "twoWeekly",
+        "threeWeekly",
+        "biWeekly"
+      ]
+    },
+    "merchantType": {
+      "type": "string",
+      "enum": ["01", "02"]
+    },
+    "contactPerson": {
+      "type": "string"
+    },
+    "categoryMerchant": {
+      "type": "string"
+    },
+    "constitutionalCountry": {
+      "type": "string"
+    },
+    "clientType": {
+      "type": "string"
+    },
+    "cityDescription": {
+      "type": "string"
+    },
+    "provinceDescription": {
+      "type": "string"
+    },
+    "webSite": {
+      "type": "string"
+    },
+    "zipCode": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "publicMerchantId",
+    "privateMerchantId",
+    "name",
+    "created",
+    "email",
+    "taxId",
+    "invoiceFrequency",
+    "chargeFrequency",
+    "chargeMin",
+    "chargeMinAmount",
+    "country",
+    "city",
+    "address",
+    "documentNumber",
+    "documentType",
+    "phoneNumber",
+    "socialReason",
+    "accountType",
+    "accountNumber",
+    "bankId",
+    "gracePeriod",
+    "updatedAt",
+    "categoryMerchant"
+  ]
+}

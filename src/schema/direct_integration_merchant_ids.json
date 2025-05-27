@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/DirectIntegrationProcessorIds",
+  "title": "DirectIntegrationProcessorIds",
+  "type": "object",
+  "properties": {
+    "niubiz": {
+      "type": "string"
+    },
+    "redeban": {
+      "type": "string"
+    },
+    "transbank": {
+      "type": "string"
+    }
+  },
+  "required": ["niubiz", "redeban", "transbank"]
+}

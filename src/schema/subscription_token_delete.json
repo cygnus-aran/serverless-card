@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/SubscriptionTokenDelete",
+  "title": "SubscriptionTokenDelete",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "number"
+    },
+    "expirationTime": {
+      "type": "number"
+    },
+    "vaultToken": {
+      "type": "string"
+    }
+  },
+  "required": ["id", "vaultToken"],
+  "description": "SubscriptionTokenDelete",
+  "additionalProperties": false,
+  "type": "object"
+}

@@ -1,0 +1,1717 @@
+service: &service
+  name: usrv-card
+provider:
+  name: aws
+  runtime: nodejs18.x
+  architecture: arm64
+  stage: ${env:USRV_STAGE}
+  timeout: 29
+  logRetentionInDays: ${file(ServerlessScripts.js):logRetentionInDays.${env:USRV_STAGE}}
+  stackTags: ${self:custom.kushkiTag}
+  tracing: true
+  environment:
+    USRV_STAGE: ${self:provider.stage}
+    USRV_NAME: ${self:custom.service.name}
+    USRV_COMMIT: ${env:USRV_COMMIT}
+    USRV_BRANCH: ${env:USRV_BRANCH}
+    SSM_REGION: ${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}
+    ROLLBAR_TOKEN: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/ROLLBAR_TOKEN}
+    ######## RESOURCES ########
+    DYNAMO_TOKEN: ${self:resources.Resources.tokens.Properties.TableName}
+    DYNAMO_TRANSACTION: ${self:resources.Resources.transactions.Properties.TableName}
+    DYNAMO_MERCHANT: ${self:resources.Resources.merchants.Properties.TableName}
+    DYNAMO_PROCESSOR: ${self:resources.Resources.processors.Properties.TableName}
+    DYNAMO_BIN: ${self:resources.Resources.bins.Properties.TableName}
+    DYNAMO_CHARGES: ${self:resources.Resources.charges.Properties.TableName}
+    DYNAMO_TRANSACTION_CUSTOM_OPS: ${self:resources.Resources.transactionsCustomOps.Properties.TableName}
+    DYNAMO_PROCESSOR_METADATA: ${self:resources.Resources.processorMetadata.Properties.TableName}
+    DYNAMO_ATOMIC_COUNTER: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/DYNAMO_ATOMIC_COUNTER}
+    DYNAMO_SUBSCRIPTION_TRANSACTION: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/DYNAMO_SUBSCRIPTION_TRANSACTION}
+    DYNAMO_SUBSCRIPTION_SUBSCRIPTIONS: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/DYNAMO_SUBSCRIPTION_SUBSCRIPTIONS}
+    DYNAMO_TOKENS_DELETE: ${self:provider.stage}-usrv-subscriptions-tokens-delete
+    REDEBAN_TIMED_OUT_TRX: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/REDEBAN_TIMED_OUT_TRX}
+    PROSA_TIMED_OUT_TRX: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/PROSA_TIMED_OUT_TRX}
+    CREDOMATIC_TIMED_OUT_TRX: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/CREDOMATIC_TIMED_OUT_TRX}
+    SQS_WEBHOOK: { "Ref": "webhookQueue" }
+    SQS_SAVE_CARD_TRX: { "Ref": "saveCardTrxSQS" }
+    SQS_SAVE_CHARGES_TRX: { "Ref": "saveChargesTrxSQS" }
+    PROCESS_AUTOMATIC_VOID_SQS: { "Ref": "processAutomaticVoidSQS" }
+    SQS_SAVE_CARD_TRX_DLQ: { "Ref": "saveCardTrxDLQ" }
+    SQS_FAILED_AUTOMATIC_VOID_TRX_DLQ: { "Ref": "failedAutomaticVoidDLQ" }
+    FIS_VARIABLES: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:/${self:provider.stage}/usrv-card-fis/FIS_VARIABLES}
+    SAVE_ATTEMPT_SQS_ARN: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SAVE_ATTEMPT_SQS_ARN}
+
+    ######### SSM COMMON VARIABLE ########
+    SNS_INVOICE: ${self:custom.resources.snsInvoice}
+    DYNAMO_USRV_MERCHANT:
+      !Select [
+        "2",
+        !Split [
+          ",",
+          "${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SLS_BUILD}",
+        ],
+      ]
+    CERTIFICATE_NAME:
+      !Select [
+        "3",
+        !Split [
+          ",",
+          "${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SLS_BUILD}",
+        ],
+      ]
+    VPC_SG:
+      !Select [
+        "11",
+        !Split [
+          ",",
+          "${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SLS_BUILD}",
+        ],
+      ]
+    VPC_SUBNET1:
+      !Select [
+        "12",
+        !Split [
+          ",",
+          "${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SLS_BUILD}",
+        ],
+      ]
+    VPC_SUBNET2:
+      !Select [
+        "13",
+        !Split [
+          ",",
+          "${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SLS_BUILD}",
+        ],
+      ]
+    PUBLIC_AUTHORIZER: ${self:custom.resources.publicAuhtorizer}
+    PRIVATE_AUTHORIZER: ${self:custom.resources.privateAuhtorizer}
+    COGNITO_ADMIN: ${self:custom.resources.cognitoAdmin}
+    KUSHKI_ACQ_TIMED_OUT_TRX: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/KUSHKI_ACQ_TIMED_OUT_TRX}
+    AWS_XRAY_CONTEXT_MISSING: LOG_ERROR
+    POWERTOOLS_TRACER_CAPTURE_ERROR: "false"
+    POWERTOOLS_TRACER_CAPTURE_RESPONSE: "false"
+    AWS_ACCOUNT_NAME: ${file(./ServerlessScripts.js):getParameters.accountname}
+    USRV_REGION: { "Ref": "AWS::Region" }
+    DYNAMO_PARAMETERS: ${file(./ServerlessScripts.js):getParameters.dynamoParameters}
+  #layers:
+  #- ${ssm:/GL/LOGS_EXTENSION_V2_ARM_ARN}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - firehose:PutRecord
+      Resource:
+        - arn:aws:firehose:*:*:deliverystream/devops-logs*
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+      Resource:
+        - arn:aws:s3:::devops-logs*
+    - Effect: "Allow"
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:Query
+        - dynamodb:UpdateItem
+      Resource: "*" # TODO: Replace with index ARN
+    - Effect: "Allow"
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:Query
+        - dynamodb:UpdateItem
+      Resource:
+        "Fn::GetAtt":
+          - transactions
+          - Arn
+    - Effect: "Allow"
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:Query
+        - dynamodb:UpdateItem
+      Resource:
+        "Fn::GetAtt":
+          - transactionsCustomOps
+          - Arn
+    - Effect: "Allow"
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:Query
+      Resource:
+        "Fn::GetAtt":
+          - merchants
+          - Arn
+    - Effect: "Allow"
+      Action:
+        - dynamodb:PutItem
+      Resource:
+        Fn::Join:
+          - ""
+          - - "arn:aws:dynamodb:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":table/"
+            - ${self:provider.stage}-usrv-subscriptions-tokens-delete
+    - Effect: "Allow"
+      Action:
+        - ssm:GetParameter
+        - ssm:GetParameters
+        - ssm:GetParametersByPath
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource: "arn:aws:s3:::etl-transactional*"
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+        - lambda:InvokeAsync
+        - lambda:GetFunction
+        - lambda:EnableReplication
+      Resource: "arn:aws:lambda:us-east-1:*:*"
+    - Effect: Allow
+      Action:
+        - sqs:SendMessage
+      Resource:
+        - ${self:provider.environment.SAVE_ATTEMPT_SQS_ARN}
+        - Fn::GetAtt:
+            - webhookQueue
+            - Arn
+        - Fn::GetAtt:
+            - saveCardTrxSQS
+            - Arn
+        - Fn::GetAtt:
+            - saveChargesTrxSQS
+            - Arn
+        - Fn::GetAtt:
+            - saveCardTrxDLQ
+            - Arn
+        - Fn::GetAtt:
+            - failedAutomaticVoidDLQ
+            - Arn
+        - Fn::GetAtt:
+            - processAutomaticVoidSQS
+            - Arn
+    - Effect: Allow
+      Action:
+        - SNS:Publish
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegment
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - events:PutEvents
+      Resource:
+        - ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/EVENT_BUS_TRANSACTIONS_ARN}
+    - Effect: Allow
+      Action:
+        - events:PutEvents
+      Resource:
+        - ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/EVENT_BUS_PROCESSORS_ARN}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:GetItem
+      Resource:
+        - ${self:provider.environment.DYNAMO_PARAMETERS}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:GetItem
+      Resource:
+        - {
+            "Fn::Join":
+              [
+                "",
+                [
+                  "${self:provider.environment.DYNAMO_PARAMETERS}/",
+                  "index/",
+                  "scopeIndex",
+                ],
+              ],
+          }
+custom:
+  service: *service
+  accountId: "${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:/GL/ACCOUNT}"
+  prefix: /${self:provider.stage}/${self:custom.service.name}
+  version: v1
+  newVersion: v2
+  SSM_REGION: ${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}
+  apiGatewayCaching:
+    enabled: false
+    ttlInSeconds: 0
+  esbuild:
+    bundle: true
+    minify: true
+    target: node16
+    sourcemap: ${self:custom.sourcemapConditional.${env:USRV_STAGE}}
+    concurrency: 20
+    plugins: esbuild-plugins.js
+    exclude:
+      - "aws-sdk"
+    external:
+      - "jsonpath"
+  tagEnv:
+    ci: TESTING
+    qa: TESTING
+    po: TESTING
+    uat: TESTING
+    stg: TESTING
+    primary: PRODUCTION
+  customDomain:
+    basePath: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/BASE_PATH, self:provider.stage}
+    domainName: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/DOMAIN, env:USRV_DOMAIN}
+    stage: ${self:provider.stage}
+    certificateName: ${self:provider.environment.CERTIFICATE_NAME}
+    createRoute53Record: false
+  apigwBinary:
+    types:
+      - "text/plain"
+  deploymentSettings:
+    stages:
+      - ci
+      - qa
+      - po
+      - stg
+      - uat
+      - primary
+    type: ${file(ServerlessScripts.js):canaryDeploymentType.${env:USRV_STAGE}}
+    alias: Live
+    alarms:
+      - ErrorChargesGatewayAlarm
+      - ErrorChargesCountAlarm
+  apiGatewayTags: ${self:custom.kushkiTag}
+  cloudWatchLogsTags: ${self:custom.kushkiTag}
+  kushkiTag:
+    COST: BY TRANSACTION
+    SERVICE: CARD
+    INTEGRATION: KUSHKI
+    ENVIRONMENT: ${self:custom.tagEnv.${self:provider.stage}}
+    security-standards: pci-dss/iso-27001
+  dynamoTag:
+    - Key: ENVIRONMENT
+      Value: ${self:custom.tagEnv.${self:provider.stage}}
+    - Key: INTEGRATION
+      Value: KUSHKI
+    - Key: SERVICE
+      Value: CARD
+    - Key: COST
+      Value: BY TRANSACTION
+  splitStacks:
+    perFunction: true
+    perType: false
+  resources:
+    publicAuhtorizer:
+      !Select [
+        "4",
+        !Split [
+          ",",
+          "${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SLS_BUILD}",
+        ],
+      ]
+    privateAuhtorizer:
+      !Select [
+        "5",
+        !Split [
+          ",",
+          "${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SLS_BUILD}",
+        ],
+      ]
+    cognitoAdmin:
+      Fn::Join:
+        - ""
+        - - "arn:aws:lambda:"
+          - Ref: AWS::Region
+          - ":"
+          - Ref: AWS::AccountId
+          - ":function:"
+          - !Select [
+              "6",
+              !Split [
+                ",",
+                "${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SLS_BUILD}",
+              ],
+            ]
+    snsInvoice:
+      Fn::Join:
+        - ""
+        - - "arn:aws:sns:"
+          - Ref: AWS::Region
+          - ":"
+          - Ref: AWS::AccountId
+          - ":"
+          - !Select [
+              "0",
+              !Split [
+                ",",
+                "${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SLS_BUILD}",
+              ],
+            ]
+    kinesisARN: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:/${env:USRV_STAGE}/UNIFIED_KINESIS_ARN, ""}
+  sourcemapConditional:
+    ci: true
+    qa: true
+    po: true
+    stg: true
+    uat: true
+    primary: false
+  serverlessIfElse:
+    - If: '! new RegExp(/\b(primary|uat)\b/).test("${env:USRV_STAGE}")'
+      Exclude:
+        - provider.layers
+
+plugins:
+  - serverless-esbuild
+  - serverless-domain-manager
+  - serverless-apigw-binary
+  - serverless-prune-plugin
+  - serverless-cloudformation-resource-counter
+  - serverless-plugin-existing-s3
+  - serverless-plugin-canary-deployments
+  - serverless-tag-api-gateway
+  - serverless-tag-cloud-watch-logs
+  - serverless-api-gateway-caching
+  - serverless-plugin-split-stacks
+  - serverless-plugin-ifelse
+package:
+  individually: true
+  excludeDevDependencies: true
+  exclude:
+    - "src/handler/*.LICENSE"
+functions:
+  createDefaultServices:
+    handler: src/handler/CreateDefaultServicesHandler.HANDLER
+    events:
+      - http:
+          method: post
+          path: ${self:custom.version}/admin/merchant/services/default
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Private-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            name: authorizer
+            resultTtlInSeconds: 0
+            managedExternally: true
+            arn: ${self:provider.environment.COGNITO_ADMIN}
+  record:
+    handler: src/handler/RecordApiHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - http:
+          method: post
+          path: ${self:custom.version}/transaction
+          private: true
+  syncTransaction:
+    handler: src/handler/SyncTransactionsHandler.HANDLER
+    timeout: 300
+    #deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - stream:
+          type: dynamodb
+          arn:
+            "Fn::GetAtt":
+              - transactions
+              - StreamArn
+          startingPosition: LATEST
+  syncBilling:
+    handler: src/handler/SyncBillingHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  syncRedshift:
+    handler: src/handler/SyncRedshiftHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  syncMerchant:
+    handler: src/handler/SynchronizeMerchantsHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  syncProcessor:
+    handler: src/handler/SynchronizeProcessorsHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  createProcessor:
+    handler: src/handler/CreateProcessorHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  getProcessor:
+    handler: src/handler/GetProcessorHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  updateProcessor:
+    handler: src/handler/UpdateProcessorHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  putEventBridgeProcessor:
+    handler: src/handler/PutEventBridgeProcessorHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - stream:
+          type: dynamodb
+          arn: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/TRX_RULE_PROCESSOR_ARN}
+          startingPosition: LATEST
+  tokens:
+    handler: src/handler/TokensHandler.HANDLER
+    deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - http:
+          path: ${self:custom.version}/tokens
+          method: post
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Public-Merchant-Id
+              - KSH-Authorization
+              - X-Amz-Meta-Kushki-Info
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: publicCredential
+            identitySource: method.request.header.Public-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PUBLIC_AUTHORIZER}
+      - http:
+          path: tokens
+          method: post
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Public-Merchant-Id
+              - KSH-Authorization
+              - X-Amz-Meta-Kushki-Info
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: publicCredential
+            identitySource: method.request.header.Public-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PUBLIC_AUTHORIZER}
+    vpc:
+      securityGroupIds:
+        - !Select [
+            "15",
+            !Split [
+              ",",
+              "${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SLS_BUILD}",
+            ],
+          ]
+      subnetIds:
+        - !Select [
+            "16",
+            !Split [
+              ",",
+              "${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SLS_BUILD}",
+            ],
+          ]
+        - !Select [
+            "17",
+            !Split [
+              ",",
+              "${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SLS_BUILD}",
+            ],
+          ]
+  tokenlessCharge:
+    handler: src/handler/TokenlessChargeHandler.HANDLER
+    deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - http:
+          path: ${self:custom.newVersion}/charges
+          method: post
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Private-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: privateCredential
+            identitySource: method.request.header.Private-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+  tokenlessPreAuthorization:
+    handler: src/handler/TokenlessPreAuthHandler.HANDLER
+    deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - http:
+          path: ${self:custom.newVersion}/preAuthorization
+          method: post
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Private-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: privateCredential
+            identitySource: method.request.header.Private-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+  unifiedCapture:
+    handler: src/handler/UnifiedCaptureHandler.HANDLER
+    deploymentSettings: ${self:custom.deploymentSettings}
+  capture:
+    handler: src/handler/CaptureHandler.HANDLER
+    deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - http:
+          path: ${self:custom.version}/capture
+          method: post
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Private-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: privateCredential
+            identitySource: method.request.header.Private-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+  charges:
+    handler: src/handler/ChargesHandler.HANDLER
+    memorySize: 2048
+    deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - http:
+          path: ${self:custom.version}/charges
+          method: post
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Private-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: privateCredential
+            identitySource: method.request.header.Private-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+      - http:
+          path: charges
+          method: post
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Private-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: privateCredential
+            identitySource: method.request.header.Private-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+  chargeOCT:
+    handler: src/handler/ChargesHandler.HANDLER
+    memorySize: 2048
+    deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - http:
+          path: ${self:custom.version}/crypto/oct
+          method: post
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Private-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: privateCredential
+            identitySource: method.request.header.Private-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+  unifiedCharge:
+    handler: src/handler/UnifiedChargesPreauthHandler.HANDLER
+    deploymentSettings: ${self:custom.deploymentSettings}
+  unifiedPreauth:
+    handler: src/handler/UnifiedChargesPreauthHandler.HANDLER
+    deploymentSettings: ${self:custom.deploymentSettings}
+  reauthorization:
+    handler: src/handler/ReauthorizationHandler.HANDLER
+    deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - http:
+          path: ${self:custom.version}/reauthorization
+          method: post
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Private-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: privateCredential
+            identitySource: method.request.header.Private-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+  preAuthorization:
+    handler: src/handler/PreAuthHandler.HANDLER
+    deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - http:
+          path: ${self:custom.version}/preAuthorization
+          method: post
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Private-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: privateCredential
+            identitySource: method.request.header.Private-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+  automaticVoid:
+    handler: src/handler/AutomaticVoidStream.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - stream:
+          type: dynamodb
+          arn:
+            "Fn::GetAtt":
+              - transactionsCustomOps
+              - StreamArn
+          startingPosition: LATEST
+  chargeDelete:
+    handler: src/handler/ChargeDeleteHandler.HANDLER
+    deploymentSettings: ${self:custom.deploymentSettings}
+  chargeDeleteGateway:
+    handler: src/handler/ChargeDeleteGatewayHandler.HANDLER
+    deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - http:
+          path: ${self:custom.version}/charges/{ticketNumber}
+          method: delete
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: privateCredential
+            identitySource: method.request.header.Private-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+      - http:
+          path: ${self:custom.version}/admin/charges/{ticketNumber}
+          method: delete
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Private-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            name: authorizer
+            resultTtlInSeconds: 0
+            managedExternally: true
+            arn: ${self:provider.environment.COGNITO_ADMIN}
+      - http:
+          path: charges/{ticketNumber}
+          method: delete
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: privateCredential
+            identitySource: method.request.header.Private-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+      - http:
+          path: ${self:custom.version}/charges/{ticketNumber}/refund
+          method: delete
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: privateCredential
+            identitySource: method.request.header.Private-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+      - http:
+          path: ${self:custom.version}/admin/charges/{ticketNumber}/refund
+          method: delete
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Private-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            name: authorizer
+            resultTtlInSeconds: 0
+            managedExternally: true
+            arn: ${self:provider.environment.COGNITO_ADMIN}
+      - http:
+          path: charges/{ticketNumber}/refund
+          method: delete
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: privateCredential
+            identitySource: method.request.header.Private-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+      - http:
+          path: refund/{ticketNumber}
+          method: delete
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: privateCredential
+            identitySource: method.request.header.Private-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+  chargeBack:
+    handler: src/handler/ChargeBackHandler.HANDLER
+    events:
+      - http:
+          path: ${self:custom.version}/admin/chargeback/{ticketNumber}
+          method: delete
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Private-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: authorizer
+            arn: ${self:provider.environment.COGNITO_ADMIN}
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  #  refund:
+  #    handler: src/handler/RefundHandler.HANDLER
+  #    events:
+  #      - http:
+  #          path: ${self:custom.version}/charges/{ticketNumber}/refund
+  #          method: delete
+  #          authorizer:
+  #            authorizerResultTtlInSeconds: "0"
+  #            name: privateCredential
+  #            identitySource: method.request.header.Private-Merchant-Id
+  #            type: request
+  #            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+  #      - http:
+  #          path: ${self:custom.version}/admin/charges/{ticketNumber}/refund
+  #          method: delete
+  #          cors:
+  #            origin: "*"
+  #            headers:
+  #              - Content-Type
+  #              - X-Amz-Date
+  #              - Authorization
+  #              - X-Api-Key
+  #              - X-Amz-Security-Token
+  #              - X-Amz-User-Agent
+  #              - Private-Merchant-Id
+  #            allowCredentials: false
+  #          authorizer:
+  #            name: authorizer
+  #            resultTtlInSeconds: 0
+  #            arn: ${self:provider.environment.COGNITO_ADMIN}
+  #      - http:
+  #          path: charges/{ticketNumber}/refund
+  #          method: delete
+  #          authorizer:
+  #            authorizerResultTtlInSeconds: "0"
+  #            name: privateCredential
+  #            identitySource: method.request.header.Private-Merchant-Id
+  #            type: request
+  #            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+  #      - http:
+  #          path: refund/{ticketNumber}
+  #          method: delete
+  #          authorizer:
+  #            authorizerResultTtlInSeconds: "0"
+  #            name: privateCredential
+  #            identitySource: method.request.header.Private-Merchant-Id
+  #            type: request
+  #            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+  #    #deploymentSettings: ${self:custom.deploymentSettings}
+  #  refundFiles:
+  #    handler: src/handler/RefundFileHandler.HANDLER
+  #    #deploymentSettings: ${self:custom.deploymentSettings}
+  #    memorySize: 2048
+  #    timeout: 900
+  #    events:
+  #      - schedule: cron(0 8 * * ? *)
+  automaticVoidPreAuth:
+    handler: src/handler/AutomaticVoidPreAuthHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - schedule: cron(0 12 * * ? *) # Every day at 7am ( UTC-5 )
+  deferred:
+    handler: src/handler/DeferredHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - http:
+          path: ${self:custom.version}/deferred/{binNumber}
+          method: get
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Public-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: publicCredential
+            identitySource: method.request.header.Public-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PUBLIC_AUTHORIZER}
+  getBinInfo:
+    handler: src/handler/GetBinInfoHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - http:
+          path: ${self:custom.version}/bin/{binNumber}
+          method: get
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Public-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: publicCredential
+            identitySource: method.request.header.Public-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PUBLIC_AUTHORIZER}
+  webhookSqs:
+    handler: src/handler/WebhookSqsHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  notifyAutomaticVoidFailed:
+    handler: src/handler/NotifyAutomaticVoidFailedHandler.HANDLER
+    timeout: 300
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - failedAutomaticVoidDLQ
+              - Arn
+          batchSize: 1
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  saveCardTrxFailed:
+    handler: src/handler/SaveCardTrxFailedHandler.HANDLER
+    timeout: 300
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - saveCardTrxDLQ
+              - Arn
+          batchSize: 1
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  syncAsyncTransactions:
+    handler: src/handler/SyncAsyncTransactionsHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+    timeout: 300
+    memorySize: 3008
+    events:
+      - sns: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SNS_SYNC_TRX}
+  updateMerchant:
+    handler: src/handler/UpdateMerchantHandler.HANDLER
+    events:
+      - http:
+          method: patch
+          path: ${self:custom.version}/admin/merchant/{merchantId}
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: authorizer
+            arn: ${self:provider.environment.COGNITO_ADMIN}
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  getBrandsByMerchant:
+    handler: src/handler/GetMerchantBrandsHandler.HANDLER
+    events:
+      - http:
+          method: get
+          path: ${self:custom.version}/merchant/brands
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Public-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: publicCredential
+            identitySource: method.request.header.Public-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PUBLIC_AUTHORIZER}
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  getBrandsLogosByMerchant:
+    handler: src/handler/GetMerchantBrandsLogosHandler.HANDLER
+    events:
+      - http:
+          method: get
+          path: ${self:custom.version}/merchant/brands-logos
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Public-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: publicCredential
+            identitySource: method.request.header.Public-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PUBLIC_AUTHORIZER}
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  getDeferredOptions:
+    handler: src/handler/GetDeferredOptionsHandler.HANDLER
+    events:
+      - http:
+          method: get
+          path: ${self:custom.version}/admin/deferred/{merchantId}
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: authorizer
+            arn: ${self:provider.environment.COGNITO_ADMIN}
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  getMerchantOptions:
+    handler: src/handler/GetMerchantOptionsHandler.HANDLER
+    events:
+      - http:
+          method: get
+          path: ${self:custom.version}/admin/merchant/{merchantId}
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: authorizer
+            arn: ${self:provider.environment.COGNITO_ADMIN}
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  deleteProcessor:
+    handler: src/handler/DeleteProcessorHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  tokenCharge:
+    handler: src/handler/TokenChargeHandler.HANDLER
+    deploymentSettings: ${self:custom.deploymentSettings}
+  updateMerchantFromBus:
+    handler: src/handler/UpdateMerchantFromBusHandler.HANDLER
+    events:
+      - eventBridge:
+          eventBus: "arn:aws:events:us-east-1:${self:custom.accountId}:event-bus/${self:provider.stage}-merchants"
+          pattern:
+            detail:
+              originUsrv:
+                - "usrv-billing-core"
+              action:
+                - "MODIFY"
+                - "INSERT"
+              payload:
+                eventName:
+                  - "MODIFY"
+                  - "INSERT"
+          inputPath: "$.detail"
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  cybersourceJwt:
+    handler: src/handler/CybersourceJwtHandler.HANDLER
+    deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - http:
+          path: ${self:custom.version}/authToken
+          method: get
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Public-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: publicCredential
+            identitySource: method.request.header.Public-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PUBLIC_AUTHORIZER}
+  saveCardTransactions:
+    handler: src/handler/SaveCardTransactionsHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - saveCardTrxSQS
+              - Arn
+          batchSize: 1
+  saveChargesTransactions:
+    handler: src/handler/SaveChargesTransactionsHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - saveChargesTrxSQS
+              - Arn
+          batchSize: 1
+  saveDeclineTrx:
+    handler: src/handler/SaveDeclineTrxHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  validateAccount:
+    handler: src/handler/ValidateAccountHandler.HANDLER
+    deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - http:
+          path: ${self:custom.version}/validation
+          method: post
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Private-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: privateCredential
+            identitySource: method.request.header.Private-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PRIVATE_AUTHORIZER}
+  getProcessorMetadata:
+    handler: src/handler/GetProcessorMetadataHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - http:
+          path: ${self:custom.version}/metadata
+          method: get
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Public-Merchant-Id
+            allowCredentials: false
+          authorizer:
+            resultTtlInSeconds: 0
+            managedExternally: true
+            name: publicCredential
+            identitySource: method.request.header.Public-Merchant-Id
+            type: request
+            arn: ${self:provider.environment.PUBLIC_AUTHORIZER}
+  setReauthVoidStatus:
+    handler: src/handler/SetReauthVoidStatusHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+  automaticVoidPreAuthACQ:
+    handler: src/handler/AutomaticVoidPreAuthACQHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - schedule: ${file(ServerlessScripts.js):enqueueAutomaticVoidPreAuthACQ.${env:USRV_STAGE}}
+  processAutomaticVoid:
+    handler: src/handler/ProcessAutomaticVoidHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - processAutomaticVoidSQS
+              - Arn
+          batchSize: 1
+  update3dsTokenInformation:
+    handler: src/handler/Update3dsTokenInfoHandler.HANDLER
+    #deploymentSettings: ${self:custom.deploymentSettings}
+
+resources:
+  Conditions:
+    IsProd:
+      Fn::Or:
+        - Fn::Equals: ["${self:provider.stage}", "uat"]
+        - Fn::Equals: ["${self:provider.stage}", "primary"]
+  Resources:
+    GatewayResponseDefaultNotAuthorized:
+      Type: "AWS::ApiGateway::GatewayResponse"
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: ACCESS_DENIED
+        StatusCode: 400
+        ResponseTemplates:
+          "application/json": "{\n \"message\": \"ID de comercio o credencial no válido\",\n \"code\": \"K004\" \n }"
+        RestApiId:
+          Ref: "ApiGatewayRestApi"
+    KinesisStream:
+      Type: AWS::Kinesis::Stream
+      Condition: IsProd
+      Properties:
+        Name: ${self:custom.service.name}-${self:provider.stage}-KinesisStream
+        StreamModeDetails:
+          StreamMode: ON_DEMAND
+    transactions:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        TableName: ${self:provider.stage}-${self:custom.service.name}-transactions
+        AttributeDefinitions:
+          - AttributeName: transaction_id
+            AttributeType: S
+          - AttributeName: created
+            AttributeType: N
+          - AttributeName: sale_ticket_number
+            AttributeType: S
+          - AttributeName: ticket_number
+            AttributeType: S
+          - AttributeName: transaction_type
+            AttributeType: S
+          - AttributeName: transaction_reference
+            AttributeType: S
+          - AttributeName: transaction_status
+            AttributeType: S
+          - AttributeName: preauth_transaction_reference
+            AttributeType: S
+          - AttributeName: merchant_id
+            AttributeType: S
+          - AttributeName: token
+            AttributeType: S
+          - AttributeName: parent_ticket_number
+            AttributeType: S
+          - AttributeName: sequence_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: transaction_id
+            KeyType: HASH
+          - AttributeName: created
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        GlobalSecondaryIndexes:
+          - IndexName: transactions-sale_ticket_number
+            KeySchema:
+              - AttributeName: sale_ticket_number
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: transactions-transaction_id
+            KeySchema:
+              - AttributeName: transaction_id
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: transactions-ticket_number
+            KeySchema:
+              - AttributeName: ticket_number
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: transactions-transaction_type
+            KeySchema:
+              - AttributeName: transaction_type
+                KeyType: HASH
+              - AttributeName: created
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+          - IndexName: transactions-status-created
+            KeySchema:
+              - AttributeName: transaction_status
+                KeyType: HASH
+              - AttributeName: created
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+          - IndexName: transactions-transaction_reference
+            KeySchema:
+              - AttributeName: transaction_reference
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: preauth_trx_reference_index
+            KeySchema:
+              - AttributeName: preauth_transaction_reference
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: transactions-merchantId-created
+            KeySchema:
+              - AttributeName: merchant_id
+                KeyType: HASH
+              - AttributeName: created
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+          - IndexName: transactions-tokenIndex
+            KeySchema:
+              - AttributeName: token
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: parent_ticket_number_index
+            KeySchema:
+              - AttributeName: parent_ticket_number
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: sequence_id_created
+            KeySchema:
+              - AttributeName: sequence_id
+                KeyType: HASH
+              - AttributeName: created
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+        KinesisStreamSpecification:
+          StreamArn:
+            !If [
+              IsProd,
+              !GetAtt KinesisStream.Arn,
+              "${self:custom.resources.kinesisARN}",
+            ]
+        Tags: ${self:custom.dynamoTag}
+    merchants:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        TableName: ${self:provider.stage}-${self:custom.service.name}-merchants
+        AttributeDefinitions:
+          - AttributeName: public_id
+            AttributeType: S
+          - AttributeName: private_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: public_id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        GlobalSecondaryIndexes:
+          - IndexName: merchants-private_id-index
+            KeySchema:
+              - AttributeName: private_id
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        Tags: ${self:custom.dynamoTag}
+    processors:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        TableName: ${self:provider.stage}-${self:custom.service.name}-processors
+        AttributeDefinitions:
+          - AttributeName: public_id
+            AttributeType: S
+          - AttributeName: merchant_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: public_id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        GlobalSecondaryIndexes:
+          - IndexName: processors-merchant_id-index
+            KeySchema:
+              - AttributeName: merchant_id
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        Tags: ${self:custom.dynamoTag}
+    tokens:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        TableName: ${self:provider.stage}-${self:custom.service.name}-tokens
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: secureId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        Tags: ${self:custom.dynamoTag}
+        TimeToLiveSpecification:
+          AttributeName: expirationTime
+          Enabled: true
+        GlobalSecondaryIndexes:
+          - IndexName: tokens-secureId-index
+            KeySchema:
+              - AttributeName: secureId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+    bins:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        TableName: ${self:provider.stage}-${self:custom.service.name}-bins
+        AttributeDefinitions:
+          - AttributeName: bin
+            AttributeType: S
+        KeySchema:
+          - AttributeName: bin
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        Tags: ${self:custom.dynamoTag}
+    webhookQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${self:provider.stage}-${self:custom.service.name}-webhooksqs
+        DelaySeconds: 0
+        MessageRetentionPeriod: 3600
+        VisibilityTimeout: 1000
+    saveCardTrxDLQ:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${self:provider.stage}-${self:custom.service.name}-saveCardTrxDLQ
+        DelaySeconds: 30
+        MessageRetentionPeriod: 300
+        VisibilityTimeout: 300
+    failedAutomaticVoidDLQ:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${self:provider.stage}-${self:custom.service.name}-failedAutomaticVoidDLQ
+        DelaySeconds: 30
+        MessageRetentionPeriod: 86400
+        VisibilityTimeout: 300
+    charges:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        TableName: ${self:provider.stage}-${self:custom.service.name}-charges
+        AttributeDefinitions:
+          - AttributeName: transactionId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: transactionId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        TimeToLiveSpecification:
+          AttributeName: expirationTime
+          Enabled: true
+        Tags: ${self:custom.dynamoTag}
+    processorMetadata:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        TableName: ${self:provider.stage}-${self:custom.service.name}-processor-metadata
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: type
+            AttributeType: S
+          - AttributeName: mcc
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        GlobalSecondaryIndexes:
+          - IndexName: metadata-mcc-index
+            KeySchema:
+              - AttributeName: mcc
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: id-type-index
+            KeySchema:
+              - AttributeName: id
+                KeyType: HASH
+              - AttributeName: type
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+          - IndexName: mcc-type-index
+            KeySchema:
+              - AttributeName: mcc
+                KeyType: HASH
+              - AttributeName: type
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+        Tags: ${self:custom.dynamoTag}
+    ErrorChargesCountAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        ActionsEnabled: true
+        AlarmDescription: "Error count Alarm to Charges Card"
+        AlarmName: ${self:provider.stage}-${self:custom.service.name}-ErrorChargesCountAlarm
+        ComparisonOperator: "GreaterThanOrEqualToThreshold"
+        EvaluationPeriods: 3
+        MetricName: "Errors"
+        Namespace: "AWS/Lambda"
+        Period: 60
+        Statistic: Minimum
+        Threshold: 1
+        Unit: "Seconds"
+        Dimensions:
+          - Name: "FunctionName"
+            Value: ${self:custom.service.name}-${self:provider.stage}-charges
+    ErrorChargesGatewayAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        ActionsEnabled: true
+        AlarmDescription: "Error count Alarm to Charges Card"
+        AlarmName: ${self:provider.stage}-${self:custom.service.name}-ErrorChargesGatewayAlarm
+        ComparisonOperator: "GreaterThanOrEqualToThreshold"
+        EvaluationPeriods: 3
+        MetricName: "5XXError"
+        Namespace: "AWS/ApiGateway"
+        Period: 60
+        Statistic: Minimum
+        Threshold: 1
+        Unit: "Seconds"
+        Dimensions:
+          - Name: "ApiName"
+            Value: ${self:provider.stage}-${self:custom.service.name}
+    saveCardTrxSQS:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${self:provider.stage}-${self:custom.service.name}-saveCardTrxSQS
+        DelaySeconds: 0
+        RedrivePolicy:
+          deadLetterTargetArn:
+            Fn::GetAtt:
+              - saveCardTrxDLQ
+              - Arn
+          maxReceiveCount: 3
+    saveChargesTrxSQS:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${self:provider.stage}-${self:custom.service.name}-saveChargesTrxSQS
+        DelaySeconds: 0
+        RedrivePolicy:
+          deadLetterTargetArn:
+            Fn::GetAtt:
+              - saveCardTrxDLQ
+              - Arn
+          maxReceiveCount: 3
+    transactionsCustomOps:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        TableName: ${self:provider.stage}-${self:custom.service.name}-transactions-custom-ops
+        AttributeDefinitions:
+          - AttributeName: transaction_reference
+            AttributeType: S
+          - AttributeName: sequence_id
+            AttributeType: S
+          - AttributeName: voided
+            AttributeType: S
+        KeySchema:
+          - AttributeName: transaction_reference
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        GlobalSecondaryIndexes:
+          - IndexName: sequence_id-index
+            KeySchema:
+              - AttributeName: sequence_id
+                KeyType: HASH
+              - AttributeName: voided
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+        TimeToLiveSpecification:
+          AttributeName: expiration_date
+          Enabled: true
+    processAutomaticVoidSQS:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${self:custom.service.name}-${self:provider.stage}-processAutomaticVoidSQS
+        DelaySeconds: 0
+        RedrivePolicy:
+          deadLetterTargetArn:
+            Fn::GetAtt:
+              - failedAutomaticVoidDLQ
+              - Arn
+          maxReceiveCount: 3
+        VisibilityTimeout: 30
+    cardChargeDeleteGatewayAccountPermission:
+      Type: "AWS::Lambda::Permission"
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: ${self:service}-${self:provider.stage}-chargeDeleteGateway
+        Principal: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/ECOMM_ACCOUNT_ARN}
+    cardChargeBackAccountPermission:
+      Type: "AWS::Lambda::Permission"
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: ${self:service}-${self:provider.stage}-chargeBack
+        Principal: ${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/ECOMM_ACCOUNT_ARN}
+    updateMerchantCoreAccountPermission:
+      Type: "AWS::Lambda::Permission"
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: ${self:service}-${self:provider.stage}-updateMerchant
+        Principal:
+          !Select [
+            "18",
+            !Split [
+              ",",
+              "${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SLS_BUILD}",
+            ],
+          ]
+    getMerchantOptionsCoreAccountPermission:
+      Type: "AWS::Lambda::Permission"
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: ${self:service}-${self:provider.stage}-getMerchantOptions
+        Principal:
+          !Select [
+            "18",
+            !Split [
+              ",",
+              "${ssm.${file(ServerlessScripts.js):awsRegion.${env:USRV_STAGE}}:${self:custom.prefix}/SLS_BUILD}",
+            ],
+          ]

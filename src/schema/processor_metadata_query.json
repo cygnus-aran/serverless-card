@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ProcessorMetadataQuery",
+  "title": "ProcessorMetadataQuery",
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "mcc": {
+      "type": "string"
+    }
+  },
+  "required": ["type"],
+  "type": "object"
+}

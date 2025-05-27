@@ -1,0 +1,323 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/SaveCardTransactionsEvent",
+  "title": "SaveCardTransactionsEvent",
+  "definitions": {
+    "cybersource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authentication", "detail"],
+      "properties": {
+        "authentication": {
+          "type": "boolean"
+        },
+        "detail": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "cavv": {
+              "type": "string"
+            },
+            "commerceIndicator": {
+              "type": "string"
+            },
+            "eci": {
+              "type": "string"
+            },
+            "xid": {
+              "type": "string"
+            },
+            "authenticationTransactionId": {
+              "type": "string"
+            },
+            "paresStatus": {
+              "type": "string"
+            },
+            "veresEnrolled": {
+              "type": "string"
+            },
+            "acsURL": {
+              "type": "string"
+            },
+            "paReq": {
+              "type": "string"
+            },
+            "proxyPan": {
+              "type": "string"
+            },
+            "specificationVersion": {
+              "type": "number"
+            },
+            "ucafCollectionIndicator": {
+              "type": "string"
+            },
+            "directoryServerTrxID": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "tokenFetch": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "merchantId": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "bin": {
+          "type": "string"
+        },
+        "created": {
+          "type": "number"
+        },
+        "sessionId": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "binInfo": {
+          "$ref": "https://s3.amazonaws.com/kushki-static/schemas/usrv-card/v1.4/dynamo_bin_fetch.json"
+        },
+        "maskedCardNumber": {
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "secureId": {
+          "type": "string"
+        },
+        "secureService": {
+          "type": "string"
+        },
+        "transactionReference": {
+          "type": "string"
+        },
+        "settlement": {
+          "type": "number"
+        },
+        "cardHolderName": {
+          "type": "string"
+        },
+        "isDeferred": {
+          "type": "boolean"
+        },
+        "convertedAmount": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "totalAmount": {
+              "type": "number"
+            },
+            "currency": {
+              "type": "string"
+            }
+          },
+          "required": ["totalAmount", "currency"]
+        },
+        "failoverToken": {
+          "type": "string"
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "vaultToken": {
+          "type": "string"
+        },
+        "3ds": {
+          "$ref": "#/definitions/cybersource"
+        },
+        "expiryYear": {
+          "type": "string"
+        },
+        "expiryMonth": {
+          "type": "string"
+        },
+        "tokenType": {
+          "$ref": "./src/schema/token_type.json"
+        },
+        "kushkiInfo": {
+          "type": "object"
+        },
+        "securityIdentity": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "merchantId",
+        "currency",
+        "bin",
+        "created",
+        "amount",
+        "lastFourDigits",
+        "maskedCardNumber",
+        "ip",
+        "transactionReference"
+      ],
+      "type": "object"
+    }
+  },
+  "oneOf": [
+    {
+      "title": "CaptureCardRequest",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "requestEvent": {
+          "$ref": "src/schema/capture_card_request.json"
+        },
+        "authorizerContext": {
+          "$ref": "src/schema/authorizer_context.json"
+        },
+        "aurusChargeResponse": {
+          "$ref": "src/schema/aurus_response.json"
+        },
+        "merchantId": {
+          "type": "string"
+        },
+        "tokenInfo": {
+          "$ref": "#/definitions/tokenFetch"
+        },
+        "merchantName": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "processor": {
+          "$ref": "src/schema/dynamo_processor_fetch.json"
+        },
+        "error": {},
+        "saleTicketNumber": {
+          "type": ["string", "null"]
+        },
+        "ruleInfo": {
+          "type": "object"
+        },
+        "plccInfo": {
+          "type": "object",
+          "properties": {
+            "flag": {
+              "type": "string"
+            },
+            "brand": {
+              "type": "string"
+            }
+          },
+          "required": ["flag", "brand"]
+        },
+        "trxType": {
+          "type": "string"
+        },
+        "partner": {
+          "type": "string"
+        },
+        "siftValidation": {
+          "type": "boolean"
+        },
+        "whitelist": {
+          "type": "boolean"
+        },
+        "integration": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "requestEvent",
+        "authorizerContext",
+        "aurusChargeResponse",
+        "merchantId",
+        "tokenInfo",
+        "merchantName",
+        "country"
+      ]
+    },
+    {
+      "title": "ChargesCardRequest",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "requestEvent": {
+          "$ref": "src/schema/charges_card_request.json"
+        },
+        "authorizerContext": {
+          "$ref": "src/schema/authorizer_context.json"
+        },
+        "aurusChargeResponse": {
+          "$ref": "src/schema/aurus_response.json"
+        },
+        "merchantId": {
+          "type": "string"
+        },
+        "tokenInfo": {
+          "$ref": "#/definitions/tokenFetch"
+        },
+        "merchantName": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "processor": {
+          "$ref": "src/schema/dynamo_processor_fetch.json"
+        },
+        "error": {},
+        "saleTicketNumber": {
+          "type": ["string", "null"]
+        },
+        "ruleInfo": {
+          "type": "object"
+        },
+        "plccInfo": {
+          "type": "object",
+          "properties": {
+            "flag": {
+              "type": "string"
+            },
+            "brand": {
+              "type": "string"
+            }
+          },
+          "required": ["flag", "brand"]
+        },
+        "trxType": {
+          "type": "string"
+        },
+        "partner": {
+          "type": "string"
+        },
+        "siftValidation": {
+          "type": "boolean"
+        },
+        "whitelist": {
+          "type": "boolean"
+        },
+        "integration": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "requestEvent",
+        "authorizerContext",
+        "aurusChargeResponse",
+        "merchantId",
+        "tokenInfo",
+        "merchantName",
+        "country"
+      ]
+    }
+  ]
+}

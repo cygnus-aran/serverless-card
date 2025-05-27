@@ -1,0 +1,339 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/LambdaTransactionRuleResponse",
+  "title": "LambdaTransactionRuleBodyResponse",
+  "description": "",
+  "additionalProperties": false,
+  "definitions": {
+    "metadataResponse": {
+      "title": "LambdaTransactionRuleMetadataResponse",
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "credentialDetails": {
+      "type": "object",
+      "properties": {
+        "commerceCode": {
+          "type": "string"
+        },
+        "apikey": {
+          "type": "string"
+        }
+      },
+      "required": ["commerceCode", "apikey"]
+    },
+    "credentialDetailsMall": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "commerceCode": {
+          "type": "string"
+        }
+      },
+      "required": ["commerceCode"]
+    }
+  },
+  "properties": {
+    "body": {
+      "title": "LambdaTransactionRuleResponse",
+      "type": "object",
+      "properties": {
+        "completeTransactionType": {
+          "type": "string",
+          "enum": ["soap", "rest", "mall"]
+        },
+        "externalSubscription": {
+          "type": "boolean"
+        },
+        "serviceProvider": {
+          "type": "object"
+        },
+        "processor": {
+          "type": "string"
+        },
+        "publicId": {
+          "type": "string"
+        },
+        "privateId": {
+          "type": "string"
+        },
+        "secureService": {
+          "type": "string"
+        },
+        "secureId": {
+          "type": "string"
+        },
+        "plcc": {
+          "type": "string"
+        },
+        "partnerValidator": {
+          "type": "string"
+        },
+        "whitelist": {
+          "type": "boolean"
+        },
+        "omitCVV": {
+          "type": "boolean"
+        },
+        "categoryModel": {
+          "type": "string"
+        },
+        "processorType": {
+          "type": "string"
+        },
+        "acquirerBank": {
+          "type": "string"
+        },
+        "processorCode": {
+          "type": "string"
+        },
+        "terminalId": {
+          "type": "string"
+        },
+        "uniqueCode": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "object",
+          "properties": {
+            "canIgnoreWarnings": {
+              "type": "boolean"
+            },
+            "rules": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "metadata": {
+          "$ref": "#/definitions/metadataResponse"
+        },
+        "failOverProcessor": {
+          "type": "object",
+          "required": ["processor", "publicId", "privateId"],
+          "properties": {
+            "processor": {
+              "type": "string"
+            },
+            "publicId": {
+              "type": "string"
+            },
+            "privateId": {
+              "type": "string"
+            },
+            "processorType": {
+              "type": "string"
+            },
+            "acquirerBank": {
+              "type": "string"
+            },
+            "processorCode": {
+              "type": "string"
+            },
+            "subMerchantId": {
+              "type": "string"
+            }
+          }
+        },
+        "commerceCode": {
+          "type": "string"
+        },
+        "softDescriptor": {
+          "type": "string"
+        },
+        "isBusinessPartner": {
+          "type": "boolean"
+        },
+        "jurisdiction": {
+          "type": "string"
+        },
+        "retailerId": {
+          "type": "string"
+        },
+        "subMCProcessor": {
+          "type": "string"
+        },
+        "subMccCode": {
+          "type": "string"
+        },
+        "processorMerchantId": {
+          "type": "string"
+        },
+        "cybersource": {
+          "type": "object",
+          "properties": {
+            "authentication": {
+              "type": "boolean"
+            },
+            "detail": {
+              "type": "object",
+              "properties": {
+                "eciRaw": {
+                  "type": "string"
+                },
+                "cardType": {
+                  "type": "string"
+                },
+                "ucafAuthenticationData": {
+                  "type": "string"
+                },
+                "cavv": {
+                  "type": "string"
+                },
+                "commerceIndicator": {
+                  "type": "string"
+                },
+                "eci": {
+                  "type": "string"
+                },
+                "xid": {
+                  "type": "string"
+                },
+                "authenticationTransactionId": {
+                  "type": "string"
+                },
+                "paresStatus": {
+                  "type": "string"
+                },
+                "veresEnrolled": {
+                  "type": "string"
+                },
+                "acsURL": {
+                  "type": "string"
+                },
+                "paReq": {
+                  "type": "string"
+                },
+                "proxyPan": {
+                  "type": "string"
+                },
+                "specificationVersion": {
+                  "type": "string"
+                },
+                "ucafCollectionIndicator": {
+                  "type": "string"
+                },
+                "ucafAuthenticationData": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "subMerchantId": {
+          "type": "string"
+        },
+        "apiKey": {
+          "type": "string"
+        },
+        "integration": {
+          "type": "string"
+        },
+        "security": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "service": {
+              "type": "string"
+            },
+            "limitProcessor": {
+              "type": "number"
+            },
+            "limitMerchant": {
+              "type": "number"
+            }
+          }
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "credentials": {
+          "type": "object",
+          "properties": {
+            "completeTransaction": {
+              "type": "object",
+              "properties": {
+                "saleWithCvv": { "$ref": "#/definitions/credentialDetails" },
+                "saleWithoutCvv": { "$ref": "#/definitions/credentialDetails" },
+                "captureWithCvv": { "$ref": "#/definitions/credentialDetails" },
+                "captureWithoutCvv": {
+                  "$ref": "#/definitions/credentialDetails"
+                }
+              }
+            },
+            "completeTransactionMall": {
+              "type": "object",
+              "properties": {
+                "saleWithCvv": {
+                  "$ref": "#/definitions/credentialDetailsMall"
+                },
+                "saleWithoutCvv": {
+                  "$ref": "#/definitions/credentialDetailsMall"
+                },
+                "captureWithCvv": {
+                  "$ref": "#/definitions/credentialDetailsMall"
+                },
+                "captureWithoutCvv": {
+                  "$ref": "#/definitions/credentialDetailsMall"
+                }
+              }
+            },
+            "webpayPlus": {
+              "type": "object",
+              "properties": {
+                "sale": { "$ref": "#/definitions/credentialDetails" },
+                "capture": { "$ref": "#/definitions/credentialDetails" }
+              }
+            },
+            "webpayPlusMall": {
+              "type": "object",
+              "properties": {
+                "sale": { "$ref": "#/definitions/credentialDetailsMall" },
+                "capture": { "$ref": "#/definitions/credentialDetailsMall" }
+              }
+            },
+            "oneClickMall": {
+              "type": "object",
+              "properties": {
+                "sale": { "$ref": "#/definitions/credentialDetailsMall" },
+                "capture": { "$ref": "#/definitions/credentialDetailsMall" }
+              }
+            }
+          }
+        }
+      },
+      "required": ["processor", "publicId", "privateId"]
+    }
+  },
+  "required": ["body"]
+}

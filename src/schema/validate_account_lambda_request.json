@@ -1,0 +1,118 @@
+{
+  "type": "object",
+  "required": [
+    "card",
+    "currency",
+    "maskedCardNumber",
+    "merchantId",
+    "merchantName",
+    "processorMerchantId",
+    "processorId",
+    "processorBankName",
+    "tokenType",
+    "transactionReference",
+    "vaultToken"
+  ],
+  "properties": {
+    "binInfo": {
+      "type": "object",
+      "title": "BinInfo",
+      "additionalProperties": false,
+      "properties": {
+        "bank": {
+          "type": "string"
+        },
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "prepaid": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": "string"
+        },
+        "brandProductCode": {
+          "type": "string"
+        }
+      }
+    },
+    "card": {
+      "type": "object",
+      "required": ["bin", "brand", "holderName", "lastFourDigits", "type"],
+      "properties": {
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "holderName": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "currency": {
+      "type": "string"
+    },
+    "maskedCardNumber": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantAddress": {
+      "type": "string"
+    },
+    "merchantCity": {
+      "type": "string"
+    },
+    "merchantCountry": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "merchantProvince": {
+      "type": "string"
+    },
+    "merchantZipCode": {
+      "type": "string"
+    },
+    "processorMerchantId": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "processorBankName": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "isBlockedCard": {
+      "type": "boolean"
+    },
+    "transactionCardId": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/Tran",
+  "title": "TransbankTokenRequest",
+  "additionalProperties": false,
+  "properties": {
+    "processorId": {
+      "type": "string"
+    },
+    "referenceNumber": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string",
+      "enum": ["transaction", "subscription"]
+    },
+    "totalAmount": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "shareNumber": {
+      "type": "number"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "completeTransactionType": {
+      "type": "string"
+    },
+    "credentials": {
+      "$ref": "./src/schema/transbank_credentials.json"
+    },
+    "omitCVV": {
+      "type": "boolean"
+    },
+    "isCardValidation": {
+      "type": "boolean"
+    },
+    "cvv": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "processorId",
+    "tokenType",
+    "totalAmount",
+    "currency",
+    "vaultToken"
+  ]
+}

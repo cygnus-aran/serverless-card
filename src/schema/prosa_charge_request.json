@@ -1,0 +1,195 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ProsaChargeRequest",
+  "title": "ProsaChargeRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "monthsDeferred": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 48
+    },
+    "deferred": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "graceMonths": {
+          "type": "string",
+          "pattern": "^[0-9]{1,2}$"
+        },
+        "creditType": {
+          "type": "string",
+          "pattern": "^[0-9]{1,3}$"
+        },
+        "months": {
+          "$ref": "#/definitions/monthsDeferred"
+        }
+      },
+      "required": ["graceMonths", "creditType", "months"]
+    }
+  },
+  "properties": {
+    "3DS": {
+      "type": "object",
+      "title": "ThreeDomainSecure",
+      "additionalProperties": false,
+      "properties": {
+        "eci": {
+          "type": "string"
+        },
+        "xid": {
+          "type": "string"
+        },
+        "cavv": {
+          "type": "string"
+        },
+        "option": {
+          "type": "number"
+        },
+        "commerceIndicator": {
+          "type": "string"
+        },
+        "specificationVersion": {
+          "type": "number"
+        },
+        "directoryServerTrxID": {
+          "type": "string"
+        }
+      },
+      "required": ["eci", "cavv", "xid"]
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "holderName": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "months": {
+          "type": "number"
+        },
+        "maskedCardNumber": {
+          "type": "string"
+        },
+        "deferred": {
+          "$ref": "#/definitions/deferred"
+        }
+      },
+      "required": [
+        "bin",
+        "brand",
+        "holderName",
+        "lastFourDigits",
+        "months",
+        "maskedCardNumber"
+      ]
+    },
+    "amount": {
+      "$ref": "./src/schema/amount.json"
+    },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "subscription": {
+      "type": "boolean"
+    },
+    "tokenType": {
+      "type": "string"
+    },
+    "transactionAmount": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "processorType": {
+      "type": "string"
+    },
+    "acquirerBank": {
+      "type": "string"
+    },
+    "terminal": {
+      "type": "string"
+    },
+    "commerceCode": {
+      "type": "string"
+    },
+    "softDescriptor": {
+      "type": "string"
+    },
+    "zipCode": {
+      "type": "string"
+    },
+    "useCVV": {
+      "type": "boolean"
+    },
+    "chargeType": {
+      "type": "string",
+      "enum": ["deferred", "rotative", "subscription"]
+    },
+    "affiliation": {
+      "type": "string"
+    },
+    "subMCProcessor": {
+      "type": "string"
+    },
+    "subMccCode": {
+      "type": "string"
+    },
+    "processorName": {
+      "type": "string"
+    },
+    "subMerchantId": {
+      "type": "string"
+    },
+    "categoryModel": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "affiliation",
+    "subMCProcessor",
+    "subMccCode",
+    "card",
+    "isDeferred",
+    "merchantId",
+    "merchantName",
+    "processorId",
+    "subscription",
+    "tokenType",
+    "transactionReference",
+    "vaultToken",
+    "amount",
+    "processorType",
+    "acquirerBank",
+    "terminal",
+    "transactionAmount",
+    "commerceCode",
+    "softDescriptor",
+    "zipCode",
+    "useCVV",
+    "transactionType"
+  ]
+}

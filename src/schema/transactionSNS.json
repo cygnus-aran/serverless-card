@@ -1,0 +1,200 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/TransactionSNS",
+  "title": "TransactionSNS",
+  "type": "object",
+  "definitions": {
+    "header": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["label", "value"]
+    },
+    "webhook": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "urls": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^https?://"
+          },
+          "minItems": 1
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["approvedTransaction", "declinedTransaction"]
+          },
+          "minItems": 1
+        },
+        "headers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/header"
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["urls"]
+    }
+  },
+  "properties": {
+    "token": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{32}$"
+    },
+    "id": {
+      "type": "string"
+    },
+    "channel": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "ticketNumber": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "object",
+      "properties": {
+        "subtotalIva": {
+          "type": "number",
+          "minimum": 0
+        },
+        "subtotalIva0": {
+          "type": "number",
+          "minimum": 0
+        },
+        "iva": {
+          "type": "number",
+          "minimum": 0
+        },
+        "extraTaxes": {
+          "type": "object",
+          "properties": {
+            "propina": {
+              "type": "number",
+              "minimum": 0
+            },
+            "tasaAeroportuaria": {
+              "type": "number",
+              "minimum": 0
+            },
+            "agenciaDeViajes": {
+              "type": "number",
+              "minimum": 0
+            },
+            "iac": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "required": ["subtotalIva", "subtotalIva0", "iva"]
+    },
+    "created": {
+      "type": "number"
+    },
+    "completedAt": {
+      "type": "number"
+    },
+    "expiration": {
+      "type": "number"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "approval_code": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string",
+      "enum": ["USD", "COP", "PEN", "CLP", "UF", "MXN", "BRL"]
+    },
+    "email": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string"
+    },
+    "sessionId": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string",
+      "pattern": "^[0-9]{22,32}$"
+    },
+    "responseCode": {
+      "type": "string"
+    },
+    "responseText": {
+      "type": "string"
+    },
+    "processorType": {
+      "type": "string"
+    },
+    "channel": {
+      "type": "string"
+    },
+    "buyOrder": {
+      "type": "string"
+    },
+    "preauthTransactionReference": {
+      "type": "string"
+    },
+    "webpayType": {
+      "type": "string"
+    },
+    "creditType": {
+      "type": "string"
+    },
+    "webhooks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/webhook"
+      },
+      "minItems": 1
+    },
+    "kushkiInfo": {
+      "type": "object"
+    },
+    "securityIdentity": {
+      "type": "object"
+    },
+    "mccCode": {
+      "type": "string"
+    },
+    "customerMerchantId": {
+      "type": "string"
+    },
+    "ownerId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "token",
+    "status",
+    "created",
+    "publicMerchantId",
+    "currency",
+    "description",
+    "ticketNumber"
+  ]
+}

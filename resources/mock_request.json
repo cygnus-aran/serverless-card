@@ -1,0 +1,72 @@
+{
+  "version": "2.0",
+  "routeKey": "GET /hello",
+  "rawPath": "/hello",
+  "rawQueryString": "",
+  "cookies": [],
+  "queryStringParameters": null,
+  "requestContext": {
+    "accountId": "offlineContext_accountId",
+    "apiId": "offlineContext_apiId",
+    "authorizer": {
+      "merchantId": "20000000102649573000",
+      "jwt": {}
+    },
+    "domainName": "offlineContext_domainName",
+    "domainPrefix": "offlineContext_domainPrefix",
+    "http": {
+      "method": "GET",
+      "path": "/hello",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+    },
+    "requestId": "offlineContext_resourceId",
+    "routeKey": "GET /hello",
+    "stage": "$default",
+    "time": "11/Jul/2022:23:02:06 -0500",
+    "timeEpoch": 1657598526848
+  },
+  "body": "{\"token\":\"49d56f16dcf04301a812cce89d597496\",\"amount\":{\"subtotalIva\":0,\"subtotalIva0\":16.98,\"ice\":0,\"iva\":0,\"currency\":\"USD\"},\"metadata\":{\"Referencia\":\"987654\"},\"contactDetails\":{\"documentType\":\"CC\",\"documentNumber\":\"1234567890\",\"email\":\"user@example.com\",\"firstName\":\"John\",\"lastName\":\"Doe\",\"phoneNumber\":\"+593912345678\"},\"orderDetails\":{\"siteDomain\":\"example.com\",\"shippingDetails\":{\"name\":\"John Doe\",\"phone\":\"+593912345678\",\"address1\":\"Eloy Alfaro 139 y Catalina Aldaz\",\"address2\":\"centro 123\",\"city\":\"Quito\",\"region\":\"Pichincha\",\"country\":\"Ecuador\"},\"billingDetails\":{\"name\":\"John Doe\",\"phone\":\"+593912345678\",\"address1\":\"Eloy Alfaro 139 y Catalina Aldaz\",\"address2\":\"centro 123\",\"city\":\"Quito\",\"region\":\"Pichincha\",\"country\":\"Ecuador\"}},\"productDetails\":{\"product\":[{\"id\":\"198952AB\",\"title\":\"eBook Digital Services\",\"price\":10000,\"sku\":\"10101042\",\"quantity\":1},{\"id\":\"198953AB\",\"title\":\"eBook Virtual Selling\",\"price\":6980,\"sku\":\"004834GQ\",\"quantity\":1}]},\"fullResponse\":true}",
+  "headers": {
+    "ACCEPT": "*/*",
+    "ACCEPT-ENCODING": "gzip, deflate, br",
+    "CACHE-CONTROL": "no-cache",
+    "CONTENT-TYPE": "application/json",
+    "HOST": "api-qa.orizaba.kushki.dev",
+    "POSTMAN-TOKEN": "4f*********c",
+    "PRIVATE-MERCHANT-ID": "d2eca93972584cf4a8f88ca5b243322d",
+    "USER-AGENT": "PostmanRuntime/7.29.2",
+    "X-AMZN-TRACE-ID": "Root=1-63515a30-701b4bdf437aebb175333455",
+    "X-FORWARDED-FOR": "189.229.81.78",
+    "X-FORWARDED-PORT": "443",
+    "X-FORWARDED-PROTO": "https"
+  },
+  "pathParameters": null,
+  "isBase64Encoded": false,
+  "userEmail": "test@email.com",
+  "country": "chile",
+  "referenceNumber": "122222222",
+  "date": "10072022",
+  "merchantName": "string",
+  "processorName": "string",
+  "processorType": "string",
+  "paymentMethod": "string",
+  "paymentBrand": "",
+  "items": {
+    "inputFile": 200,
+    "uafFile": 200
+  },
+  "merchantId": "20000000107283390000",
+  "totalAmount": 123456,
+  "rows": {
+    "inputFile": {
+      "initial": 4,
+      "final": 205
+    },
+    "uafFile": {
+      "initial": 4,
+      "final": 204
+    }
+  }
+}

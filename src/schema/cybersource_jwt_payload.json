@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/CybersourceJwtPayload",
+  "title": "CybersourceJwtPayload",
+  "additionalProperties": false,
+  "type": "object",
+  "required": ["jti", "iat", "exp", "iss", "OrgUnitId", "ReferenceId"],
+  "properties": {
+    "jti": {
+      "type": "string"
+    },
+    "iat": {
+      "type": "number"
+    },
+    "exp": {
+      "type": "number"
+    },
+    "iss": {
+      "type": "string"
+    },
+    "OrgUnitId": {
+      "type": "string"
+    },
+    "ReferenceId": {
+      "type": "string"
+    }
+  }
+}

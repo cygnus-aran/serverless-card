@@ -1,0 +1,272 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/DynamoTransaction",
+  "title": "DynamoTransaction",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "contactDetails": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "secondLastName": {
+          "type": "string"
+        }
+      }
+    },
+    "deferred": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "creditType": {
+          "type": "string"
+        },
+        "graceMonths": {
+          "type": "string"
+        },
+        "months": {
+          "type": "number"
+        }
+      },
+      "required": ["creditType", "graceMonths", "months"]
+    },
+    "threeDS": {
+      "type": "object",
+      "properties": {
+        "acctAuthValue": {
+          "type": "string"
+        },
+        "cavv": {
+          "type": "string"
+        },
+        "directoryServerTrxID": {
+          "type": "string"
+        },
+        "eci": {
+          "type": "string"
+        },
+        "xid": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "properties": {
+    "3DS": { "$ref": "#/definitions/threeDS" },
+    "amount": { "$ref": "./src/schema/amount_acq.json" },
+    "approvedTransactionAmount": {
+      "type": "number"
+    },
+    "authorizer": {
+      "type": "string"
+    },
+    "traceNumber": {
+      "type": "string"
+    },
+    "bin": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "string"
+    },
+    "cardHolderName": {
+      "type": "string"
+    },
+    "created": {
+      "type": "number"
+    },
+    "conciliationStatus": {
+      "type": "string",
+      "enum": ["COMPLETED", "PENDING"]
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "mcci": {
+      "type": "string"
+    },
+    "lastFourDigits": {
+      "type": "string"
+    },
+    "originalCreated": {
+      "type": "number"
+    },
+    "originalTransactionType": {
+      "type": "string"
+    },
+    "processorBankName": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "requestAmount": {
+      "type": "number"
+    },
+    "responseCode": {
+      "type": "string"
+    },
+    "responseText": {
+      "type": "string"
+    },
+    "saleTicketNumber": {
+      "type": "string"
+    },
+    "saleTransactionReference": {
+      "type": "string"
+    },
+    "ticketNumber": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "transactionStatus": {
+      "type": "string"
+    },
+    "transactionType": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "voidTransactionReference": {
+      "type": "string"
+    },
+    "maskedCardNumber": {
+      "type": "string"
+    },
+    "purchaseNumber": {
+      "type": "string"
+    },
+    "processorMerchantId": {
+      "type": "string"
+    },
+    "transactionId": {
+      "type": "string"
+    },
+    "approvalCode": {
+      "type": "string"
+    },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "isAft": {
+      "type": "boolean"
+    },
+    "installment": {
+      "type": "string"
+    },
+    "processorType": {
+      "type": "string"
+    },
+    "processorToken": {
+      "type": "string"
+    },
+    "isSubscription": {
+      "type": "boolean"
+    },
+    "signature": {
+      "type": "string"
+    },
+    "terminal": {
+      "type": "string"
+    },
+    "eciDescription": {
+      "type": "string"
+    },
+    "eci": {
+      "type": "string"
+    },
+    "acquirer": {
+      "type": "string"
+    },
+    "processCode": {
+      "type": "string"
+    },
+    "processorCode": {
+      "type": "string"
+    },
+    "recap": {
+      "type": "string"
+    },
+    "apiKey": {
+      "type": "string"
+    },
+    "ticketUrl": {
+      "type": "string"
+    },
+    "responseStatus": {
+      "type": "string"
+    },
+    "responseDateTime": {
+      "type": "number"
+    },
+    "months": {
+      "type": "number"
+    },
+    "contactDetails": { "$ref": "#/definitions/contactDetails" },
+    "deferred": { "$ref": "#/definitions/deferred" },
+    "preauthTransactionReference": {
+      "type": "string"
+    },
+    "originalTransactionReference": {
+      "type": "string"
+    },
+    "referenceNumber": {
+      "type": "string"
+    },
+    "terminalId": {
+      "type": "string"
+    },
+    "fullResponse": {
+      "type": "string"
+    },
+    "isInitialCof": {
+      "type": "boolean"
+    },
+    "config": {
+      "$ref": "https://s3.amazonaws.com/kushki-static/schemas/general/v3.4/region.json"
+    }
+  },
+  "required": [
+    "amount",
+    "bin",
+    "brand",
+    "cardHolderName",
+    "created",
+    "lastFourDigits",
+    "merchantId",
+    "merchantName",
+    "processorId",
+    "requestAmount",
+    "tokenType",
+    "transactionReference",
+    "transactionStatus",
+    "vaultToken"
+  ]
+}

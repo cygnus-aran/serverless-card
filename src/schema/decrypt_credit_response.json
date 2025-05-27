@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/DecryptCreditInfoResponse",
+  "title": "DecryptCreditInfoResponse",
+  "additionalProperties": false,
+  "properties": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "card": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "cvv": {
+              "type": "string"
+            },
+            "expiryMonth": {
+              "type": "string"
+            },
+            "expiryYear": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "number": {
+              "type": "string"
+            }
+          },
+          "required": ["expiryMonth", "expiryYear", "name", "number"]
+        }
+      },
+      "required": ["card"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["body"],
+  "type": "object"
+}

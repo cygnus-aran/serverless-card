@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ProsaPreAuthRequest",
+  "title": "ProsaPreAuthRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "acquirerBank": {
+      "type": "string"
+    },
+    "amount": {
+      "$ref": "./src/schema/amount.json"
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "holderName": {
+          "type": "string"
+        },
+        "months": {
+          "type": "number"
+        },
+        "maskedCardNumber": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["CREDIT", "DEBIT"]
+        },
+        "deferred": {
+          "$ref": "./src/schema/deferred.json"
+        }
+      },
+      "required": ["bin", "brand", "amount", "holderName", "maskedCardNumber"]
+    },
+    "deferred": {
+      "$ref": "./src/schema/deferred.json"
+    },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "processorName": {
+      "type": "string"
+    },
+    "subscription": {
+      "type": "boolean"
+    },
+    "tokenType": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "processorType": {
+      "type": "string"
+    },
+    "3DS": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eci": {
+          "type": "string"
+        },
+        "xid": {
+          "type": "string"
+        },
+        "cavv": {
+          "type": "string"
+        }
+      },
+      "required": ["eci", "cavv", "xid"]
+    },
+    "subMCProcessor": {
+      "type": "string"
+    },
+    "acquirerBankId": {
+      "type": "string"
+    },
+    "terminal": {
+      "type": "string"
+    },
+    "softDescriptor": {
+      "type": "string"
+    },
+    "useCVV": {
+      "type": "boolean"
+    },
+    "affiliation": {
+      "type": "string"
+    },
+    "cardHolderName": {
+      "type": "string"
+    },
+    "cardType": {
+      "type": "string"
+    },
+    "lastFourDigits": {
+      "type": "string"
+    },
+    "commerceCode": {
+      "type": "string"
+    },
+    "subMerchantId": {
+      "type": "string"
+    },
+    "categoryModel": {
+      "type": "string"
+    },
+    "subMccCode": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "acquirerBank",
+    "amount",
+    "card",
+    "isDeferred",
+    "merchantId",
+    "merchantName",
+    "processorId",
+    "subscription",
+    "tokenType",
+    "transactionReference",
+    "vaultToken",
+    "subMCProcessor",
+    "useCVV",
+    "terminal",
+    "softDescriptor",
+    "processorType"
+  ]
+}

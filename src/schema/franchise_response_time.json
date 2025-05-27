@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "FranchiseResponseTime",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "fr_message_time": {
+      "type": "string"
+    },
+    "fr_response_time": {
+      "type": "string"
+    },
+    "fr_message_code": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+---
+# pull-review config version (required)
+version: 1
+
+# maximum number of files to evaluate per pull request (set to 0 for no limit)
+max_files: 0
+
+# minimum number of reviewers to assign and notify for a pull request
+min_reviewers: 1
+
+# maximum number of reviewers to assign and notify for a pull request
+max_reviewers: 1
+
+# maximum number of files per reviewer (set to 0 for no limit)
+max_files_per_reviewer: 0
+
+# maximum number of lines changed per reviewer (set to 0 for no limit)
+max_lines_per_reviewer: 0
+
+# if at least a minimum number of reviewers is not found, assign a minimum number of reviewers randomly
+assign_min_reviewers_randomly: true
+
+# if the pull request changes code with fewer than a minimum number of authors, add more reviewers if possible (set to 0 to disable)
+min_authors_of_changed_files: 0
+
+# minimum number of lines that should be changed to require an additional reviewer when using min_authors_of_changed_files (set to 0 to disable)
+min_lines_changed_for_extra_reviewer: 0
+
+# require a user to be listed in the reviewers section in order to be assigned to a pull request
+require_notification: true
+
+# list of users and their app-specific usernames
+reviewers:
+  joseSantacruz: {}
+  jgonzalez315: {}
+  moransk8: {}
+  pmoreanoj: {}
+  vamartinez: {}
+
+# list of users who will never be notified
+#review_blacklist:
+
+# always assign the following users based on minimatch (glob) patterns
+#review_path_assignments:
+
+# if more reviewers are required, assign the following users based on minimatch (glob) patterns
+#review_path_fallbacks:
+
+# list of minimatch (glob) patterns to ignore when getting files from a pull request
+file_blacklist:
+  - app/ignored_*.*
+
+# list of PR labels to either require (whitelist) or forbid (blacklist) in reviews
+label_whitelist: []
+label_blacklist: ['WIP']

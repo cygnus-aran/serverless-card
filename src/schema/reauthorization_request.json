@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ReauthorizationRequest",
+  "title": "ReauthorizationRequest",
+  "properties": {
+    "ticketNumber": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "object",
+      "required": ["currency", "iva", "subtotalIva", "subtotalIva0"],
+      "properties": {
+        "currency": {
+          "type": "string",
+          "enum": [
+            "USD",
+            "COP",
+            "PEN",
+            "CLP",
+            "UF",
+            "MXN",
+            "CRC",
+            "GTQ",
+            "HNL",
+            "NIO"
+          ]
+        },
+        "extraTaxes": {
+          "type": "object",
+          "properties": {
+            "airportTax": {
+              "type": "integer"
+            },
+            "iac": {
+              "type": "integer"
+            },
+            "tip": {
+              "type": "integer"
+            },
+            "travelAgency": {
+              "type": "integer"
+            }
+          }
+        },
+        "ice": {
+          "type": "integer"
+        },
+        "iva": {
+          "type": "integer"
+        },
+        "subtotalIva": {
+          "type": "integer"
+        },
+        "subtotalIva0": {
+          "type": "integer"
+        }
+      }
+    },
+    "fullResponse": {
+      "type": "string"
+    }
+  },
+  "required": ["ticketNumber", "amount"],
+  "type": "object"
+}

@@ -1,0 +1,136 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/AcqSubscriptionChargeRequest",
+  "title": "AcqSubscriptionChargeRequest",
+  "type": "object",
+  "properties": {
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "amount": {
+          "$ref": "./src/schema/amount_acq.json"
+        },
+        "holderName": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["CREDIT", "DEBIT"]
+        }
+      },
+      "required": [
+        "bin",
+        "brand",
+        "amount",
+        "holderName",
+        "lastFourDigits",
+        "type"
+      ]
+    },
+    "3DS": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "eci": {
+          "type": "string"
+        },
+        "xid": {
+          "type": "string"
+        },
+        "cavv": {
+          "type": "string"
+        }
+      },
+      "required": ["eci", "cavv", "xid"]
+    },
+    "contactDetails": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "isSubscription": {
+      "type": "boolean"
+    },
+    "maskedCardNumber": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "authorizerContext": {
+      "$ref": "./src/schema/authorizer_context.json"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "processorBankName": {
+      "type": "string"
+    },
+    "processorMerchantId": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string",
+      "enum": ["transaction", "subscription"]
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "terminalId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "card",
+    "isDeferred",
+    "isSubscription",
+    "maskedCardNumber",
+    "merchantId",
+    "authorizerContext",
+    "merchantName",
+    "processorId",
+    "processorBankName",
+    "processorMerchantId",
+    "terminalId",
+    "transactionReference",
+    "vaultToken",
+    "tokenType"
+  ]
+}

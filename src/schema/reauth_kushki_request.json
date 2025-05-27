@@ -1,0 +1,187 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ReAuthKushkiAcqRequest",
+  "title": "ReAuthKushkiAcqRequest",
+  "definitions": {
+    "currency": {
+      "type": "string",
+      "enum": [
+        "USD",
+        "COP",
+        "PEN",
+        "CLP",
+        "UF",
+        "MXN",
+        "CRC",
+        "GTQ",
+        "HNL",
+        "NIO"
+      ]
+    },
+    "ice": {
+      "type": "number",
+      "minimum": 0
+    },
+    "iva": {
+      "type": "number",
+      "minimum": 0
+    },
+    "subtotalIva": {
+      "type": "number",
+      "minimum": 0
+    },
+    "subtotalIva0": {
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "properties": {
+    "acquirerBank": {
+      "type": "string"
+    },
+    "authorizerContext": {
+      "$ref": "./src/schema/authorizer_context.json"
+    },
+    "binInfo": {
+      "type": "object",
+      "title": "BinInfo",
+      "additionalProperties": false,
+      "properties": {
+        "bank": {
+          "type": "string"
+        },
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "prepaid": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "card": {
+      "type": "object",
+      "required": [
+        "amount",
+        "bin",
+        "brand",
+        "holderName",
+        "lastFourDigits",
+        "type"
+      ],
+      "properties": {
+        "amount": {
+          "type": "object",
+          "required": ["currency", "iva", "subtotalIva", "subtotalIva0"],
+          "properties": {
+            "currency": {
+              "type": "string"
+            },
+            "extraTaxes": {
+              "type": "object",
+              "properties": {
+                "tasaAeroportuaria": {
+                  "type": "integer"
+                },
+                "iac": {
+                  "type": "integer"
+                },
+                "ice": {
+                  "type": "integer"
+                },
+                "propina": {
+                  "type": "integer"
+                },
+                "agenciaDeViaje": {
+                  "type": "integer"
+                }
+              }
+            },
+            "iva": {
+              "type": "integer"
+            },
+            "subtotalIva": {
+              "type": "integer"
+            },
+            "subtotalIva0": {
+              "type": "integer"
+            }
+          }
+        },
+        "bin": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "holderName": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "isSubscription": {
+      "type": "boolean"
+    },
+    "maskedCardNumber": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantName": {
+      "type": "string"
+    },
+    "processorBankName": {
+      "type": "string"
+    },
+    "processorId": {
+      "type": "string"
+    },
+    "processorMerchantId": {
+      "type": "string"
+    },
+    "terminalId": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "acquirerBank",
+    "authorizerContext",
+    "card",
+    "isSubscription",
+    "maskedCardNumber",
+    "merchantId",
+    "merchantName",
+    "processorBankName",
+    "processorId",
+    "processorMerchantId",
+    "terminalId",
+    "tokenType",
+    "transactionReference",
+    "vaultToken"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,11 @@
+{
+  "format": ["typescript", "javascript", "yaml"],
+  "ignore": ["**/handler/**/*", "**/*.spec.ts", "serverless.yml", "**/repository/**/*","**/**/SandboxGateway.ts"],
+  "reporters": ["consoleFull", "threshold"],
+  "output": ".jscpd",
+  "threshold": 1,
+  "mode": "mild",
+  "gitignore": true,
+  "maxSize": "1000kb",
+  "maxLines": "10000"
+}

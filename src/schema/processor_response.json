@@ -1,0 +1,189 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/ProcessorResponse",
+  "title": "ProcessorResponse",
+  "additionalProperties": false,
+  "type": "object",
+  "definitions": {
+    "certificate": {
+      "properties": {
+        "fileName": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["fileName", "value"]
+    },
+    "certificates": {
+      "type": "object",
+      "properties": {
+        "privateKey": {
+          "$ref": "#/definitions/certificate"
+        },
+        "publicCert": {
+          "$ref": "#/definitions/certificate"
+        }
+      },
+      "required": ["privateKey", "publicCert"]
+    }
+  },
+  "properties": {
+    "acquirerBank": {
+      "type": "string"
+    },
+    "apiKeyCompleteTransaction": {
+      "type": "string"
+    },
+    "apiKey": {
+      "type": "string"
+    },
+    "automaticFailOver": {
+      "type": "string"
+    },
+    "businessBank": {
+      "type": "string"
+    },
+    "businessBankAccountNumber": {
+      "type": "string"
+    },
+    "businessBankAccountType": {
+      "type": "string"
+    },
+    "categoryModel": {
+      "type": "string"
+    },
+    "certificates": {
+      "type": "object",
+      "properties": {
+        "firstData": {
+          "$ref": "#/definitions/certificates"
+        },
+        "completeTransaction": {
+          "$ref": "#/definitions/certificates"
+        },
+        "webPay": {
+          "$ref": "#/definitions/certificates"
+        }
+      }
+    },
+    "certificatesPassphrase": {
+      "type": "string"
+    },
+    "corporateId": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "deletedAt": {
+      "type": "number"
+    },
+    "enableRestCompleteTransaction": {
+      "type": "boolean"
+    },
+    "isCrypto": {
+      "type": "boolean"
+    },
+    "lowerLimit": {
+      "type": "number"
+    },
+    "key": {
+      "type": "string"
+    },
+    "omitCVV": {
+      "type": "boolean"
+    },
+    "password": {
+      "type": "string"
+    },
+    "processorAlias": {
+      "type": "string"
+    },
+    "processorMerchantId": {
+      "type": "string"
+    },
+    "plcc": {
+      "type": "boolean"
+    },
+    "username": {
+      "type": "string"
+    },
+    "notificationEnable": {
+      "type": "boolean"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "merchantCategoryCode": {
+      "type": "string"
+    },
+    "publicId": {
+      "type": "string"
+    },
+    "terminalId": {
+      "type": "string"
+    },
+    "uniqueCode": {
+      "type": "string"
+    },
+    "subMccCode": {
+      "type": "string"
+    },
+    "subTerminalId": {
+      "type": "string"
+    },
+    "storeId": {
+      "type": "string"
+    },
+    "processorName": {
+      "type": "string"
+    },
+    "processorType": {
+      "type": "string"
+    },
+    "commerceCode": {
+      "type": "string"
+    },
+    "commerceCodeOneClickMall": {
+      "type": "string"
+    },
+    "processorCode": {
+      "type": "string"
+    },
+    "commerceCodeWebPay": {
+      "type": "string"
+    },
+    "privateId": {
+      "type": "string"
+    },
+    "created": {
+      "type": "number"
+    },
+    "deletedAt": {
+      "type": "number"
+    },
+    "upperLimit": {
+      "type": "number"
+    },
+    "traceInfo": {
+      "type": "object",
+      "properties": {
+        "userIp": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "userRoles": {
+          "type": "string"
+        },
+        "operationTime": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  "required": ["publicId", "merchantId", "processorName", "processorType"]
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/CredomaticCaptureRequest",
+  "title": "CredomaticCaptureRequest",
+  "additionalProperties": false,
+  "properties": {
+    "transactionReference": {
+      "type": "string"
+    },
+    "preauthTransactionReference": {
+      "type": "string"
+    },
+    "amount": { "$ref": "./src/schema/amount.json" },
+    "country": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "transactionReference",
+    "preauthTransactionReference",
+    "amount",
+    "country"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "required": [
+    "paymentBrand",
+    "responseCode",
+    "responseText",
+    "transactionReference"
+  ],
+  "properties": {
+    "paymentBrand": {
+      "type": "string"
+    },
+    "responseCode": {
+      "type": "string"
+    },
+    "responseText": {
+      "type": "string"
+    },
+    "approvalCode": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "processorError": {
+      "type": "string"
+    },
+    "processorMessage": {
+      "type": "string"
+    }
+  }
+}

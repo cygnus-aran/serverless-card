@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/AcqVoidRequest",
+  "title": "AcqVoidRequest",
+  "additionalProperties": false,
+  "properties": {
+    "amount": {
+      "type": "number"
+    },
+    "transaction_reference": {
+      "type": "string"
+    },
+    "transaction_type": {
+      "type": "string"
+    },
+    "client_transaction_id": {
+      "type": "string"
+    },
+    "bin_info": {
+      "$ref": "./src/schema/bin_info.json"
+    }
+  },
+  "required": ["transaction_reference", "transaction_type"]
+}

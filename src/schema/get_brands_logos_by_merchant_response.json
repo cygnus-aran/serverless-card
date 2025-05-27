@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/GetBrandsLogosByMerchantResponse",
+  "title": "GetBrandsLogosByMerchantResponse",
+  "description": "",
+  "additionalProperties": false,
+  "properties": {
+    "brand": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "required": ["brand", "url"],
+  "type": "object"
+}

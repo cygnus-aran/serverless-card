@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/TokensCardResponse",
+  "title": "TokensCardResponse",
+  "type": "object",
+  "definitions": {
+    "card": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "maskedNumber": {
+          "type": "string"
+        },
+        "lastFourDigits": {
+          "type": "string"
+        },
+        "bin": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "properties": {
+    "token": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{32}$"
+    },
+    "settlement": {
+      "type": "number"
+    },
+    "convertedAmount": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "totalAmount": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string"
+        }
+      },
+      "card": { "$ref": "#/definitions/card" },
+      "required": ["totalAmount", "currency"]
+    },
+    "failoverToken": {
+      "type": "string"
+    },
+    "providerVariant": {
+      "type": "string"
+    }
+  },
+  "required": ["token"]
+}

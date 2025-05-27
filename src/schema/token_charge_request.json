@@ -1,0 +1,148 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/TokenChargeRequest",
+  "title": "TokenChargeRequest",
+  "additionalProperties": false,
+  "definitions": {
+    "currency": {
+      "type": "string",
+      "enum": [
+        "USD",
+        "COP",
+        "PEN",
+        "CLP",
+        "UF",
+        "MXN",
+        "CRC",
+        "GTQ",
+        "HNL",
+        "NIO",
+        "BRL"
+      ]
+    },
+    "ice": {
+      "type": "number",
+      "minimum": 0
+    },
+    "iva": {
+      "type": "number",
+      "minimum": 0
+    },
+    "subtotalIva": {
+      "type": "number",
+      "minimum": 0
+    },
+    "subtotalIva0": {
+      "type": "number",
+      "minimum": 0
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "merchantId": {
+          "type": "string"
+        },
+        "securityId": {
+          "type": "string"
+        },
+        "totalAmount": {
+          "type": "string"
+        }
+      },
+      "required": ["merchantId", "securityId", "totalAmount"],
+      "type": "object"
+    },
+    "contactDetails": {
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "secondLastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "properties": {
+    "merchantIdKushki": {
+      "type": "string"
+    },
+    "vaultToken": {
+      "type": "string"
+    },
+    "totalAmount": {
+      "type": "number",
+      "minimum": 0
+    },
+    "currency": { "$ref": "#/definitions/currency" },
+    "channel": {
+      "type": "string"
+    },
+    "metadata": { "$ref": "#/definitions/metadata" },
+    "amount": {
+      "type": "object",
+      "properties": {
+        "ice": { "$ref": "#/definitions/ice" },
+        "iva": { "$ref": "#/definitions/iva" },
+        "subtotalIva": { "$ref": "#/definitions/subtotalIva" },
+        "subtotalIva0": { "$ref": "#/definitions/subtotalIva0" },
+        "currency": { "$ref": "#/definitions/currency" }
+      },
+      "additionalProperties": false,
+      "required": ["iva", "subtotalIva", "subtotalIva0"]
+    },
+    "credentialId": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string",
+      "enum": ["transaction", "subscription"]
+    },
+    "maskedCardNumber": {
+      "type": "string"
+    },
+    "cardHolderName": {
+      "type": "string"
+    },
+    "ip": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string"
+    },
+    "sessionId": {
+      "type": "string"
+    },
+    "contactDetails": { "$ref": "#/definitions/contactDetails" },
+    "secureId": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "required": [
+    "totalAmount",
+    "card",
+    "vaultToken",
+    "channel",
+    "amount",
+    "merchantIdKushki",
+    "credentialId",
+    "tokenType"
+  ]
+}

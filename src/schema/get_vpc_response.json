@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/GetVPCResponse",
+  "title": "GetVPCResponse",
+  "description": "",
+  "additionalProperties": false,
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "./src/schema/vpc_transaction.json"
+      }
+    }
+  },
+  "required": ["items"],
+  "type": "object"
+}

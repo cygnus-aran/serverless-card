@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/AurusVars",
+  "title": "AurusVars",
+  "additionalProperties": false,
+  "definitions": {
+    "cvvFlag": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "brands": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": ["active"]
+    }
+  },
+  "properties": {
+    "avoidCvvInSubsValidation": {
+      "$ref": "#/definitions/cvvFlag"
+    },
+    "avoidCvvInSubsOnDemand": {
+      "$ref": "#/definitions/cvvFlag"
+    },
+    "avoidCvvInSubsScheduled": {
+      "$ref": "#/definitions/cvvFlag"
+    }
+  },
+  "required": [
+    "avoidCvvInSubsValidation",
+    "avoidCvvInSubsOnDemand",
+    "avoidCvvInSubsScheduled"
+  ],
+  "type": "object"
+}

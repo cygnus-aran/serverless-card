@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/TimezoneAcq",
+  "title": "TimezoneAcq",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "Mexico": {
+      "type": "string"
+    },
+    "Peru": {
+      "type": "string"
+    }
+  },
+  "required": ["Mexico", "Peru"]
+}

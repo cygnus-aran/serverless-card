@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/BinCodesResponse",
+  "title": "BinCodesResponse",
+  "description": "",
+  "additionalProperties": false,
+  "properties": {
+    "bin": {
+      "type": "string"
+    },
+    "bank": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "card": {
+      "type": "string"
+    },
+    "level": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "countrycode": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "valid": {
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

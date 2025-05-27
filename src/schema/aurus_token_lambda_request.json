@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/AurusTokenLambdaRequest",
+  "title": "AurusTokenLambdaRequest",
+  "type": "object",
+  "required": ["vaultToken", "merchantId", "totalAmount", "processorPrivateId"],
+  "additionalProperties": false,
+  "properties": {
+    "vaultToken": {
+      "type": "string"
+    },
+    "tokenType": {
+      "$ref": "./src/schema/token_type.json"
+    },
+    "processorPrivateId": {
+      "type": "string"
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "totalAmount": {
+      "type": "number"
+    },
+    "isDeferred": {
+      "type": "boolean"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "processorName": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    },
+    "months": {
+      "type": "number"
+    },
+    "cardHolderName": {
+      "type": "string"
+    },
+    "cvv": {
+      "type": "string"
+    },
+    "completeTransactionType": {
+      "type": "string",
+      "enum": ["soap", "rest", "mall"]
+    },
+    "credentials": {
+      "$ref": "./src/schema/transbank_credentials.json"
+    },
+    "omitCVV": {
+      "type": "boolean"
+    },
+    "isCardValidation": {
+      "type": "boolean"
+    }
+  }
+}

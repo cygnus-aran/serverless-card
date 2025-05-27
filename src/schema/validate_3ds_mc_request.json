@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/Validate3DSMCRequest",
+  "title": "Validate3DSMCRequest",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "collectionIndicator": {
+      "enum": ["0", "1", "2"],
+      "type": "string"
+    },
+    "eci": {
+      "enum": ["00", "01", "02"],
+      "type": "string"
+    },
+    "specificationVersion": {
+      "maxLength": 5,
+      "minLength": 5,
+      "type": "string"
+    },
+    "ucaf": {
+      "maxLength": 32,
+      "type": "string"
+    },
+    "directoryServerTransactionID": {
+      "maxLength": 36,
+      "minLength": 36,
+      "type": "string"
+    }
+  },
+  "required": ["collectionIndicator", "eci", "specificationVersion", "ucaf"]
+}

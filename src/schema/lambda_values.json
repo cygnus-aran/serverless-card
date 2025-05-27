@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/LambdaValues",
+  "title": "LambdaValues",
+  "additionalProperties": false,
+  "properties": {
+    "CHARGEBACK": {
+      "type": "string"
+    },
+    "GET_BIN_INFO": {
+      "type": "string"
+    },
+    "RULE": {
+      "type": "string"
+    },
+    "ASYNC_VOID": {
+      "type": "string"
+    },
+    "CREDOMATIC_CHARGE": {
+      "type": "string"
+    },
+    "REDEBAN_CHARGE": {
+      "type": "string"
+    },
+    "TRANSBANK_TOKEN": {
+      "type": "string"
+    },
+    "VALIDATE_ACCOUNT": {
+      "type": "string"
+    },
+    "DIRECT_VOID": {
+      "type": "string"
+    },
+    "CALL_VALIDATE_RECEIVABLE": {
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

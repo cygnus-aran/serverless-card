@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/PlccInfo",
+  "title": "PlccInfo",
+  "additionalProperties": false,
+  "properties": {
+    "flag": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "string"
+    }
+  },
+  "required": ["flag", "brand"],
+  "type": "object"
+}

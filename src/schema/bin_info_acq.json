@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/BinInfoAcq",
+  "type": "object",
+  "title": "BinInfoAcq",
+  "additionalProperties": false,
+  "properties": {
+    "bank": {
+      "type": "string"
+    },
+    "bin": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "brandProductCode": {
+      "type": "string"
+    },
+    "prepaid": {
+      "type": "boolean"
+    }
+  }
+}

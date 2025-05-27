@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/SimplifyResponse",
+  "title": "SimplifyResponse",
+  "properties": {
+    "ticketNumber": {
+      "type": "string"
+    },
+    "transactionReference": {
+      "type": "string"
+    }
+  },
+  "required": ["ticketNumber", "transactionReference"]
+}

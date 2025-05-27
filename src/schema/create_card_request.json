@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://ksh/CreateDefaultServicesRequest",
+  "title": "CreateDefaultServicesRequest",
+  "additionalProperties": false,
+  "properties": {
+    "merchantId": {
+      "type": "string"
+    }
+  },
+  "required": ["merchantId"],
+  "type": "object"
+}
